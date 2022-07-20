@@ -37,8 +37,8 @@ module.exports = {
       "error",
       {
         endOfLine: "auto",
-        "singleQuote": true,
-        "trailingComma": "all"
+        singleQuote: true,
+        trailingComma: "all"
       },
     ],
   },
