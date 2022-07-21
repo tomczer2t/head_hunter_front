@@ -1,3 +1,26 @@
+@import-normalize;
+
+:root {
+
+  /* Colors: */
+  --gray1-color-4d4d4d: #4D4D4D;
+  --blue-color-0b8bd4: #0B8BD4;
+  --green-color-1ecb40: #1ECB40;
+  --red1-color-e02735: #E02735;
+  --gray2-color-666666: #666666;
+  --gray3-color-7e7e7e: #7E7E7E;
+  --gray4-color-9e9e9e: #9E9E9E;
+  --gray5-color-cfcfcf: #CFCFCF;
+  --white-color-f7f7f7: #F7F7F7;
+  --red2-color-ff0004: #FF0004;
+  --red3-color-ee4540: #EE4540;
+  --red4-color-c92929: #C92929;
+  --red5-color-811336: #811336;
+  --red6-color-510a0a: #510A0A;
+  --red7-color-2d1414: #2D1414;
+  --black-color-0a0a0a: #0A0A0A;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -6,6 +29,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
