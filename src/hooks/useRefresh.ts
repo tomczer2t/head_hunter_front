@@ -3,7 +3,7 @@ import { axios } from '../api/axios';
 
 export const useRefresh = () => {
   const { setAuth } = useAuth();
-  return async () => {
+  return async (): Promise<string> => {
     const { data: axiosData } = await axios.get('auth/refresh', {
       withCredentials: true,
     });
