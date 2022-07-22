@@ -17,23 +17,23 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<MainLayout />}>
-          <Route path="/login" element={<LoginView />} />
+          <Route path="login" element={<LoginView />} />
           {/*user auth require*/}
-          <Route path="/user" element={<RequireAuthUser />}>
-            <Route path="/user/cv" element={<CvView />} />
-            <Route path="/user/profile" element={<ProfileView />} />
+          <Route path="user" element={<RequireAuthUser />}>
+            <Route path="cv" element={<CvView />} />
+            <Route path="profile" element={<ProfileView />} />
           </Route>
           {/*HR auth require*/}
-          <Route path="/hr" element={<RequireAuthHr />}>
-            <Route path="/hr/all-students" element={<AllStudentsView />} />
+          <Route path="hr" element={<RequireAuthHr />}>
+            <Route path="all-students" element={<AllStudentsView />} />
             <Route
-              path="/hr/interview-students"
+              path="interview-students"
               element={<StudentsInterviewListViews />}
             />
           </Route>
           {/*Admin auth require*/}
-          <Route path="/admin" element={<RequireAuthAdmin />}>
-            <Route path="/admin/admin-panel" element={<AdminPanelViews />} />
+          <Route path="admin" element={<RequireAuthAdmin />}>
+            <Route path="admin-panel" element={<AdminPanelViews />} />
           </Route>
         </Route>
       </Routes>
