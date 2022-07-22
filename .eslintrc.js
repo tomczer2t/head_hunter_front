@@ -41,5 +41,11 @@ module.exports = {
         trailingComma: "all"
       },
     ],
+    "import/no-unresolved": [
+      2,
+      {
+        "ignore":['types'],
+        "caseSensitive": false }
+    ]
   },
 };
