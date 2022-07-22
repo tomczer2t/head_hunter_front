@@ -20,20 +20,20 @@ function App() {
           <Route path="/login" element={<LoginView />} />
           {/*user auth require*/}
           <Route path="/user" element={<RequireAuthUser />}>
-            <Route path="/cv" element={<CvView />} />
-            <Route path="/profile" element={<ProfileView />} />
+            <Route path="/user/cv" element={<CvView />} />
+            <Route path="/user/profile" element={<ProfileView />} />
           </Route>
           {/*HR auth require*/}
-          <Route path="/Hr" element={<RequireAuthHr />}>
-            <Route path="/all-students" element={<AllStudentsView />} />
+          <Route path="/hr" element={<RequireAuthHr />}>
+            <Route path="/hr/all-students" element={<AllStudentsView />} />
             <Route
-              path="/interview-students"
+              path="/hr/interview-students"
               element={<StudentsInterviewListViews />}
             />
           </Route>
           {/*Admin auth require*/}
           <Route path="/admin" element={<RequireAuthAdmin />}>
-            <Route path="/admin-panel" element={<AdminPanelViews />} />
+            <Route path="/admin/admin-panel" element={<AdminPanelViews />} />
           </Route>
         </Route>
       </Routes>

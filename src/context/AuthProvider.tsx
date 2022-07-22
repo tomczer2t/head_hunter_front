@@ -1,9 +1,9 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, Dispatch } from 'react';
 import { LoginResponse } from 'types';
 
 export const AuthContext = createContext<{
   auth: LoginResponse | null;
-  setAuth: React.Dispatch<React.SetStateAction<LoginResponse | null>>;
+  setAuth: Dispatch<React.SetStateAction<LoginResponse | null>>;
 }>({
   auth: null,
   setAuth: () => {},

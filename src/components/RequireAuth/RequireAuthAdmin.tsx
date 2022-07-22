@@ -8,7 +8,7 @@ export const RequireAuthAdmin = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (!auth) navigate('/login', { state: { from: location.pathname } });
+    if (false) navigate('/login', { state: { from: location.pathname } });
   }, [auth, navigate, location.pathname]);
 
   return <Outlet />;

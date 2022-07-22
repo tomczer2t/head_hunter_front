@@ -8,17 +8,19 @@ interface AxiosRequestConfigWithSent extends AxiosRequestConfig {
   sent?: boolean;
 }
 
-export const useAxiosPrivate = () => {
-  const refresh = useRefresh();
+export const useAxiosPrivate = async () => {
+  const refresh = await useRefresh();
   const { auth } = useAuth();
 
   useEffect(() => {
     const reqInterceptor = axiosPrivate.interceptors.request.use(
       (config) => {
-        if (config.headers && !config?.headers?.authorization) {
-          config.headers.authorization = `Bearer ${auth?.accessToken}`;
+        if (auth) {
+          if (config.headers && !config?.headers?.authorization) {
+            config.headers.authorization = `Bearer ${auth.accessToken}`;
+          }
+          return config;
         }
-        return config;
       },
       (err) => Promise.reject(err),
     );
@@ -30,7 +32,7 @@ export const useAxiosPrivate = () => {
           if (error?.response?.status === 403 && !prevRequest?.sent) {
             prevRequest.sent = true;
             const newAccessToken = await refresh();
-            if (prevRequest.headers) {
+            if (prevRequest.headers && newAccessToken !== null) {
               prevRequest.headers.authorization = `Bearer ${newAccessToken}`;
             }
             return axiosPrivate(prevRequest);
