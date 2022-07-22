@@ -8,8 +8,8 @@ interface AxiosRequestConfigWithSent extends AxiosRequestConfig {
   sent?: boolean;
 }
 
-export const useAxiosPrivate = () => {
-  const refresh = useRefresh();
+export const useAxiosPrivate = async () => {
+  const refresh = await useRefresh();
   const { auth } = useAuth();
 
   useEffect(() => {
