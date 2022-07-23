@@ -1,0 +1,16 @@
+.form-adding-hr{
+    display: flex;
+    height: 80%;
+    width: 40%;
+}
+.form-adding-hr__form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    justify-items: center;
+    padding: 0% 5% 0% 5%;
+    color: white;
+    background-color: black;
+}
+
+
