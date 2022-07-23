@@ -1,24 +1,73 @@
 @import-normalize;
 
 :root {
-
   /* Colors: */
-  --gray1-color-4d4d4d: #4D4D4D;
-  --blue-color-0b8bd4: #0B8BD4;
-  --green-color-1ecb40: #1ECB40;
-  --red1-color-e02735: #E02735;
-  --gray2-color-666666: #666666;
-  --gray3-color-7e7e7e: #7E7E7E;
-  --gray4-color-9e9e9e: #9E9E9E;
-  --gray5-color-cfcfcf: #CFCFCF;
-  --white-color-f7f7f7: #F7F7F7;
-  --red2-color-ff0004: #FF0004;
-  --red3-color-ee4540: #EE4540;
-  --red4-color-c92929: #C92929;
-  --red5-color-811336: #811336;
-  --red6-color-510a0a: #510A0A;
-  --red7-color-2d1414: #2D1414;
-  --black-color-0a0a0a: #0A0A0A;
+
+  /** LOGIN MODULE **/
+  --login-module-background-color: #222224;
+  --login-module-input-color: #292A2B;
+  --login-module-input-placeholder-color: #7E7E7E;
+  --login-module-button-color: #E02735;
+  --login-module-text-color: #F7F7F7;
+
+  /** USER MODULE **/
+  --user-module-background-color: #222224;
+  --user-module-table-color: #292A2B;
+  --user-module-top-bar-color: #1E1E1F;
+  --user-module-drop-down-menu-icon-color: #9E9E9E;
+  --user-module-active-menu-line-color: #E02735;
+  --user-module-text-color: #F7F7F7;
+  --user-module-text-secondary-color: #CFCFCF;
+  --user-module-input-color: #1E1E1F;
+  --user-module-input-placeholder-color: #666666;
+  --user-module-input-icon-color: #666666;
+  --user-module-filter-color: #1E1E1F;
+  --user-module-filter-icon-color: #4D4D4D;
+  --user-module-line-under-input-color: #202122;
+  --user-module-button-color: #E02735;
+  --user-module-expand-user-icon-color: #666666;
+  --user-module-degree-describe-color: #CFCFCF;
+  --user-module-degree-second-color: #9E9E9E;
+  --user-module-pagination-amount-of-users-on-page-color: #F7F7F7;
+  --user-module-pagination-amount-of-users-on-page-border-color: #CFCFCF;
+  --user-module-pagination-amount-of-users-on-page-icon-color: #333333;
+  --user-module-pagination-unavailable: #666666;
+  --user-module-pagination-unavailable-icon: #333333;
+  --user-module-pagination-available: #CFCFCF;
+  --user-module-pagination-available-icon: #333333;
+
+  /** FILTER MODULE **/
+  --filter-module-background-color: #0A0A0A;
+  --filter-module-text-color: #F7F7F7;
+  --filter-module-clear-button-color: #172A35;
+  --filter-module-tiles-color: #292A2B;
+  --filter-module-tiles-selected-color: #292A2B;
+  --filter-module-star-color: #E02735;
+  --filter-module-star-selected-color: #F7F7F7;
+  --filter-module-salary-placeholder-color: #7E7E7E;
+  --filter-module-apprenticeship-agreement-border-color: #292A2B;
+  --filter-module-commercial-experience-menu-color: #292A2B;
+  --filter-module-commercial-experience-text-color: #7E7E7E;
+  --filter-module-commercial-experience-icon-color: #666666;
+  --filter-module-show-results-button-color: #E02735;
+  --filter-module-cancel-button-color: #0A0A0A;
+
+  /** CV USER MODULE **/
+  --cv-user-module-background-color: #222224;
+  --cv-user-module-text-color: #F7F7F7;
+  --cv-user-module-back-icon-color: #666666;
+  --cv-user-module-user-description-color: #292A2B;
+  --cv-user-module-link-color: #0B8BD4;
+  --cv-user-module-link-icon-color: #0B8BD4;
+  --cv-user-module-email-phone-icon-color: #4D4D4D;
+  --cv-user-module-bio-title-text-color: #4D4D4D;
+  --cv-user-module-button-color: #E02735;
+  --cv-user-module-header-color: #292A2B;
+  --cv-user-module-header-description-color: #292A2B;
+  --cv-user-module-star-selected-color: #E02735;
+  --cv-user-module-star-unselected-color: #4D4D4D;
+  --cv-user-module-text-rate-second-color: #9E9E9E;
+  --cv-user-module-text-rate-expectation-color: #CFCFCF;
 }
 
 *, *::before, *::after {
