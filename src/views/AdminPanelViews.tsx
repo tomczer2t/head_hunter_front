@@ -1,8 +1,9 @@
 import React from 'react';
+import { AdminPanel } from '../components/AdminPanel/AdminPanel';
 export const AdminPanelViews = () => {
   return (
     <>
-      <h1>AdminPanelViews</h1>
+      <AdminPanel />
     </>
   );
 };
