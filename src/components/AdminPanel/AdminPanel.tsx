@@ -10,8 +10,10 @@ export const AdminPanel = () => {
   return (
     <div className="admin-panel">
       <Header section="Admin Panel" />
-      <FormForAddingHr />
-      <FormForAddingCsv />
+      <div className="admin-panel__box-helper">
+        <FormForAddingHr />
+        <FormForAddingCsv />
+      </div>
     </div>
   );
 };
