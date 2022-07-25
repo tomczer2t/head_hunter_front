@@ -2,6 +2,7 @@ import React, { Dispatch, useEffect } from 'react';
 import './Input.css';
 
 interface Props {
+  description?: string;
   correct: boolean | null;
   name: string;
   value: string | number;
@@ -12,26 +13,32 @@ interface Props {
 }
 
 export const Input = (props: Props) => {
-  useEffect(() => {}, []);
+  useEffect(() => {}, [props.correct]);
 
   return (
-    <div
-      className={
-        props.correct === null
-          ? 'input-custom'
-          : props.correct
-          ? 'input-correct'
-          : 'input-incorrect'
-      }
-    >
-      <input
-        name={props.name}
-        value={props.value}
-        onChange={props.setValue}
-        placeholder={props.placeholder}
-        type={props.type}
-      />
-      {props.correct === null ? null : <p>{props.message}</p>}
-    </div>
+    <>
+      {props.description ? (
+        <p className="input-custom__description">{props.description}</p>
+      ) : null}
+      <div
+        className={`input-custom
+        ${
+          props.correct === null
+            ? ''
+            : props.correct
+            ? 'input-custom--correct'
+            : 'input-custom--incorrect'
+        }`}
+      >
+        <input
+          name={props.name}
+          value={props.value}
+          onChange={props.setValue}
+          placeholder={props.placeholder}
+          type={props.type}
+        />
+        {props.correct === false ? <p>{props.message}</p> : null}
+      </div>
+    </>
   );
 };
