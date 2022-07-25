@@ -1,0 +1,5 @@
+.UserCv {
+  background-color: var(--cv-user-module-background-color);
+  color: var(--cv-user-module-text-color);
+  height: 100vh;
+}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
 import { MainLayout } from './layout/MainLayout';
 import { LoginView } from './views/LoginView';
 import { CvView } from './views/CvView';
@@ -11,6 +10,8 @@ import { ProfileView } from './views/ProfileView';
 import { AllStudentsView } from './views/AllStudentsView';
 import { StudentsInterviewListViews } from './views/StudentsInterviewListViews';
 import { AdminPanelViews } from './views/AdminPanelViews';
+
+import './App.css';
 
 function App() {
   return (

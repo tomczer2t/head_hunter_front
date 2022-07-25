@@ -1,0 +1,83 @@
+.top-bar {
+  background-color: var(--user-module-top-bar-color);
+  display: flex;
+  height: 5rem;
+  justify-content: space-between;
+  margin-bottom: 1.625rem;
+  padding: 0 15.3125rem;
+}
+
+.top-bar-logo-wrapper {
+  align-items: center;
+  display: flex;
+  width: 5.5625rem;
+}
+
+.top-bar-logo-wrapper__megak-logo {
+  width: 100%;
+}
+
+.top-bar__hr-container-menu {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  padding: 0 0.9375rem;
+  position: relative;
+  width: 16.25rem;
+}
+
+.top-bar__hr-avatar {
+  border-radius: 50%;
+  height: 2.8125rem;
+  margin-right: 0.75rem;
+  width: 2.8125rem;
+}
+
+.top-bar__hr-avatar-name {
+  font-size: 1.125rem;
+}
+
+.top-bar__hr-menu-button {
+  background-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-left-width: 5px;
+  border-right-width: 5px;
+  border-top-color: var(--user-module-drop-down-menu-icon-color);
+  border-top-width: 5px;
+  cursor: pointer;
+  margin-left: 1.875rem;
+  padding: 0;
+}
+
+.top-bar__hr-menu {
+  background-color: var(--user-module-top-bar-color);
+  display: none;
+  list-style-type: none;
+  left: 0;
+  margin: 0;
+  opacity: 1;
+  padding-left: 0.9375rem;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+}
+
+.is-open {
+  display: block;
+}
+
+.top-bar__hr-menu-element {
+  font-size: 1.125rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
+}
+
+.top-bar__hr-menu-element-link {
+  text-decoration: none;
+}
+
+.top-bar__hr-menu-element-link:visited {
+  color: var(--cv-user-module-text-color);
+}
