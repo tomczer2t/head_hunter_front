@@ -15,6 +15,8 @@ import { EmailPasswordRecoveryView } from './views/EmailPasswordRecoveryView';
 
 import './App.css';
 
+import './App.css';
+
 function App() {
   return (
     <>
