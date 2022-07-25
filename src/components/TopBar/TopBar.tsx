@@ -15,12 +15,8 @@ export const TopBar = () => {
 
   return (
     <div className="top-bar">
-      <div className="top-bar-logo-wrapper">
-        <img
-          className="top-bar-logo-wrapper__megak-logo"
-          src={logo}
-          alt="megak logo"
-        />
+      <div className="top-bar__logo-wrapper">
+        <img className="top-bar__megak-logo" src={logo} alt="megak logo" />
       </div>
       <div className="top-bar__hr-container-menu" onClick={openMenu}>
         <img
@@ -35,13 +31,13 @@ export const TopBar = () => {
             menuIsOpen ? 'top-bar__hr-menu is-open' : 'top-bar__hr-menu'
           }
         >
-          <li className="top-bar__hr-menu-element">
-            <Link className="top-bar__hr-menu-element-link" to={'/hr'}>
+          <li className="top-bar__hr-element">
+            <Link className="top-bar__hr-link" to={'/hr'}>
               Konto
             </Link>
           </li>
-          <li className="top-bar__hr-menu-element">
-            <Link className="top-bar__hr-menu-element-link" to={'/login'}>
+          <li className="top-bar__hr-element">
+            <Link className="top-bar__hr-link" to={'/login'}>
               Wyloguj
             </Link>
           </li>

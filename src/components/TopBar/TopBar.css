@@ -7,13 +7,13 @@
   padding: 0 15.3125rem;
 }
 
-.top-bar-logo-wrapper {
+.top-bar__logo-wrapper {
   align-items: center;
   display: flex;
   width: 5.5625rem;
 }
 
-.top-bar-logo-wrapper__megak-logo {
+.top-bar__megak-logo {
   width: 100%;
 }
 
@@ -68,16 +68,16 @@
   display: block;
 }
 
-.top-bar__hr-menu-element {
+.top-bar__hr-element {
   font-size: 1.125rem;
   height: 2.5rem;
   line-height: 2.5rem;
 }
 
-.top-bar__hr-menu-element-link {
+.top-bar__hr-link {
   text-decoration: none;
 }
 
-.top-bar__hr-menu-element-link:visited {
+.top-bar__hr-link:visited {
   color: var(--cv-user-module-text-color);
 }
