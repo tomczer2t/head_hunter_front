@@ -44,12 +44,14 @@ module.exports = {
     "import/no-unresolved": [
       2,
       {
-        "ignore":['types'],
-        "caseSensitive": false }
+        "ignore": ['types'],
+        "caseSensitive": false
+      }
     ],
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-return": "off",
     "@typescript-eslint/no-floating-promises": "off",
-  },
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+  }
 };
