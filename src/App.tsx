@@ -18,6 +18,10 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="login" element={<LoginView />} />
+          <Route
+            path="register/:id/:verificationToken"
+            element={<LoginView />}
+          />
           {/*user auth require*/}
           <Route path="user" element={<RequireAuthUser />}>
             <Route path="cv" element={<CvView />} />
