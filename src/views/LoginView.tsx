@@ -1,8 +1,10 @@
 import React from 'react';
+import { LoginPanel } from '../components/LoginPanel/LoginPanel';
+
 export const LoginView = () => {
   return (
     <>
-      <h1>Login View</h1>
+      <LoginPanel />
     </>
   );
 };
