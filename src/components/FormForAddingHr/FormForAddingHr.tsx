@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './FormForAddingHr.css';
 import { Input } from '../common/Input/Input';
-import { useHrFormDataForAdminValidation } from './useHrFormDataForAdminValidation';
+import { useHrFormDataForAdminValidation } from '../../hooks/validationForm/useHrFormDataForAdminValidation';
+import { axiosPrivate } from '../../api/axios';
+import { MessageResponse } from '../common/MessageResponse/MessageResponse';
 
 export interface HrFormDataForAdmin {
   email: string;
@@ -19,14 +21,26 @@ export const FormForAddingHr = () => {
     company: '',
     maxReservedStudents: 0,
   });
-
   const [emailExist, setEmailExist] = useState<boolean>(false);
+  const [showMessageResponse, setShowMessageResponse] = useState<boolean>(true);
+
   const { correct, message } = useHrFormDataForAdminValidation({
     hrFormData,
     emailExist,
   });
 
-  // useEffect(() => {}, [hrFormData]);
+  useEffect(() => {}, [showMessageResponse]);
+  // @TODO set type response
+  const sendForm = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const res = await axiosPrivate.post('/admin/for-hr', hrFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+    } catch (err) {}
+  };
 
   const changedHandle = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -36,11 +50,23 @@ export const FormForAddingHr = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  console.log(correct.email);
+
   return (
     <div className="form-adding-hr">
-      <form className="form-adding-hr__form" action="">
-        <h3>Add HRV</h3>
+      <MessageResponse
+        showMessageResponse={showMessageResponse}
+        status={'Testowy'}
+        message={'Opis błedu'}
+        correct={false}
+        closeMessage={setShowMessageResponse}
+      />
+      <form
+        className="form-adding-hr__form"
+        onSubmit={(event) => {
+          void sendForm(event);
+        }}
+      >
+        <h3 className="form-adding-hr__form__title">Dodawanie HR</h3>
         <Input
           name={'email'}
           value={hrFormData.email}
@@ -78,6 +104,7 @@ export const FormForAddingHr = () => {
           message={message.company}
         />
         <Input
+          description="Maksymalna liczba kursantów "
           name={'maxReservedStudents'}
           value={hrFormData.maxReservedStudents}
           type="number"
@@ -86,7 +113,7 @@ export const FormForAddingHr = () => {
           correct={correct.maxReservedStudents}
           message={message.maxReservedStudents}
         />
-        <button type="submit">Add</button>
+        <button type="submit">Dodaj HR'a</button>
       </form>
     </div>
   );
