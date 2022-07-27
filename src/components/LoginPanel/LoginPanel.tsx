@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom';
 import { axios } from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 
+export interface LoginResponse {
+  id: string;
+  role: string;
+  accessToken: string;
+  firstName: string;
+  lastName: string;
+  githubUsername: string | null;
+}
+
 export const LoginPanel = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,8 +27,32 @@ export const LoginPanel = () => {
         password,
       })
       .then((response) => {
-        console.log(response);
-        navigate(`/hr/all-students`);
+        const { id, firstName, lastName, role, githubUsername, accessToken } =
+          response.data as LoginResponse;
+        const redirectionPath = [
+          '/login',
+          '/user/cv',
+          '/hr/all-students',
+          '/admin/admin-panel',
+        ];
+        let num;
+        switch (role) {
+          case 'hr':
+            num = 2;
+            break;
+          case 'adamin':
+            num = 3;
+            break;
+          case 'student':
+            num = 2;
+            break;
+          default:
+            num = 0;
+        }
+        navigate(redirectionPath[num], {
+          replace: true,
+          state: { id, firstName, lastName, role, githubUsername, accessToken },
+        });
       })
       .catch(function (error) {
         console.log(error);
