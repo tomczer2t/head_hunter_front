@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/megak_logo.webp';
-import default_avatar from '../../assets/default_avatar.jpg';
+import logo from '../../assets/images/logo-megak.webp';
+import default_avatar from '../../assets/images/default_avatar.jpg';
 
 import './TopBar.css';
 

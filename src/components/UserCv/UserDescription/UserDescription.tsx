@@ -1,7 +1,7 @@
 import React from 'react';
-import githubIcon from '../../../assets/github-brands.svg';
-import phoneIcon from '../../../assets/phone-solid.svg';
-import emailIcon from '../../../assets/envelope-solid.svg';
+import githubIcon from '../../../assets/images/github-brands.svg';
+import phoneIcon from '../../../assets/images/phone-solid.svg';
+import emailIcon from '../../../assets/images/envelope-solid.svg';
 
 import './UserDescription.css';
 
