@@ -1,8 +1,10 @@
 import React from 'react';
 import { TopBar } from '../TopBar/TopBar';
+import { Link } from 'react-router-dom';
+import { UserDescription } from './UserDescription/UserDescription';
+import { UserTabel } from './UserTable/UserTabel';
 
 import './UserCv.css';
-import { Link } from 'react-router-dom';
 
 export const UserCv = () => {
   return (
@@ -14,6 +16,10 @@ export const UserCv = () => {
       >
         wróć
       </Link>
+      <main className="UserCv__container">
+        <UserDescription />
+        <UserTabel />
+      </main>
     </div>
   );
 };
