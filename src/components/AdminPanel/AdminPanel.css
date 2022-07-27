@@ -1,0 +1,14 @@
+@import "../../index.css";
+.admin-panel{
+    width: 100%;
+    height: 100vh;
+    background-color: gray;
+}
+
+.admin-panel__box-helper{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 85vh;
+}
