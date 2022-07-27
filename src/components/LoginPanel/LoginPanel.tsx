@@ -20,7 +20,6 @@ export const LoginPanel = () => {
 
   const sendAction = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(email, password);
     axios
       .post('/auth/login', {
         email,
