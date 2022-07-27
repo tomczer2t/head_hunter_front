@@ -30,6 +30,10 @@
     margin-bottom: 15px;
 }
 
+.login-panel form input:focus{
+    outline: none;
+}
+
 .login-panel .linkForgotPass {
     text-decoration: none;
     color: var(--login-module-text-color);
