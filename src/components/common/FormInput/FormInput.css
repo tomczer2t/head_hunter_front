@@ -2,15 +2,15 @@
 .input-custom{
     text-align: center;
     width: 80%;
-    border-radius: 5px;
     background-color: white;
     color: #0A0A0A;
     padding: 0 5px 0 5px;
 }
 .input-custom>p{
-    font-size: 0.6em;
+    font-size: 0.8em;
 }
 .input-custom > input{
+    height: 5.5vh;
     border: none;
     width: 100%;
     text-align: center;

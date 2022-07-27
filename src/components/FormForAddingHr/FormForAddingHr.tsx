@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './FormForAddingHr.css';
-import { Input } from '../common/Input/Input';
+import { FormInput } from '../common/FormInput/FormInput';
 import { useHrFormDataForAdminValidation } from '../../hooks/validationForm/useHrFormDataForAdminValidation';
 import { axiosPrivate } from '../../api/axios';
 import { MessageResponse } from '../common/MessageResponse/MessageResponse';
@@ -67,7 +67,7 @@ export const FormForAddingHr = () => {
         }}
       >
         <h3 className="form-adding-hr__form__title">Dodawanie HR</h3>
-        <Input
+        <FormInput
           name={'email'}
           value={hrFormData.email}
           type="text"
@@ -76,7 +76,7 @@ export const FormForAddingHr = () => {
           correct={correct.email}
           message={message.email}
         />
-        <Input
+        <FormInput
           name={'firstName'}
           value={hrFormData.firstName}
           type="text"
@@ -85,7 +85,7 @@ export const FormForAddingHr = () => {
           correct={correct.firstName}
           message={message.firstName}
         />
-        <Input
+        <FormInput
           name={'secondName'}
           value={hrFormData.secondName}
           type="text"
@@ -94,7 +94,7 @@ export const FormForAddingHr = () => {
           correct={correct.secondName}
           message={message.secondName}
         />
-        <Input
+        <FormInput
           name={'company'}
           value={hrFormData.company}
           type="text"
@@ -103,7 +103,7 @@ export const FormForAddingHr = () => {
           correct={correct.company}
           message={message.company}
         />
-        <Input
+        <FormInput
           description="Maksymalna liczba kursantów "
           name={'maxReservedStudents'}
           value={hrFormData.maxReservedStudents}
