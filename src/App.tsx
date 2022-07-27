@@ -11,6 +11,7 @@ import { ProfileView } from './views/ProfileView';
 import { AllStudentsView } from './views/AllStudentsView';
 import { StudentsInterviewListViews } from './views/StudentsInterviewListViews';
 import { AdminPanelViews } from './views/AdminPanelViews';
+import { RegisterView } from './views/RegisterView';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
           <Route path="login" element={<LoginView />} />
           <Route
             path="register/:id/:verificationToken"
-            element={<LoginView />}
+            element={<RegisterView />}
           />
           {/*user auth require*/}
           <Route path="user" element={<RequireAuthUser />}>
