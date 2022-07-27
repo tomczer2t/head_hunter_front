@@ -1,5 +1,5 @@
-import React, { Dispatch, useEffect } from 'react';
-import './Input.css';
+import React, { useEffect } from 'react';
+import './FormInput.css';
 
 interface Props {
   description?: string;
@@ -12,7 +12,7 @@ interface Props {
   message: string;
 }
 
-export const Input = (props: Props) => {
+export const FormInput = (props: Props) => {
   useEffect(() => {}, [props.correct]);
 
   return (
