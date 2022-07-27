@@ -23,6 +23,10 @@ function App() {
             path="register/:id/:verificationToken"
             element={<RegisterView />}
           />
+          <Route
+            path="register/:id/:verificationToken"
+            element={<LoginView />}
+          />
           {/*user auth require*/}
           <Route path="user" element={<RequireAuthUser />}>
             <Route path="cv" element={<CvView />} />
