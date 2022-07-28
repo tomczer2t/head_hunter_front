@@ -10,6 +10,7 @@ import { ProfileView } from './views/ProfileView';
 import { AllStudentsView } from './views/AllStudentsView';
 import { StudentsInterviewListViews } from './views/StudentsInterviewListViews';
 import { AdminPanelViews } from './views/AdminPanelViews';
+import { RegisterView } from './views/RegisterView';
 
 import './App.css';
 
@@ -19,6 +20,14 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route path="login" element={<LoginView />} />
+          <Route
+            path="register/:id/:verificationToken"
+            element={<RegisterView />}
+          />
+          <Route
+            path="register/:id/:verificationToken"
+            element={<LoginView />}
+          />
           {/*user auth require*/}
           <Route path="user" element={<RequireAuthUser />}>
             <Route path="cv" element={<CvView />} />
