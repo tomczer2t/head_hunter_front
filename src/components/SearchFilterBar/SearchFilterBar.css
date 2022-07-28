@@ -10,12 +10,12 @@
 }
 
 .search-filter-bar__magnifier {
-    margin-left: 20px;
+    margin-left: 14px;
     background-color: transparent;
     color: var(--user-module-input-placeholder-color);
-    /*position: relative;*/
-    left: -365px;
-    top: 2px;
+    position: relative;
+    left: -6px;
+    top: 1px;
     height: 15px;
 
 }
@@ -23,8 +23,6 @@
 .search-filter-bar__input {
     background-color: var(--user-module-input-color);
     color: var(--user-module-input-placeholder-color);
-    padding-left: 40px;
-    margin-left: 20px;
     border: none;
     width: 365px;
     height: 38px;
@@ -33,5 +31,16 @@
 }
 
 .search-filter-bar__bnt {
+    margin-left: 20px;
+    width: 50px;
+    background-color: var(--user-module-input-color);
+    color: var(--user-module-input-placeholder-color);
+    border: none;
+    height: 38px;
+    cursor: pointer;
+    text-align: center;
+}
 
+.search-filter-bar__bnt:hover {
+    background-color: #363333;
 }
