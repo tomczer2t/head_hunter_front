@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { axios } from '../../api/axios';
 import { AxiosError } from 'axios';
 import { ErrorLogin } from './ErrorLogin';
+import logo from '../../assets/images/logo-megak.webp';
 
 export interface LoginResponse {
   id: string;
@@ -65,11 +66,7 @@ export const LoginPanel = () => {
   return (
     <>
       <div className="login-panel">
-        <img
-          className="logo"
-          src="../../assets/images/logo-megak.webp"
-          alt=""
-        />
+        <img className="logo" src={logo} alt="" />
         <form onSubmit={sendAction}>
           <div className="container">
             <input
