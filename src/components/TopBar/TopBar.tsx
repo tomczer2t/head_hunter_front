@@ -9,6 +9,7 @@ export const TopBar = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const openMenu = () => {
+    console.log('Kliknąłeś w menu');
     setMenuIsOpen((prevState) => !prevState);
   };
 
@@ -31,7 +32,7 @@ export const TopBar = () => {
           }
         >
           <li className="top-bar__hr-element">
-            <Link className="top-bar__hr-link" to={'/hr/interview-students'}>
+            <Link className="top-bar__hr-link" to={'/hr'}>
               Konto
             </Link>
           </li>
