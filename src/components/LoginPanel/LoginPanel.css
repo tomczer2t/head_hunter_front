@@ -38,10 +38,15 @@
     text-decoration: none;
     color: var(--login-module-text-color);
     font-family: 'Catamaran', sans-serif;
-    pointer-events: none;
+    cursor: pointer;
     font-size: 14px;
     text-align: right;
     margin-bottom: 22px;
+    transition: 0.3s;
+}
+
+.login-panel .linkForgotPass:hover {
+    color: #7E7E7E;
 }
 
 .login-panel__last-line {
@@ -72,11 +77,17 @@
     border: none;
     width: 91px;
     height: 39px;
-    margin-left: 53px;
+    margin-left: 259px;
     font-weight: 300;
     letter-spacing: 0.3px;
     line-height: 27px;
-
     opacity: 1;
     cursor: pointer;
+    text-align: right;
+    transition: 0.3s;
+}
+
+.login-panel form .subminBnt:hover {
+    background-color: #c98383;
+    color: #1a1515;
 }
