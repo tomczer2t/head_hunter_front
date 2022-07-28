@@ -1,0 +1,15 @@
+.login-panel__error-info {
+    color: var(--login-module-button-color);
+    background-color: white;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 30px;
+    font-weight: 800;
+    line-height: 30px;
+    border-radius: 7px;
+    text-align: center;
+    text-transform: uppercase;
+}
