@@ -2,7 +2,7 @@ import React from 'react';
 import { TopBar } from '../TopBar/TopBar';
 import { Link } from 'react-router-dom';
 import { UserDescription } from './UserDescription/UserDescription';
-import { UserTabel } from './UserTable/UserTabel';
+import { UserTable } from './UserTable/UserTable';
 
 import './UserCv.css';
 
@@ -18,7 +18,7 @@ export const UserCv = () => {
       </Link>
       <main className="UserCv__container">
         <UserDescription />
-        <UserTabel />
+        <UserTable />
       </main>
     </div>
   );

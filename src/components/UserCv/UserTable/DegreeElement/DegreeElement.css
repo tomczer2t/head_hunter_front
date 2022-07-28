@@ -1,0 +1,46 @@
+.DegreeElement {
+  align-self: end;
+  display: grid;
+  margin-right: 6.25rem;
+  width: 10.25rem;
+}
+
+.DegreeElement__course-degree-title {
+  color: var(--cv-user-module-text-rate-expectation-color);
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin: 0 0 1.5rem 0;
+}
+
+.DegreeElement__course-degree-numbers-stars-container {
+  align-items: center;
+  display: flex;
+}
+
+.DegreeElement__course-degree-numbers {
+  margin-right: 0.8125rem;
+  padding-top: 3px;
+}
+
+.DegreeElement__course-degree-number {
+  color: var(--cv-user-module-text-color);
+}
+
+.DegreeElement__course-degree-number--actual {
+  font-weight: 700;
+}
+
+.DegreeElement__course-degree-number--max {
+  color: var(--cv-user-module-text-rate-second-color);
+  font-weight: 400;
+}
+
+.DegreeElement__course-degree-stars {
+  align-items: center;
+  display: flex;
+}
+
+.DegreeElement__course-degree-star {
+  margin-right: 0.25rem;
+  width: 1.25rem;
+}
