@@ -1,0 +1,26 @@
+.UserCv {
+  background-color: var(--cv-user-module-background-color);
+  color: var(--cv-user-module-text-color);
+  height: 100vh;
+}
+
+.UserCv__interview-student-link {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0;
+  position: absolute;
+  left: 11.4375rem;
+  color: var(--cv-user-module-text-color);
+  text-transform: capitalize;
+  text-decoration: none;
+}
+
+.UserCv__interview-student-link::before {
+  content: url("/src/assets/back-arrow.svg");
+  height: 1.875rem;
+  right: 100%;
+  position: absolute;
+  top: -7px;
+}
