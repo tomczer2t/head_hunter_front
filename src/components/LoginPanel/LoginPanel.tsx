@@ -22,10 +22,6 @@ export const LoginPanel = () => {
 
   const sendAction = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.length < 6 || password.length < 5) {
-      setStatusErrorCode(300);
-      return;
-    }
     axios
       .post('/auth/login', {
         email,
@@ -100,10 +96,6 @@ export const LoginPanel = () => {
               Zapomniałeś hasła?
             </Link>
             <div className="login-panel__last-line">
-              Nie masz konta?
-              <Link className="registerNewUser" to="/">
-                Zarejestruj się
-              </Link>
               <button className="subminBnt" type="submit">
                 Zaloguj się
               </button>
