@@ -43,7 +43,7 @@ export const TopBar = () => {
           }
         >
           <li className="top-bar__hr-element">
-            <Link className="top-bar__hr-link" to={'/hr'}>
+            <Link className="top-bar__hr-link" to={'/hr/interview-students'}>
               Konto
             </Link>
           </li>
