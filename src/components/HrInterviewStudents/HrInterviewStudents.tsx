@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { TopBar } from '../TopBar/TopBar';
 import { MenuAvailableTalk } from '../MenuAvailableTalk/MenuAvailableTalk';
-import './HrAllStudents.css';
-import { SearchFilterBar } from '../SearchFilterBar/SearchFilterBar';
+import './HrInterviewStudents.css';
 
-export const HrAllStudents = () => {
+export const HrInterviewStudents = () => {
   return (
     <>
       <div className="hr-all-students">
         <TopBar />
         <MenuAvailableTalk />
-        <SearchFilterBar />
+        <p>MenuSearchAndFilter</p>
         <p>ListOfStudents</p>
         <p>PaginationBar</p>
       </div>

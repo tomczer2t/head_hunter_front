@@ -1,8 +1,9 @@
 import React from 'react';
+import { HrInterviewStudents } from '../components/HrInterviewStudents/HrInterviewStudents';
 export const StudentsInterviewListViews = () => {
   return (
     <>
-      <h1>StudentsInterviewListViews</h1>
+      <HrInterviewStudents />
     </>
   );
 };

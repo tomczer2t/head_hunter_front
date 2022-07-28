@@ -35,6 +35,7 @@
 
 .top-bar__hr-avatar-name {
   font-size: 1.125rem;
+  color: var(--user-module-text-color);
 }
 
 .top-bar__hr-menu-button {
