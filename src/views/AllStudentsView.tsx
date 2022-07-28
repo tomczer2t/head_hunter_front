@@ -1,10 +1,9 @@
 import React from 'react';
-import { TopBar } from '../components/TopBar/TopBar';
+import { HrAllStudents } from '../components/HrAllStudents/HrAllStudents';
 export const AllStudentsView = () => {
   return (
     <>
-      <TopBar />
-      <h1>AllStudentsView</h1>
+      <HrAllStudents />
     </>
   );
 };
