@@ -69,7 +69,11 @@ export const LoginPanel = () => {
   return (
     <>
       <div className="login-panel">
-        <img className="logo" src="/logo-megak.webp" alt="" />
+        <img
+          className="logo"
+          src="../../assets/images/logo-megak.webp"
+          alt=""
+        />
         <form onSubmit={sendAction}>
           <div className="container">
             <input
