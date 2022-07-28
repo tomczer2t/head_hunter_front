@@ -1,0 +1,13 @@
+.menu-available-talk {
+    max-width: 1430px;
+    height: 72px;
+    background-color: var(--user-module-background-color);
+}
+
+.menu-available-talk__link {
+    text-decoration: none;
+}
+
+.menu-available-talk__selected {
+    text-underline: #0B8BD4;
+}

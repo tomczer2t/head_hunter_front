@@ -1,7 +1,7 @@
 .top-bar {
   background-color: var(--user-module-top-bar-color);
   display: flex;
-  height: 5rem;
+  height: 80px;
   justify-content: space-between;
   margin-bottom: 1.625rem;
   padding: 0 15.3125rem;
