@@ -11,6 +11,7 @@ import { AllStudentsView } from './views/AllStudentsView';
 import { StudentsInterviewListViews } from './views/StudentsInterviewListViews';
 import { AdminPanelViews } from './views/AdminPanelViews';
 import { RegisterView } from './views/RegisterView';
+import { EmailPasswordRecoveryView } from './views/EmailPasswordRecoveryView';
 
 import './App.css';
 
@@ -24,6 +25,7 @@ function App() {
             path="register/:id/:verificationToken"
             element={<RegisterView />}
           />
+          <Route path="send-email" element={<EmailPasswordRecoveryView />} />
           <Route
             path="register/:id/:verificationToken"
             element={<LoginView />}
