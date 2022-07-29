@@ -2,20 +2,14 @@ import React, { useState } from 'react';
 import './LoginPanel.css';
 import { useNavigate, Link } from 'react-router-dom';
 import { axios } from '../../api/axios';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorLogin } from './ErrorLogin';
 import logo from '../../assets/images/logo-megak.webp';
-
-export interface LoginResponse {
-  id: string;
-  role: string;
-  accessToken: string;
-  firstName: string;
-  lastName: string;
-  githubUsername: string | null;
-}
+import { useAuth } from '../../hooks/useAuth';
+import { LoginResponse } from 'types';
 
 export const LoginPanel = () => {
+  const { setAuth } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -28,9 +22,10 @@ export const LoginPanel = () => {
         email,
         password,
       })
-      .then((response) => {
-        const { id, firstName, lastName, role, githubUsername, accessToken } =
-          response.data as LoginResponse;
+      .then((response: AxiosResponse<LoginResponse>) => {
+        setAuth(response.data);
+        const { firstName, lastName, role, githubUsername, accessToken } =
+          response.data;
         const redirectionPath = [
           '/login',
           '/user/cv',
@@ -53,7 +48,7 @@ export const LoginPanel = () => {
         }
         navigate(redirectionPath[num], {
           replace: true,
-          state: { id, firstName, lastName, role, githubUsername, accessToken },
+          state: { firstName, lastName, role, githubUsername, accessToken },
         });
       })
       .catch(function (error: AxiosError) {
