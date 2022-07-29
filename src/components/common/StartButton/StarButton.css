@@ -1,0 +1,13 @@
+@import "../../../index.css";
+.star-button{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--filter-module-background-color) ;
+}
+.star-button__description{
+
+}
+.star-button__icon{
+
+}
