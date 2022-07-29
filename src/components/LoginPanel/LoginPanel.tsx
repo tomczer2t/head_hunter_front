@@ -5,6 +5,7 @@ import { axios } from '../../api/axios';
 import { AxiosError } from 'axios';
 import { ErrorLogin } from './ErrorLogin';
 import logo from '../../assets/images/logo-megak.webp';
+import { useAuth } from '../../hooks/useAuth';
 
 export interface LoginResponse {
   id: string;
@@ -16,6 +17,7 @@ export interface LoginResponse {
 }
 
 export const LoginPanel = () => {
+  const { setAuth } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -29,6 +31,7 @@ export const LoginPanel = () => {
         password,
       })
       .then((response) => {
+        setAuth(response.data);
         const { id, firstName, lastName, role, githubUsername, accessToken } =
           response.data as LoginResponse;
         const redirectionPath = [
