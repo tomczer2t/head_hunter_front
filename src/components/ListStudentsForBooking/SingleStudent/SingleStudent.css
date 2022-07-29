@@ -1,0 +1,14 @@
+.single-student {
+    background-color: var(--user-module-table-color);
+    max-width: 1390px;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 16px auto 0 auto;
+}
+
+.single-student__name {
+    color: var(--user-module-text-color);
+    margin-left: 18px;
+}

@@ -1,16 +1,23 @@
 import React from 'react';
 import { Dummy } from '../HrAllStudents/HrAllStudents';
+import { SingleStudent } from './SingleStudent/SingleStudent';
+import './ListStudentsForBooking.css';
 
 export const ListStudentsForBooking = (props: Dummy[]) => {
-  const listStudents = props;
-  const listStudentsFullName = [];
-  for (let i = 0; i < 6 ; i++) {
-    listStudentsFullName.push(listStudents[i])
+  const studentsList = [];
+  for (let i = 0; i < Object.keys(props).length; i++) {
+    studentsList.push(props[i]);
   }
-  console.log(listStudentsFullName);
+
   return (
     <>
-      <div>ListStudentsForBooking</div>
+      <div className="list-students-for-booking__wrapper">
+        <ul className="list-students-for-booking">
+          {studentsList.map((student, index) => (
+            <SingleStudent {...student} key={index} />
+          ))}
+        </ul>
+      </div>
     </>
   );
 };

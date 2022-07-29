@@ -101,6 +101,19 @@ export const HrAllStudents = () => {
       canTakeApprenticeship: true,
       monthsOfCommercialExp: 6,
     },
+    {
+      fullName: 'Adrian Majcher',
+      courseDegree: 5,
+      courseEngagement: 3,
+      projectDegree: 4,
+      teamProjectDegree: 5,
+      expectedTypeWork: 'Biuro',
+      targetWorkCity: 'Warszawa',
+      expectedContractType: 'Umowa o pracę',
+      expectedSalary: 8000,
+      canTakeApprenticeship: true,
+      monthsOfCommercialExp: 6,
+    },
   ];
   return (
     <>
