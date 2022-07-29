@@ -1,4 +1,5 @@
-.UserTable__degrees-container {
+.UserTable__container {
   display: flex;
-  padding: 0.625rem 1.625rem 1.75rem;
+  padding: 0.625rem 1.625rem 1rem;
+  margin-bottom: 0.75rem;
 }
