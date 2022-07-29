@@ -22,10 +22,10 @@ export const LoginPanel = () => {
         email,
         password,
       })
-      .then((response: AxiosResponse<LoginResponse> ) => {
+      .then((response: AxiosResponse<LoginResponse>) => {
         setAuth(response.data);
         const { firstName, lastName, role, githubUsername, accessToken } =
-          response.data as LoginResponse;
+          response.data;
         const redirectionPath = [
           '/login',
           '/user/cv',
