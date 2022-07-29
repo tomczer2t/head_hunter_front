@@ -89,7 +89,7 @@ export const LoginPanel = () => {
                 setStatusErrorCode(200);
               }}
             />
-            <Link className="linkForgotPass" to="/">
+            <Link className="linkForgotPass" to="/send-email">
               Zapomniałeś hasła?
             </Link>
             <div className="login-panel__last-line">

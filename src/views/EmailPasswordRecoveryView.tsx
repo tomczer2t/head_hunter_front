@@ -1,8 +1,10 @@
 import React from 'react';
+import {PasswordRecovery} from "../components/PasswordRecovery/PasswordRecovery";
+
 export const EmailPasswordRecoveryView = () => {
-  return (
-    <>
-      <h1>Email Password Recovery View</h1>
-    </>
-  );
+    return (
+        <>
+            <PasswordRecovery/>
+        </>
+    );
 };
