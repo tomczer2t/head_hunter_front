@@ -2,19 +2,11 @@ import React, { useState } from 'react';
 import './LoginPanel.css';
 import { useNavigate, Link } from 'react-router-dom';
 import { axios } from '../../api/axios';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorLogin } from './ErrorLogin';
 import logo from '../../assets/images/logo-megak.webp';
 import { useAuth } from '../../hooks/useAuth';
-
-export interface LoginResponse {
-  id: string;
-  role: string;
-  accessToken: string;
-  firstName: string;
-  lastName: string;
-  githubUsername: string | null;
-}
+import { LoginResponse } from 'types';
 
 export const LoginPanel = () => {
   const { setAuth } = useAuth();
@@ -30,9 +22,9 @@ export const LoginPanel = () => {
         email,
         password,
       })
-      .then((response) => {
+      .then((response: AxiosResponse<LoginResponse> ) => {
         setAuth(response.data);
-        const { id, firstName, lastName, role, githubUsername, accessToken } =
+        const { firstName, lastName, role, githubUsername, accessToken } =
           response.data as LoginResponse;
         const redirectionPath = [
           '/login',
@@ -56,7 +48,7 @@ export const LoginPanel = () => {
         }
         navigate(redirectionPath[num], {
           replace: true,
-          state: { id, firstName, lastName, role, githubUsername, accessToken },
+          state: { firstName, lastName, role, githubUsername, accessToken },
         });
       })
       .catch(function (error: AxiosError) {
