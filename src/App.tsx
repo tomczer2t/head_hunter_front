@@ -25,10 +25,6 @@ function App() {
             element={<RegisterView />}
           />
           <Route path="send-email" element={<EmailPasswordRecoveryView />} />
-          <Route
-            path="register/:id/:verificationToken"
-            element={<LoginView />}
-          />
           {/*user auth require*/}
           <Route path="user" element={<RequireAuthUser />}>
             <Route path="cv" element={<CvView />} />
