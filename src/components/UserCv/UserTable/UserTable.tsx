@@ -3,6 +3,7 @@ import { UserTableHeader } from './UserTableHeader/UserTableHeader';
 import { DegreeElement } from './DegreeElement/DegreeElement';
 import { Expectation } from './ExpectationElement/ExpectationElement';
 import { TextDescription } from './TextDescription/TextDescription';
+import { ProjectLink } from './ProjectLink/ProjectLink';
 
 import './UserTable.css';
 
@@ -19,6 +20,7 @@ export const UserTable = () => {
         <DegreeElement title="Ocena kodu w projekcie własnym" stars={4} />
         <DegreeElement title="Ocena pracy w zespole w Scrum" stars={5} />
       </div>
+
       <UserTableHeader title="Oczekiwanie w stosunku do zatrudnienia" />
       <div className="UserTable__container">
         <Expectation title="Preferowane miejsce pracy" value="Biuro" />
@@ -40,15 +42,32 @@ export const UserTable = () => {
           value="6 miesięcy"
         />
       </div>
+
       <UserTableHeader title="Edukacja" />
       <TextDescription text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+
       <UserTableHeader title="Kursy" />
       <TextDescription text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+
       <UserTableHeader title="Doświadczenie zawodowe" />
       <TextDescription text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+
       <UserTableHeader title="Portfolio" />
+      <div className="UserTable__links-container">
+        <ProjectLink link="https://Loremipsum/dolor/sit/amet" />
+      </div>
+
       <UserTableHeader title="Projekt w zespole Scrumowym" />
+      <div className="UserTable__links-container">
+        <ProjectLink link="https://github.com/Ami777/MegaKursTest/commits?author=Ami777" />
+        <ProjectLink link="https://github.com/Ami777/MegaKursTest/pulls?q=is%3Apr+reviewed-by%3AAmi777" />
+      </div>
+
       <UserTableHeader title="Projekt na zaliczenie" />
+      <div className="UserTable__links-container">
+        <ProjectLink link="https://Loremipsum/dolor/sit/amet" />
+        <ProjectLink link="https://Loremipsum/dolor/sit/amet" />
+      </div>
     </div>
   );
 };
