@@ -1,0 +1,8 @@
+.single-student-details {
+    font-size: 12px;
+    display: none;
+}
+
+.single-student-details--active {
+    display: block;
+}

@@ -76,6 +76,7 @@
 
 body {
   margin: 0;
+  background-color: var(--user-module-background-color);
   font-family: 'Catamaran', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
