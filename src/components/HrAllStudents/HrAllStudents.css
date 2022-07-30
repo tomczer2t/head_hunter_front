@@ -1,4 +1,4 @@
 .hr-all-students {
     background-color: var(--user-module-background-color);
-    height: 100vh;
+    min-height: 110vh;
 }

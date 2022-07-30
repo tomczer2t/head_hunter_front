@@ -19,8 +19,6 @@ export interface Dummy {
   monthsOfCommercialExp: number;
 }
 
-
-
 export const HrAllStudents = () => {
   const dummyListOfStudentsForBooking: Dummy[] = [
     {
@@ -121,7 +119,9 @@ export const HrAllStudents = () => {
         <TopBar />
         <MenuAvailableTalk />
         <SearchFilterBar />
-        <ListStudentsForBooking {...dummyListOfStudentsForBooking}></ListStudentsForBooking>
+        <ListStudentsForBooking
+          {...dummyListOfStudentsForBooking}
+        ></ListStudentsForBooking>
         <p>PaginationBar</p>
       </div>
     </>
