@@ -14,7 +14,6 @@ export const TopBar = () => {
   const logoutHandler = useLogoutHandler();
 
   const openMenu = () => {
-    console.log('Kliknąłeś w menu');
     setMenuIsOpen((prevState) => !prevState);
   };
 
