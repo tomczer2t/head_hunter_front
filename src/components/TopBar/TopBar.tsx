@@ -9,7 +9,6 @@ export const TopBar = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const openMenu = () => {
-    console.log('Kliknąłeś w menu');
     setMenuIsOpen((prevState) => !prevState);
   };
 

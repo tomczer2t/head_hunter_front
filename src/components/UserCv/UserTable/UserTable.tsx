@@ -2,6 +2,7 @@ import React from 'react';
 import { UserTableHeader } from './UserTableHeader/UserTableHeader';
 import { DegreeElement } from './DegreeElement/DegreeElement';
 import { Expectation } from './ExpectationElement/ExpectationElement';
+import { TextDescription } from './TextDescription/TextDescription';
 
 import './UserTable.css';
 
@@ -40,8 +41,11 @@ export const UserTable = () => {
         />
       </div>
       <UserTableHeader title="Edukacja" />
+      <TextDescription text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
       <UserTableHeader title="Kursy" />
+      <TextDescription text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
       <UserTableHeader title="Doświadczenie zawodowe" />
+      <TextDescription text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
       <UserTableHeader title="Portfolio" />
       <UserTableHeader title="Projekt w zespole Scrumowym" />
       <UserTableHeader title="Projekt na zaliczenie" />

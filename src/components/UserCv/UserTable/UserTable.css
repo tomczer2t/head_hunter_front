@@ -1,5 +1,6 @@
 .UserTable__container {
   display: flex;
+  height: 6.875rem;
   padding: 0.625rem 1.625rem 1rem;
   margin-bottom: 0.75rem;
 }
