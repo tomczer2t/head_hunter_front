@@ -2,6 +2,7 @@ import React from 'react';
 import githubIcon from '../../../assets/images/github-brands.svg';
 import phoneIcon from '../../../assets/images/phone-solid.svg';
 import emailIcon from '../../../assets/images/envelope-solid.svg';
+import default_avatar from '../../../assets/images/default_avatar.jpg';
 
 import './UserDescription.css';
 
@@ -10,7 +11,7 @@ export const UserDescription = () => {
     <div className="UserDescription">
       <img
         className="UserDescription__user-avatar"
-        src="https://github.com/kp1976.png"
+        src={default_avatar}
         alt="user avatar"
       />
       <div className="UserDescription__full-name">
