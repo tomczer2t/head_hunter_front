@@ -1,6 +1,5 @@
 .list-students-for-booking__wrapper {
     background-color: var(--user-module-table-color);
-    /*background-color: red;*/
     max-width: 1430px;
     padding-bottom: 20px;
     margin: 0 auto;
@@ -8,7 +7,7 @@
 }
 
 .list-students-for-booking {
-    background-color: var(--user-module-background-color);
+    background-color: var(--user-module-top-bar-color);
     max-width: 1390px;
     list-style: none;
     margin: 0 auto;

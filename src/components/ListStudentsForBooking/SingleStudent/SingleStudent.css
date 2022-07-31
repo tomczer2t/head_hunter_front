@@ -43,6 +43,13 @@
     font-family: 'Catamaran', sans-serif;
     padding: 0;
     cursor: pointer;
+    transition: 0.4s;
+}
+
+.single-student__btn:hover {
+    background-color: #901923;
+    border-radius: 5%;
+    color: #fcfcfc;
 }
 
 .single-student__img {
@@ -52,6 +59,13 @@
     top: 12px;
     margin-left: 34px;
     transition: 0.3s;
+    cursor: pointer;
+    transition: 0.4s;
+    border-radius: 30%;
+}
+
+.single-student__img:hover {
+    background-color: var(--user-module-filter-icon-color);
 }
 
 .single-student__img__more-info {
