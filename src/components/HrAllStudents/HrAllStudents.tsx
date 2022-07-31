@@ -119,9 +119,7 @@ export const HrAllStudents = () => {
         <TopBar />
         <MenuAvailableTalk />
         <SearchFilterBar />
-        <ListStudentsForBooking
-          {...dummyListOfStudentsForBooking}
-        ></ListStudentsForBooking>
+        <ListStudentsForBooking {...dummyListOfStudentsForBooking} />
         <p>PaginationBar</p>
       </div>
     </>
