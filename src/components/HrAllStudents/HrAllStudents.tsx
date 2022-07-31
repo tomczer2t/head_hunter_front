@@ -16,14 +16,14 @@ export interface Dummy {
   expectedContractType: string;
   expectedSalary: number;
   canTakeApprenticeship: boolean;
-  monthsOfCommercialExp: number;
+  monthsOfCommercialExp: string;
 }
 
 export const HrAllStudents = () => {
   const dummyListOfStudentsForBooking: Dummy[] = [
     {
       fullName: 'Jan Kowalski',
-      courseDegree: 5,
+      courseDegree: 1,
       courseEngagement: 3,
       projectDegree: 4,
       teamProjectDegree: 5,
@@ -32,11 +32,11 @@ export const HrAllStudents = () => {
       expectedContractType: 'Umowa o pracę',
       expectedSalary: 8000,
       canTakeApprenticeship: true,
-      monthsOfCommercialExp: 6,
+      monthsOfCommercialExp: '6 miesięcy',
     },
     {
       fullName: 'Krzysztof Pawłowski',
-      courseDegree: 5,
+      courseDegree: 2,
       courseEngagement: 3,
       projectDegree: 4,
       teamProjectDegree: 5,
@@ -45,11 +45,11 @@ export const HrAllStudents = () => {
       expectedContractType: 'Umowa o pracę',
       expectedSalary: 8000,
       canTakeApprenticeship: true,
-      monthsOfCommercialExp: 6,
+      monthsOfCommercialExp: '6 miesięcy',
     },
     {
       fullName: 'Mariusz Lewandowski',
-      courseDegree: 5,
+      courseDegree: 3,
       courseEngagement: 3,
       projectDegree: 4,
       teamProjectDegree: 5,
@@ -58,11 +58,11 @@ export const HrAllStudents = () => {
       expectedContractType: 'Umowa o pracę',
       expectedSalary: 8000,
       canTakeApprenticeship: true,
-      monthsOfCommercialExp: 6,
+      monthsOfCommercialExp: '6 miesięcy',
     },
     {
       fullName: 'Tomasz Czerwiński',
-      courseDegree: 5,
+      courseDegree: 4,
       courseEngagement: 3,
       projectDegree: 4,
       teamProjectDegree: 5,
@@ -71,12 +71,12 @@ export const HrAllStudents = () => {
       expectedContractType: 'Umowa o pracę',
       expectedSalary: 8000,
       canTakeApprenticeship: true,
-      monthsOfCommercialExp: 6,
+      monthsOfCommercialExp: '6 miesięcy',
     },
     {
       fullName: 'Marcin Łącała',
       courseDegree: 5,
-      courseEngagement: 3,
+      courseEngagement: 1,
       projectDegree: 4,
       teamProjectDegree: 5,
       expectedTypeWork: 'Biuro',
@@ -84,12 +84,12 @@ export const HrAllStudents = () => {
       expectedContractType: 'Umowa o pracę',
       expectedSalary: 8000,
       canTakeApprenticeship: true,
-      monthsOfCommercialExp: 6,
+      monthsOfCommercialExp: '6 miesięcy',
     },
     {
       fullName: 'Jan Błaszczyk',
       courseDegree: 5,
-      courseEngagement: 3,
+      courseEngagement: 2,
       projectDegree: 4,
       teamProjectDegree: 5,
       expectedTypeWork: 'Biuro',
@@ -97,7 +97,7 @@ export const HrAllStudents = () => {
       expectedContractType: 'Umowa o pracę',
       expectedSalary: 8000,
       canTakeApprenticeship: true,
-      monthsOfCommercialExp: 6,
+      monthsOfCommercialExp: '6 miesięcy',
     },
     {
       fullName: 'Adrian Majcher',
@@ -110,7 +110,7 @@ export const HrAllStudents = () => {
       expectedContractType: 'Umowa o pracę',
       expectedSalary: 8000,
       canTakeApprenticeship: true,
-      monthsOfCommercialExp: 6,
+      monthsOfCommercialExp: '6 miesięcy',
     },
   ];
   return (

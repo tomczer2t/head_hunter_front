@@ -1,6 +1,6 @@
 import React from 'react';
-import './SingleStudentDetails.css';
 import { Dummy } from '../../../HrAllStudents/HrAllStudents';
+import './SingleStudentDetails.css';
 
 interface DummyIsActive extends Dummy {
   isActive: boolean;
@@ -45,10 +45,22 @@ export const SingleStudentDetails = (props: DummyIsActive) => {
         </thead>
         <tbody>
           <tr>
-            <td>{courseDegree} /5</td>
-            <td>{courseEngagement} /5</td>
-            <td>{projectDegree} /5</td>
-            <td>{teamProjectDegree} /5</td>
+            <td>
+              {courseDegree}
+              <span className="single-student-details__number"> /5</span>
+            </td>
+            <td>
+              {courseEngagement}
+              <span className="single-student-details__number"> /5</span>
+            </td>
+            <td>
+              {projectDegree}
+              <span className="single-student-details__number"> /5</span>
+            </td>
+            <td>
+              {teamProjectDegree}
+              <span className="single-student-details__number"> /5</span>
+            </td>
             <td>{expectedTypeWork}</td>
             <td>{targetWorkCity}</td>
             <td>{expectedContractType}</td>
