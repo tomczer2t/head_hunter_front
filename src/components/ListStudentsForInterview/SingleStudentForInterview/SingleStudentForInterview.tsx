@@ -3,6 +3,7 @@ import './SingleStudentForInterview.css';
 import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from '../../ListStudentsForBooking/SingleStudent/SingleStudentDetails/SingleStudentDetails';
 import { DummyAndReservationDate } from '../../HrInterviewStudents/HrInterviewStudents';
+import defaultAvatar from '../../../assets/images/default_avatar.jpg';
 
 export const SingleStudentForInterview = (props: DummyAndReservationDate) => {
   const [isActive, setActive] = useState(false);
@@ -12,14 +13,21 @@ export const SingleStudentForInterview = (props: DummyAndReservationDate) => {
   return (
     <>
       <li className="single-student-interview">
-        <div className="single-student-interview__reservation-date">
-          <div>Rezerwacja do</div>
-          <div>{props.reservationDate}</div>
+        <div className="single-student-interview__reservation_name_wrapper">
+          <div className="single-student-interview__reservation-date">
+            <div>Rezerwacja do</div>
+            <div>{props.reservationDate}</div>
+          </div>
+          <img src={defaultAvatar} alt="Zdjęcie kursanta" />
+          <div className="single-student-interview__name">{props.fullName}</div>
         </div>
-        <div className="single-student-interview__name">{props.fullName}</div>
         <div className="single-student-interview__small-wrapper">
-          <button className="single-student-interview__btn">
-            Zarezerwuj rozmowę
+          <button className="single-student-interview__btni">Pokaż CV</button>
+          <button className="single-student-interview__btni">
+            Brak zainteresowania
+          </button>
+          <button className="single-student-interview__btni">
+            Zatrudniony
           </button>
           <img
             onClick={hadleClickMoreInfo}

@@ -24,7 +24,7 @@ export const SearchFilterBar = () => {
           />
         </form>
       </div>
-      <div>Filter</div>
+      <div style={{ color: 'cadetblue' }}>Filter</div>
     </div>
   );
 };

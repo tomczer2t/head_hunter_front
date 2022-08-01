@@ -65,7 +65,7 @@ export const SingleStudentDetails = (props: DummyIsActive) => {
             <td>{targetWorkCity}</td>
             <td>{expectedContractType}</td>
             <td>{expectedSalary}</td>
-            <td>{canTakeApprenticeship}</td>
+            <td>{canTakeApprenticeship ? 'Tak' : 'Nie'}</td>
             <td>{monthsOfCommercialExp}</td>
           </tr>
         </tbody>
