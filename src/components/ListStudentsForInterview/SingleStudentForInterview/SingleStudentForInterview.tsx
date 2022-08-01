@@ -32,7 +32,7 @@ export const SingleStudentForInterview = (props: DummyAndReservationDate) => {
           <img
             onClick={hadleClickMoreInfo}
             src={upArrow}
-            alt="More student info"
+            alt="Pokaż więcej informacji o studencie"
             className={
               isActive
                 ? 'single-student-interview__img single-student-interview__img__more-info'
