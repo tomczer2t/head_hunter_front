@@ -44,3 +44,16 @@
 .search-filter-bar__bnt:hover {
     background-color: #363333;
 }
+
+.search-filter-bar__filter {
+    width: 111px;
+    height: 27px;
+    margin: 6px 10px;
+    font-size: 16px;
+    background-color: var(--user-module-filter-color);
+    color: var(--user-module-text-color);
+}
+
+.search-filter-bar__filter-ico {
+    width: 14px;
+}

@@ -96,6 +96,7 @@ width: 84px;
     cursor: pointer;
     transition: 0.4s;
     border-radius: 30%;
+    transform: rotate(180deg);
 }
 
 .single-student-interview__img:hover {
@@ -103,7 +104,7 @@ width: 84px;
 }
 
 .single-student-interview__img__more-info {
-    transform: rotate(180deg);
+    transform: rotate(0deg);
 }
 
 .single-student-interview__details {
