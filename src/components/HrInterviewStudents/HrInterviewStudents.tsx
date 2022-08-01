@@ -119,7 +119,7 @@ export const HrInterviewStudents = () => {
         <MenuAvailableTalk />
         <SearchFilterBar />
         <ListStudentsForInterview {...dummyListOfStudentsForBooking} />
-        <p>PaginationBar</p>
+        <p style={{ color: 'cadetblue' }}>PaginationBar</p>
       </div>
     </>
   );
