@@ -6,7 +6,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorLogin } from './ErrorLogin';
 import logo from '../../assets/images/logo-megak.webp';
 import { useAuth } from '../../hooks/useAuth';
-import { LoginResponse } from 'types';
+import {LoginResponse, UserRole} from 'types';
 
 export const LoginPanel = () => {
   const { setAuth } = useAuth();
@@ -34,13 +34,13 @@ export const LoginPanel = () => {
         ];
         let num;
         switch (role) {
-          case 'hr':
+          case UserRole.HR:
             num = 2;
             break;
-          case 'adamin':
+          case UserRole.ADMIN:
             num = 3;
             break;
-          case 'student':
+          case UserRole.STUDENT:
             num = 2;
             break;
           default:
