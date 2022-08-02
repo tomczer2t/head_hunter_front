@@ -1,16 +1,43 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TopBar } from '../TopBar/TopBar';
 import { MenuAvailableTalk } from '../MenuAvailableTalk/MenuAvailableTalk';
 import './HrInterviewStudents.css';
 import { SearchFilterBar } from '../SearchFilterBar/SearchFilterBar';
 import { ListStudentsForInterview } from '../ListStudentsForInterview/ListStudentsForInterview';
 import { Dummy } from '../HrAllStudents/HrAllStudents';
+import { axios } from '../../api/axios';
 
 export interface DummyAndReservationDate extends Dummy {
   reservationDate: string;
 }
 
 export const HrInterviewStudents = () => {
+  // const [allStudentsData, setAllStudentsData ] = useState()
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await axios.get('/hr/students', {params: {
+  //         numActualPage: 1,
+  //         numAllPages: 4,
+  //         numStudentsCountPerPage: 10,
+  //         searchPhrase: '',
+  //         filterCourseCompletion: 3,
+  //         filterCourseEngagment: 4,
+  //         filterProjectDegree: 5,
+  //         filterTeamProjectDegree: 1,
+  //         filterExpectedTypeWork: 'Praca Zdalna',
+  //         filterTargetWorkCity: 'Warszawa, Gdańsk, Bździn',
+  //         filterExpectedContractType: "BoB, Umowa zlecenie, Umowa o dzieło",
+  //         filterExpectedSalary: 100,
+  //         filterCanTakeApprenticeship: true,
+  //         filterMonthsOfCommercialExp: 0,
+  //         sortedBy: "filterExpectedSalary",
+  //       }});
+  //     setAllStudentsData(result.data)
+  //   }
+  //   fetchData();
+  // },[])
+
+
   const dummyListOfStudentsForBooking: DummyAndReservationDate[] = [
     {
       fullName: 'Jan Kowalski',
