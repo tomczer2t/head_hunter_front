@@ -6,7 +6,7 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorLogin } from './ErrorLogin';
 import logo from '../../assets/images/logo-megak.webp';
 import { useAuth } from '../../hooks/useAuth';
-import { LoginResponse } from 'types';
+import { LoginResponse, UserRole } from 'types';
 
 export const LoginPanel = () => {
   const { setAuth } = useAuth();
@@ -15,45 +15,31 @@ export const LoginPanel = () => {
   const navigate = useNavigate();
   const [statusErrorCode, setStatusErrorCode] = useState(200);
 
-  const sendAction = (e: React.FormEvent) => {
+  const sendAction = async (e: React.FormEvent) => {
     e.preventDefault();
-    axios
-      .post('/auth/login', {
+    try {
+      const response = (await axios.post('/auth/login', {
         email,
         password,
-      })
-      .then((response: AxiosResponse<LoginResponse>) => {
-        setAuth(response.data);
-        const { firstName, lastName, role, githubUsername, accessToken } =
-          response.data;
-        const redirectionPath = [
-          '/login',
-          '/user/cv',
-          '/hr/all-students',
-          '/admin/admin-panel',
-        ];
-        let num;
-        switch (role) {
-          case 'hr':
-            num = 2;
-            break;
-          case 'adamin':
-            num = 3;
-            break;
-          case 'student':
-            num = 2;
-            break;
-          default:
-            num = 0;
-        }
-        navigate(redirectionPath[num], {
-          replace: true,
-          state: { firstName, lastName, role, githubUsername, accessToken },
-        });
-      })
-      .catch(function (error: AxiosError) {
-        setStatusErrorCode(error.response?.status ?? 200);
+      })) as AxiosResponse<LoginResponse>;
+      setAuth(response.data);
+      const { firstName, lastName, role, githubUsername, accessToken } =
+        response.data;
+      const redirectionPath = {
+        [UserRole.STUDENT]: '/user/cv',
+        [UserRole.HR]: '/hr/all-students',
+        [UserRole.ADMIN]: '/admin/admin-panel',
+      };
+
+      navigate(redirectionPath[role], {
+        replace: true,
+        state: { firstName, lastName, role, githubUsername, accessToken },
       });
+    }  catch (error) {
+      const err = error as AxiosError
+      setStatusErrorCode(err.response?.status ?? 400);
+    }
+
     // @Todo co ma się stać po rejestracji
     // @Todo obsługa błędów
   };
