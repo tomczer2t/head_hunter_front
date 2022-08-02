@@ -1,0 +1,37 @@
+.studentProfile {
+    background-color: var(--user-module-background-color);
+    min-height: 110vh;
+}
+.content {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid red;
+    text-align: center;
+}
+.content label {
+    text-align: left;
+    display: block;
+    background-color: #0B8BD4;
+}
+.content h2 {
+    font-size: 20px;
+    color: #f1356d;
+    margin-bottom: 30px;
+}
+.content input, .content textarea, .content select{
+    width: 100%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    display: block;
+}
+.content button {
+    background: #f1356d;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}

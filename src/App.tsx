@@ -25,14 +25,16 @@ function App() {
             element={<RegisterView />}
           />
           <Route path="send-email" element={<EmailPasswordRecoveryView />} />
+          <Route path="cv" element={<CvView />} />
           <Route
             path="register/:id/:verificationToken"
             element={<LoginView />}
           />
           {/*user auth require*/}
-          <Route path="user" element={<RequireAuthUser />}>
-            <Route path="cv" element={<CvView />} />
-            <Route path="profile" element={<ProfileView />} />
+          <Route path="profile" element={<ProfileView />} />
+          <Route path="/user" element={<RequireAuthUser />}>
+
+
           </Route>
           {/*HR auth require*/}
           <Route path="hr" element={<RequireAuthHr />}>

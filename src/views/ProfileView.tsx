@@ -1,8 +1,17 @@
 import React from 'react';
+import {StudentProfile} from "../components/StudentProfile/StudentProfile";
+import {TopBar} from "../components/TopBar/TopBar";
+import '../components/StudentProfile/StudentProfile.css'
+
 export const ProfileView = () => {
   return (
     <>
-      <h1>Profile view</h1>
+        <div className="studentProfile">
+            <TopBar/>
+            <StudentProfile/>
+        </div>
+
+
     </>
   );
 };
