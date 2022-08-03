@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './FormForAddingCsv.css';
 import { MessageResponse } from '../common/MessageResponse/MessageResponse';
 import { AddStudentsResponse } from 'types';
@@ -17,7 +17,7 @@ export const FormForAddingCsv = () => {
           '/admin/import-students',
           selectedFile,
         );
-        console.log(res);
+        console.log(res.data);
       } else {
         console.log('nie wybrałeś pliku');
       }
