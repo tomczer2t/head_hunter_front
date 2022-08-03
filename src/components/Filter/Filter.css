@@ -114,6 +114,7 @@
     height: 18px;
     width: 18px;
     border-radius: 50%;
+    box-shadow: 0px 0px 15px var(--filter-module-apprenticeship-agreement-border-color);
 }
 
 .filter-popup input[type=radio] ~ label:last-child {
@@ -124,4 +125,28 @@
     bottom: 4px;
 }
 
+.filter-popup__end {
+    margin-top: 8px;
+    display: flex;
+    justify-content: flex-end;
+}
 
+.filter-popup--cancel-btn {
+    color: var(--filter-module-text-color);
+    background-color: transparent;
+    height: 39px;
+    width: 62px;
+    padding: 6px 10px;
+    margin-right: 20px;
+    font-size: 16px;
+    font-family: "Catamaran",sans-serif;
+}
+
+.filter-popup--submit-btn {
+    background-color: var(--filter-module-show-results-button-color);
+    color: var(--filter-module-text-color);
+    font-size: 16px;
+    padding: 6px 10px;
+    font-family: "Catamaran",sans-serif;
+    margin-right: 19px;
+}

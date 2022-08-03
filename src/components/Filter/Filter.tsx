@@ -159,9 +159,9 @@ export const Filter = () => {
             placeholder="0 miesięcy"
           />
         </section>
-        <section>
-          <button>Anuluj</button>
-          <button>Pokaż wyniki</button>
+        <section className="filter-popup__end">
+          <button className="filter-popup--cancel-btn">Anuluj</button>
+          <button className="filter-popup--submit-btn">Pokaż wyniki</button>
         </section>
       </div>
     </>
