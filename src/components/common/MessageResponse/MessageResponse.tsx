@@ -2,6 +2,21 @@ import React, { Dispatch, useEffect } from 'react';
 import { AddStudentsResponse } from 'types';
 import './MessageResponse.css';
 
+// {
+//   "failedFor": [],
+//   "updatedFor": [
+//   "example@zaqw.pl",
+//   "jakj2st@o2.pl",
+//   "coZt@gmail.com",
+//   "trzeci@gmail.com",
+//   "jakisziom@gmail.com"
+// ],
+//   "failedCount": 0,
+//   "message": "Successfully imported and registered 5 students out of a possible 5.",
+//   "successfullyUpdated": 5,
+//   "successfullyAdded": 0
+// }
+
 interface Props {
   message: string;
   data?: AddStudentsResponse | null;
