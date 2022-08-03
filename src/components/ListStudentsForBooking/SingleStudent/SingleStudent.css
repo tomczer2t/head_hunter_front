@@ -60,7 +60,7 @@
     margin-left: 34px;
     transition: 0.3s;
     cursor: pointer;
-    transition: 0.4s;
+    transform: rotate(180deg);
     border-radius: 30%;
     transform: rotate(180deg);
 }
@@ -82,7 +82,6 @@
     transition-property: color, font-size, transform, color;
     transition-timing-function: ease-in-out;
     transition-duration: 0.1s;
-    /*transition-delay: 0.2s;*/
 }
 
 .single-student__details--active {
