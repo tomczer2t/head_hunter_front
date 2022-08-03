@@ -1,0 +1,127 @@
+.filter-popup__wrapper {
+    width: 520px;
+    height: 806px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--filter-module-background-color);
+    color: var(--filter-module-text-color);
+    font-family: 'Catamaran', sans-serif;
+}
+
+.filter-popup-btn-star {
+    width: 42px;
+    height: 28px;
+    background-color: var(--filter-module-tiles-selected-color);
+    color: var(--filter-module-text-color);
+    font-size: 12px;
+    margin-right: 8px;
+    border-radius: 5%;
+    cursor: pointer;
+}
+
+.filter-popup__wrapper img.star {
+    width: 12px;
+    margin-left: 1px;
+}
+
+.filter-popup__s1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.filter-popup__title {
+    font-size: 22px;
+    height: 36px;
+    margin: 21px 18px 0 18px;
+}
+
+.filter-popup--clear-all-btn {
+    background-color: var(--filter-module-clear-button-color);
+    color: var(--filter-module-text-color);
+    font-family: 'Catamaran', sans-serif;
+    height: 31px;
+    width: 130px;
+    padding: 4px 5px 25px 5px;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    font-weight: 300;
+    margin-right: 22px;
+    cursor: pointer;
+}
+
+.filter-popup {
+    margin-left: 18px;
+}
+
+.filter-popup h3 {
+    font-size: 14px;
+    color: var(--filter-module-text-color);
+    font-weight: 400;
+}
+
+.filter-popup--btn {
+    background-color: var(--filter-module-tiles-color);
+    color: var(--filter-module-text-color);
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 400;
+    margin-right: 8px;
+    line-height: 19px;
+    font-family: "Catamaran", sans-serif;
+    cursor: pointer;
+}
+
+.filter-popup label {
+    font-size: 12px;
+    margin-right: 8px;
+    vertical-align: center;
+}
+
+.filter-popup input[type=number] {
+    font-size: 11px;
+    line-height: 19px;
+    padding: 5px 10px;
+    height: 28px;
+    width: 95px;
+    background-color: var(--filter-module-commercial-experience-menu-color);
+    color: var(--filter-module-commercial-experience-text-color);
+    border: none;
+    margin-right: 13px;
+}
+
+.filter-popup input[type=radio] {
+    display: none;
+
+}
+
+.filter-popup input[type=radio] + label {
+    display: inline-block;
+    background-color: var(--filter-module-background-color);
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--filter-module-apprenticeship-agreement-border-color);
+    margin: 1px;
+}
+
+.filter-popup input[type=radio]:checked + label {
+    display: inline-block;
+    background-color: var(--filter-module-commercial-experience-icon-color);
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+}
+
+.filter-popup input[type=radio] ~ label:last-child {
+    font-size: 14px;
+    margin-left: 3px;
+    line-height: 18px;
+    position: relative;
+    bottom: 4px;
+}
+
+

@@ -12,32 +12,41 @@ export interface DummyAndReservationDate extends Dummy {
 }
 
 export const HrInterviewStudents = () => {
-  // const [allStudentsData, setAllStudentsData ] = useState()
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await axios.get('/hr/students', {params: {
-  //         numActualPage: 1,
-  //         numAllPages: 4,
-  //         numStudentsCountPerPage: 10,
-  //         searchPhrase: '',
-  //         filterCourseCompletion: 3,
-  //         filterCourseEngagment: 4,
-  //         filterProjectDegree: 5,
-  //         filterTeamProjectDegree: 1,
-  //         filterExpectedTypeWork: 'Praca Zdalna',
-  //         filterTargetWorkCity: 'Warszawa, Gdańsk, Bździn',
-  //         filterExpectedContractType: "BoB, Umowa zlecenie, Umowa o dzieło",
-  //         filterExpectedSalary: 100,
-  //         filterCanTakeApprenticeship: true,
-  //         filterMonthsOfCommercialExp: 0,
-  //         sortedBy: "filterExpectedSalary",
-  //       }});
-  //     setAllStudentsData(result.data)
-  //   }
-  //   fetchData();
-  // },[])
-
-
+  const [isError, setIsError] = useState(false); // @Todo co ma się stać jak jest błąd
+  const [allStudentsData, setAllStudentsData] = useState<
+    DummyAndReservationDate[]
+  >([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get<DummyAndReservationDate[]>(
+          '/hr/students',
+          {
+            params: {
+              numActualPage: 1,
+              numStudentsCountPerPage: 10,
+              search: '',
+              filterCourseCompletion: 3,
+              filterCourseEngagment: 4,
+              filterProjectDegree: 5,
+              filterTeamProjectDegree: 1,
+              filterExpectedTypeWork: 'Praca Zdalna',
+              filterTargetWorkCity: 'Warszawa, Gdańsk, Bździn',
+              filterExpectedContractType: 'BoB, Umowa zlecenie, Umowa o dzieło',
+              filterExpectedSalary: 100,
+              filterCanTakeApprenticeship: true,
+              filterMonthsOfCommercialExp: 0,
+            },
+          },
+        );
+        setAllStudentsData(result.data);
+      } catch (e) {
+        setIsError(true);
+      }
+    };
+    void fetchData();
+  }, []);
+  // @Todo podpiąć odpowiedź z BE do FE oraz pozmieniać typy
   const dummyListOfStudentsForBooking: DummyAndReservationDate[] = [
     {
       fullName: 'Jan Kowalski',

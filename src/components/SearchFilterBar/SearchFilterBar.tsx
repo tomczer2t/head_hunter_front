@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './SearchFilterBar.css';
 import magnifier from '../../assets/images/magnifier.svg';
 import filter from '../../assets/images/filter.svg';
+import { Filter } from '../Filter/Filter';
 
 export const SearchFilterBar = () => {
   const [search, setSearch] = useState('');
@@ -33,6 +34,7 @@ export const SearchFilterBar = () => {
         />
         Filter
       </button>
+      <Filter />
     </div>
   );
 };
