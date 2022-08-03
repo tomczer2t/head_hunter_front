@@ -37,7 +37,7 @@ function App() {
           </Route>
           {/*HR auth require*/}
           <Route path="hr" element={<RequireAuthHr />}>
-            <Route path="all-students" element={<AllStudentsView />} />
+            <Route path="students" element={<AllStudentsView />} />
             <Route
               path="interview-students"
               element={<StudentsInterviewListViews />}
@@ -45,7 +45,7 @@ function App() {
           </Route>
           {/*Admin auth require*/}
           <Route path="admin" element={<RequireAuthAdmin />}>
-            <Route path="admin-panel" element={<AdminPanelViews />} />
+            <Route path="panel" element={<AdminPanelViews />} />
           </Route>
         </Route>
       </Routes>
