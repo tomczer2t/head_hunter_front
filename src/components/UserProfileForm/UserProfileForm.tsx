@@ -140,7 +140,8 @@ export const UserProfileForm = () => {
             <option value={ExpectedWorkType.READY_TO_MOVE}>
               Gotowość do przeprowadzki
             </option>
-            <option value={ExpectedWorkType.HYBRID}>Hybrydowo</option>
+            {/* W expectedWorkType brakuje opcji Hybrid */}
+            <option value={ExpectedWorkType.ON_SITE}>Hybrydowo</option>
           </select>
         </label>
 
