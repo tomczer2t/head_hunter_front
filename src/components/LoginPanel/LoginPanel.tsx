@@ -18,25 +18,30 @@ export const LoginPanel = () => {
   const sendAction = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = (await axios.post('/auth/login', {
-        email,
-        password,
-      })) as AxiosResponse<LoginResponse>;
+      const response: AxiosResponse<LoginResponse> = await axios.post(
+        '/auth/login',
+        {
+          email,
+          password,
+        },
+      );
+      console.log(response.data);
       setAuth(response.data);
       const { firstName, lastName, role, githubUsername, accessToken } =
         response.data;
       const redirectionPath = {
         [UserRole.STUDENT]: '/user/cv',
-        [UserRole.HR]: '/hr/all-students',
-        [UserRole.ADMIN]: '/admin/admin-panel',
+        [UserRole.HR]: '/hr/students',
+        [UserRole.ADMIN]: '/admin/panel',
       };
 
       navigate(redirectionPath[role], {
         replace: true,
         state: { firstName, lastName, role, githubUsername, accessToken },
       });
-    }  catch (error) {
-      const err = error as AxiosError
+    } catch (error) {
+      console.log(error);
+      const err = error as AxiosError;
       setStatusErrorCode(err.response?.status ?? 400);
     }
 
@@ -48,7 +53,7 @@ export const LoginPanel = () => {
     <>
       <div className="login-panel">
         <img className="logo" src={logo} alt="" />
-        <form onSubmit={sendAction}>
+        <form onSubmit={(e) => void sendAction(e)}>
           <div className="container">
             <input
               type="email"
