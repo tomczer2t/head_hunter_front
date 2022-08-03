@@ -34,7 +34,7 @@ export const SearchFilterBar = () => {
         />
         Filter
       </button>
-      <Filter />
+      {/*<Filter /> // @ToDo to jest filtrowanie popup*/}
     </div>
   );
 };
