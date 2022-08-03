@@ -7,12 +7,14 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border-radius: 20px;
-    width: 30vw;
-    height: 30vh;
+    min-width: 40vw;
+    height: 60vh;
     filter: none;
     background-color: white;
     z-index: 10;
+    border: 3px solid black;
+    color: black;
+    overflow-x: hidden;
 }
 
 .message-response__blur{
@@ -34,12 +36,6 @@
     line-height: 0;
 }
 
-.message-response--correct {
-    background-color: lightgreen;
-}
-.message-response--incorrect{
-    background-color: lightcoral;
-}
 .message-response__close-message{
     background-color: lightblue;
     outline: none;
@@ -49,4 +45,8 @@
 }
 .message-response__close-message:hover{
     background-color: #50a4c0;
+}
+.message-response__message > p{
+    display: block;
+    height: 20px;
 }

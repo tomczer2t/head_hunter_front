@@ -37,7 +37,6 @@ export const HrInterviewStudents = () => {
   //   fetchData();
   // },[])
 
-
   const dummyListOfStudentsForBooking: DummyAndReservationDate[] = [
     {
       fullName: 'Jan Kowalski',

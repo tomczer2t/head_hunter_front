@@ -1,16 +1,29 @@
 import React, { useEffect } from 'react';
 import './Header.css';
-import { axiosPrivate } from '../../../api/axios';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../hooks/useAuth';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
 
 interface Props {
   section: string;
 }
 
 export const Header = (props: Props) => {
-  useEffect(() => {}, []);
+  const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
   const logoutHandler = async () => {
-    await axiosPrivate.get('auth/logout');
+    try {
+      const res = await axiosPrivate('/auth/logout');
+      setAuth(null);
+      console.log('elo');
+      console.log(res);
+      navigate('/login');
+    } catch (err) {
+      console.log('error?');
+      console.log(err);
+    }
   };
 
   return (
