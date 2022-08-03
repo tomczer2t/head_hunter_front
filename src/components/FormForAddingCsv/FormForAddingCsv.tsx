@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import './FormForAddingCsv.css';
 import { MessageResponse } from '../common/MessageResponse/MessageResponse';
 import { AddStudentsResponse } from 'types';
-import { axios } from '../../api/axios';
 import { AxiosResponse } from 'axios';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { axios } from '../../api/axios';
 
 export const FormForAddingCsv = () => {
+  // const axiosPrivate = useAxiosPrivate();
   const [selectedFile, setSelectedFile] = useState<FormData | null>(null);
   const [showMessageResponse, setShowMessageResponse] = useState(false);
+  const [resData, setResData] = useState<AddStudentsResponse | null>(null);
 
   const sendForm = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
@@ -18,6 +21,8 @@ export const FormForAddingCsv = () => {
           selectedFile,
         );
         console.log(res.data);
+        setResData(res.data);
+        setShowMessageResponse(() => true);
       } else {
         console.log('nie wybrałeś pliku');
       }
@@ -41,10 +46,8 @@ export const FormForAddingCsv = () => {
   return (
     <div className="form-adding-csv">
       <MessageResponse
+        data={resData}
         showMessageResponse={showMessageResponse}
-        status={'Testowy'}
-        message={'Opis błedu'}
-        correct={false}
         closeMessage={setShowMessageResponse}
       />
       <form
