@@ -18,7 +18,7 @@
 }
 
 .UserCv__interview-student-link::before {
-  content: url("/src/assets/back-arrow.svg");
+  content: url("/src/assets/images/back-arrow.svg");
   height: 1.875rem;
   right: 100%;
   position: absolute;

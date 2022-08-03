@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import './FormForAddingHr.css';
 import { FormInput } from '../common/FormInput/FormInput';
 import { useHrFormDataForAdminValidation } from '../../hooks/validationForm/useHrFormDataForAdminValidation';
-import { axiosPrivate } from '../../api/axios';
 import { MessageResponse } from '../common/MessageResponse/MessageResponse';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 
 export interface HrFormDataForAdmin {
   email: string;
   firstName: string;
-  secondName: string;
+  lastName: string;
   company: string;
   maxReservedStudents: number;
 }
@@ -17,12 +17,14 @@ export const FormForAddingHr = () => {
   const [hrFormData, setHrFormData] = useState<HrFormDataForAdmin>({
     email: '',
     firstName: '',
-    secondName: '',
+    lastName: '',
     company: '',
     maxReservedStudents: 0,
   });
   const [emailExist, setEmailExist] = useState<boolean>(false);
   const [showMessageResponse, setShowMessageResponse] = useState<boolean>(true);
+
+  const axiosPrivate = useAxiosPrivate();
 
   const { correct, message } = useHrFormDataForAdminValidation({
     hrFormData,
@@ -34,12 +36,11 @@ export const FormForAddingHr = () => {
   const sendForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const res = await axiosPrivate.post('/admin/for-hr', hrFormData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-    } catch (err) {}
+      console.log(hrFormData);
+      const res = await axiosPrivate.post('/admin/hr', hrFormData);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const changedHandle = (
@@ -86,13 +87,13 @@ export const FormForAddingHr = () => {
           message={message.firstName}
         />
         <FormInput
-          name={'secondName'}
-          value={hrFormData.secondName}
+          name={'lastName'}
+          value={hrFormData.lastName}
           type="text"
           setValue={changedHandle}
           placeholder="nazwisko"
-          correct={correct.secondName}
-          message={message.secondName}
+          correct={correct.lastName}
+          message={message.lastName}
         />
         <FormInput
           name={'company'}

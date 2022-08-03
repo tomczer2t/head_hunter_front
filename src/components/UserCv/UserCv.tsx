@@ -3,6 +3,7 @@ import { TopBar } from '../TopBar/TopBar';
 
 import './UserCv.css';
 import { Link } from 'react-router-dom';
+import { UserProfileForm } from '../UserProfileForm/UserProfileForm';
 
 export const UserCv = () => {
   return (
@@ -14,6 +15,7 @@ export const UserCv = () => {
       >
         wróć
       </Link>
+      <UserProfileForm />
     </div>
   );
 };

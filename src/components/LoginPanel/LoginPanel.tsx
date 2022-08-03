@@ -29,13 +29,13 @@ export const LoginPanel = () => {
       setAuth(response.data);
       const { firstName, lastName, role, githubUsername, accessToken } =
         response.data;
-      const redirectionPath = {
-        [UserRole.STUDENT]: '/user/cv',
-        [UserRole.HR]: '/hr/students',
-        [UserRole.ADMIN]: '/admin/panel',
-      };
+      // const redirectionPath = {
+      //   [UserRole.STUDENT]: '/user/cv',
+      //   [UserRole.HR]: '/hr/students',
+      //   [UserRole.ADMIN]: '/admin/panel',
+      // };
 
-      navigate(redirectionPath[role], {
+      navigate(`/${response.data.role}`, {
         replace: true,
         state: { firstName, lastName, role, githubUsername, accessToken },
       });
