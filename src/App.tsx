@@ -30,13 +30,13 @@ function App() {
             element={<LoginView />}
           />
           {/*user auth require*/}
-          <Route path="user" element={<RequireAuthUser />}>
-            <Route path="cv" element={<CvView />} />
+          <Route path="student" element={<RequireAuthUser />}>
+            <Route index element={<CvView />} />
             <Route path="profile" element={<ProfileView />} />
           </Route>
           {/*HR auth require*/}
           <Route path="hr" element={<RequireAuthHr />}>
-            <Route path="students" element={<AllStudentsView />} />
+            <Route index element={<AllStudentsView />} />
             <Route
               path="interview-students"
               element={<StudentsInterviewListViews />}
@@ -44,7 +44,7 @@ function App() {
           </Route>
           {/*Admin auth require*/}
           <Route path="admin" element={<RequireAuthAdmin />}>
-            <Route path="panel" element={<AdminPanelViews />} />
+            <Route index element={<AdminPanelViews />} />
           </Route>
         </Route>
       </Routes>

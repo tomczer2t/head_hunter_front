@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './LoginPanel.css';
 import { useNavigate, Link } from 'react-router-dom';
-import { axiosPlain } from '../../api/axiosPlain';
+import { axios } from '../../api/axios';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorLogin } from './ErrorLogin';
 import logo from '../../assets/images/logo-megak.webp';
@@ -15,27 +15,26 @@ export const LoginPanel = () => {
   const navigate = useNavigate();
   const [statusErrorCode, setStatusErrorCode] = useState(200);
 
-  const sendAction = async (e: React.FormEvent<HTMLFormElement>) => {
+  const sendAction = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response: AxiosResponse<LoginResponse> = await axiosPlain.post(
+      const response: AxiosResponse<LoginResponse> = await axios.post(
         '/auth/login',
         {
           email,
           password,
         },
       );
-      console.log(response.data);
       setAuth(response.data);
-      const { firstName, lastName, role, githubUsername, accessToken } =
-        response.data;
-      const redirectionPath = {
-        [UserRole.STUDENT]: '/user/cv',
-        [UserRole.HR]: '/hr/students',
-        [UserRole.ADMIN]: '/admin/panel',
-      };
 
-      navigate(redirectionPath[role]);
+      // const redirectionPath = {
+      //   [UserRole.STUDENT]: '/user/cv',
+      //   [UserRole.HR]: '/hr/students',
+      //   [UserRole.ADMIN]: '/admin/panel',
+      // };
+
+      navigate(`/${response.data.role}`)
+
     } catch (error) {
       console.log(error);
       const err = error as AxiosError;
