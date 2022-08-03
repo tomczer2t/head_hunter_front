@@ -53,6 +53,7 @@ module.exports = {
     "@typescript-eslint/no-unsafe-return": "off",
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/no-unsafe-argument":"off",
+    "@typescript-eslint/no-misused-promises":"off",
     "import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
   }
 };

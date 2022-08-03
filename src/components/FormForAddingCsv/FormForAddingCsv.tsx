@@ -1,35 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import './FormForAddingCsv.css';
 import { MessageResponse } from '../common/MessageResponse/MessageResponse';
-import axiosDefault, { AxiosResponse } from 'axios';
 import { AddStudentsResponse } from 'types';
+import { axios } from '../../api/axios';
+import { AxiosResponse } from 'axios';
 
 export const FormForAddingCsv = () => {
-  // const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState<FormData | null>(null);
   const [showMessageResponse, setShowMessageResponse] = useState(false);
 
-  const [selectedFile, setSelectedFile] = useState<FormData>({} as FormData);
-
-  const sendForm = async () => {
-    if (selectedFile) {
-      const res: AxiosResponse<AddStudentsResponse> = await axiosDefault.post(
-        '/admin/import-students',
-        {
-          students: selectedFile,
-        },
-      );
-      console.log(res);
-    } else {
-      console.log('nie wybrałeś pliku');
+  const sendForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      if (selectedFile) {
+        const res: AxiosResponse<AddStudentsResponse> = await axios.post(
+          '/admin/import-students',
+          selectedFile,
+        );
+        console.log(res);
+      } else {
+        console.log('nie wybrałeś pliku');
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files[0]) return setSelectedFile(null);
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target?.files?.[0]) return setSelectedFile(null);
     const formData = new FormData();
-    // console.log(e.target.files[0]);
-    // console.log(e.target.files[0].name);
-    formData.append('file', e.target.files[0], e.target.files[0].name);
+    formData.append(
+      'students',
+      event.target.files[0],
+      event.target.files[0].name,
+    );
 
     setSelectedFile(formData);
   };
@@ -43,7 +47,10 @@ export const FormForAddingCsv = () => {
         correct={false}
         closeMessage={setShowMessageResponse}
       />
-      <form onSubmit={void sendForm} className="form-adding-csv__form">
+      <form
+        onSubmit={(e) => void sendForm(e)}
+        className="form-adding-csv__form"
+      >
         <h3 className="form-adding-csv__form__title">
           Dodawanie CSV z Kursantami
         </h3>
