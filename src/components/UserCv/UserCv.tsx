@@ -5,6 +5,7 @@ import { UserDescription } from './UserDescription/UserDescription';
 import { UserTable } from './UserTable/UserTable';
 
 import './UserCv.css';
+import { UserProfileForm } from '../UserProfileForm/UserProfileForm';
 
 export const UserCv = () => {
   return (
@@ -20,6 +21,7 @@ export const UserCv = () => {
         <UserDescription />
         <UserTable />
       </main>
+      <UserProfileForm />
     </div>
   );
 };
