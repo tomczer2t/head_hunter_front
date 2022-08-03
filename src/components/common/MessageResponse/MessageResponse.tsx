@@ -1,4 +1,5 @@
 import React, { Dispatch, useEffect } from 'react';
+import { AddStudentsResponse } from 'types';
 import './MessageResponse.css';
 
 // {
@@ -17,29 +18,41 @@ import './MessageResponse.css';
 // }
 
 interface Props {
-  status?: string;
+  data?: AddStudentsResponse | null;
   showMessageResponse: boolean;
   closeMessage: Dispatch<React.SetStateAction<boolean>>;
-  correct: boolean;
-  message: string;
 }
 
 export const MessageResponse = (props: Props) => {
-  useEffect(() => {}, [props.correct]);
+  useEffect(() => {}, [props.data]);
 
   if (!props.showMessageResponse) return null;
 
+  const mailsFailed = [];
+  const mailsUpdate = [];
+
+  if (props.data) {
+    const failedForArray = props.data.failedFor.entries();
+    for (let i = 0; i < props.data.failedFor.length; i++) {
+      mailsFailed.push(<p>{`${props.data.failedFor[i].email}`}</p>);
+    }
+    for (let i = 0; i < props.data.updatedFor.length; i++) {
+      mailsUpdate.push(<p>{`${props.data.updatedFor[i]}`}</p>);
+    }
+  }
+
   return (
     <div className="message-response__blur">
-      <div
-        className={`message-response ${
-          props.correct
-            ? 'message-response--correct'
-            : 'message-response--incorrect'
-        }`}
-      >
-        <p className="message-response__status">{props.status}</p>
-        <p className="message-response__message">{props.message}</p>
+      <div className={`message-response`}>
+        <div className="message-response__message">
+          <h4>Dodano: {props.data?.successfullyAdded} maili</h4>
+          <h4>Niewłaściwe: {props.data?.failedCount} maili</h4>
+          {mailsFailed}
+        </div>
+        <div className="message-response__message">
+          <h4>Zaktualizowano: {props.data?.successfullyUpdated} maili</h4>
+          {mailsUpdate}
+        </div>
         <button
           className="message-response__close-message"
           onClick={() => {

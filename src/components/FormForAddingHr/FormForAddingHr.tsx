@@ -53,13 +53,13 @@ export const FormForAddingHr = () => {
 
   return (
     <div className="form-adding-hr">
-      <MessageResponse
-        showMessageResponse={showMessageResponse}
-        status={'Testowy'}
-        message={'Opis błedu'}
-        correct={false}
-        closeMessage={setShowMessageResponse}
-      />
+      {/*<MessageResponse*/}
+      {/*  showMessageResponse={showMessageResponse}*/}
+      {/*  status={'Testowy'}*/}
+      {/*  message={'Opis błedu'}*/}
+      {/*  correct={false}*/}
+      {/*  closeMessage={setShowMessageResponse}*/}
+      {/*/>*/}
       <form
         className="form-adding-hr__form"
         onSubmit={(event) => {
