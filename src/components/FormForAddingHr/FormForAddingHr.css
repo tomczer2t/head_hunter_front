@@ -17,6 +17,7 @@
     background-color: var(--user-module-top-bar-color);
 }
 .form-adding-hr__form>button{
+    height: 5vh;
     width: 80%;
     border: none;
     border-radius: 5px;
