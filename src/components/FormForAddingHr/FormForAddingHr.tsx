@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './FormForAddingHr.css';
 import { FormInput } from '../common/FormInput/FormInput';
 import { useHrFormDataForAdminValidation } from '../../hooks/validationForm/useHrFormDataForAdminValidation';
-import { axiosPlain, axiosPrivate } from '../../api/axiosPlain';
 import { MessageResponse } from '../common/MessageResponse/MessageResponse';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
-import { log } from 'util';
 
 export interface HrFormDataForAdmin {
   email: string;
@@ -17,7 +15,7 @@ export interface HrFormDataForAdmin {
 }
 
 export const FormForAddingHr = () => {
-  // const axiosPrivate = useAxiosPrivate();
+  const axiosPrivate = useAxiosPrivate();
   const [hrFormData, setHrFormData] = useState<HrFormDataForAdmin>({
     email: '',
     firstName: '',
@@ -29,30 +27,30 @@ export const FormForAddingHr = () => {
   const [showMessageResponse, setShowMessageResponse] =
     useState<boolean>(false);
   const [messageResponse, setMessageResponse] = useState('');
-  const [correctForm, setCorrectForm] = useState(false);
 
   const { correct, message } = useHrFormDataForAdminValidation({
     hrFormData,
     emailExist,
   });
-  const checkValidForm = () => {
-    setCorrectForm(true);
+
+  const validForm = () => {
+    let correctForm = true;
     for (const correctElement of Object.entries(correct)) {
       if (correctElement[1] !== true) {
-        setCorrectForm(false);
+        return (correctForm = false);
       }
     }
+    return correctForm;
   };
-
-  useEffect(() => {}, [showMessageResponse]);
   // @TODO set type response
 
   const sendForm = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      checkValidForm();
-      if (correctForm) {
-        const res: AxiosResponse<any> = await axiosPlain.post(
+      validForm();
+      console.log(validForm());
+      if (validForm()) {
+        const res: AxiosResponse<any> = await axiosPrivate.post(
           '/admin/hr',
           hrFormData,
         );
@@ -64,19 +62,19 @@ export const FormForAddingHr = () => {
       }
     } catch (err) {
       const error = err as AxiosError<{ error: string }> | Error;
-      if(axios.isAxiosError(error)){
+      if (axios.isAxiosError(error)) {
         if (error.response?.data.error === 'Conflict') {
           setMessageResponse(() => `Email już istnieje w bazie `);
         }
-        console
-      }else{
+      } else {
+        console.log(error);
         setMessageResponse(
           () => `Coś poszło nie tak na serwerze (sprawdź konsole)`,
         );
+      }
       setShowMessageResponse(() => true);
     }
   };
-
   const changedHandle = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -85,6 +83,8 @@ export const FormForAddingHr = () => {
       [e.target.name]: e.target.value,
     }));
   };
+
+  useEffect(() => {}, [hrFormData]);
 
   return (
     <div className="form-adding-hr">
