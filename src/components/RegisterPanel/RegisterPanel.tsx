@@ -5,7 +5,7 @@ import { useRegisterFormDataValidation } from '../../hooks/validationForm/useReg
 import { FormInput } from '../common/FormInput/FormInput';
 import logo from './../../assets/images/logo-megak.webp';
 import { MessageResponse } from '../common/MessageResponse/MessageResponse';
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { axiosPlain } from '../../api/axiosPlain';
 
 type Params = {
   id: string;
@@ -20,7 +20,6 @@ interface RegisterFormData {
 }
 
 export const RegisterPanel = () => {
-  const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
   const params = useParams<Params>();
   const [showMessageResponse, setShowMessageResponse] = useState(false);
@@ -50,7 +49,7 @@ export const RegisterPanel = () => {
     e.preventDefault();
     try {
       if (validForm()) {
-        const res = await axiosPrivate.post('/user', registerFormData);
+        const res = await axiosPlain.post('/user', registerFormData);
         console.log(res);
         navigate('/login');
       } else {
