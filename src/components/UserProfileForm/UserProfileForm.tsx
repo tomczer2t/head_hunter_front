@@ -115,8 +115,8 @@ export const UserProfileForm = () => {
 
         <input
           className="UserProfileForm__form-field"
-          name="projectUrls"
-          value={studentFormData.projectUrls}
+          name="portfolioUrls"
+          value={studentFormData.portfolioUrls}
           type="text"
           onChange={arrChange}
           placeholder="URL do portfolio na github"
