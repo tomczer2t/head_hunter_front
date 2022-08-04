@@ -119,7 +119,7 @@ export const UserProfileForm = () => {
           value={studentFormData.projectUrls}
           type="text"
           onChange={arrChange}
-          placeholder="URL do projektu na github"
+          placeholder="URL do portfolio na github"
         />
 
         <label className="UserProfileForm__field-label">
