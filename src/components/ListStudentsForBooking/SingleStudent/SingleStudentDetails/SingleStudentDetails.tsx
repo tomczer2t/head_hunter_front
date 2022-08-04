@@ -1,15 +1,16 @@
 import React from 'react';
-import { Dummy } from '../../../HrAllStudents/HrAllStudents';
+import { FilteredAvailableStudent } from 'types';
+
 import './SingleStudentDetails.css';
 
-interface DummyIsActive extends Dummy {
+interface DummyIsActive extends FilteredAvailableStudent {
   isActive: boolean;
 }
 
 export const SingleStudentDetails = (props: DummyIsActive) => {
   const {
-    courseDegree,
-    courseEngagement,
+    courseCompletion,
+    courseEngagment,
     projectDegree,
     teamProjectDegree,
     expectedTypeWork,
@@ -46,11 +47,11 @@ export const SingleStudentDetails = (props: DummyIsActive) => {
         <tbody>
           <tr>
             <td>
-              {courseDegree}
+              {courseCompletion}
               <span className="single-student-details__number"> /5</span>
             </td>
             <td>
-              {courseEngagement}
+              {courseEngagment}
               <span className="single-student-details__number"> /5</span>
             </td>
             <td>

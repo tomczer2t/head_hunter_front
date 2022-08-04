@@ -1,125 +1,63 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { TopBar } from '../TopBar/TopBar';
 import { MenuAvailableTalk } from '../MenuAvailableTalk/MenuAvailableTalk';
 import './HrAllStudents.css';
 import { SearchFilterBar } from '../SearchFilterBar/SearchFilterBar';
 import { ListStudentsForBooking } from '../ListStudentsForBooking/ListStudentsForBooking';
+import {
+  FilteredAvailableStudent,
+  ExpectedWorkType,
+  ExpectedContractType,
+} from 'types';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 
 export interface Dummy {
+  courseEngagment: number;
+  courseCompletion: number;
+  studentInfoId: string;
   fullName: string;
   courseDegree: number;
-  courseEngagement: number;
   projectDegree: number;
   teamProjectDegree: number;
-  expectedTypeWork: string;
+  expectedTypeWork: ExpectedWorkType;
   targetWorkCity: string;
-  expectedContractType: string;
+  expectedContractType: ExpectedContractType;
   expectedSalary: number;
   canTakeApprenticeship: boolean;
-  monthsOfCommercialExp: string;
+  monthsOfCommercialExp: number;
 }
 
 export const HrAllStudents = () => {
-  const dummyListOfStudentsForBooking: Dummy[] = [
-    {
-      fullName: 'Jan Kowalski',
-      courseDegree: 1,
-      courseEngagement: 3,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-    },
-    {
-      fullName: 'Krzysztof Pawłowski',
-      courseDegree: 2,
-      courseEngagement: 3,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-    },
-    {
-      fullName: 'Mariusz Lewandowski',
-      courseDegree: 3,
-      courseEngagement: 3,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-    },
-    {
-      fullName: 'Tomasz Czerwiński',
-      courseDegree: 4,
-      courseEngagement: 3,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-    },
-    {
-      fullName: 'Marcin Łącała',
-      courseDegree: 5,
-      courseEngagement: 1,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-    },
-    {
-      fullName: 'Jan Błaszczyk',
-      courseDegree: 5,
-      courseEngagement: 2,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-    },
-    {
-      fullName: 'Adrian Majcher',
-      courseDegree: 5,
-      courseEngagement: 3,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-    },
-  ];
+  const [students, setStudents] = useState<FilteredAvailableStudent[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  const axiosPrivate = useAxiosPrivate();
+  const fetchStudents = useCallback(async () => {
+    setError('');
+    try {
+      const { data } = await axiosPrivate.get<FilteredAvailableStudent[]>(
+        '/student',
+      );
+      setStudents(data);
+    } catch (err) {
+      setError('Coś poszło nie tak. Spróbuj ponownie później');
+    } finally {
+      setLoading(false);
+    }
+  }, [axiosPrivate]);
+
+  useEffect(() => {
+    void fetchStudents();
+  }, [fetchStudents]);
+
   return (
     <>
       <div className="hr-all-students">
         <TopBar />
         <MenuAvailableTalk />
         <SearchFilterBar />
-        <ListStudentsForBooking {...dummyListOfStudentsForBooking} />
+        <ListStudentsForBooking {...students} />
         <p>PaginationBar</p>
       </div>
     </>
