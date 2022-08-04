@@ -5,6 +5,8 @@ import { useRegisterFormDataValidation } from '../../hooks/validationForm/useReg
 import { FormInput } from '../common/FormInput/FormInput';
 import logo from './../../assets/images/logo-megak.webp';
 import axiosDefault from 'axios';
+import { axiosPlain } from '../../api/axiosPlain';
+import { MessageResponse } from '../common/MessageResponse/MessageResponse';
 
 type Params = {
   id: string;
@@ -22,6 +24,8 @@ export const RegisterPanel = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams<Params>();
+  const [showMessageResponse, setShowMessageResponse] = useState(false);
+  const [messageResponse, setMessageResponse] = useState('');
   const [registerFormData, setRegisterFormData] = useState<RegisterFormData>({
     id: params.id,
     verificationToken: params.verificationToken,
@@ -33,15 +37,37 @@ export const RegisterPanel = () => {
     repeatPassword: registerFormData.repeatPassword,
   });
 
-  console.log(params);
+  const validForm = () => {
+    let correctForm = true;
+    for (const correctElement of Object.entries(correct)) {
+      if (correctElement[1] !== true) {
+        return (correctForm = false);
+      }
+    }
+    return correctForm;
+  };
 
   //@TODO set type res and add handle message for user
   useEffect(() => {
     // navigate('/login', { state: { from: location.pathname } });
   }, []);
 
-  const sendRegisterFormData = async () => {
-    const res = await axiosDefault.post('/register', registerFormData);
+  const sendRegisterFormData = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      if (validForm()) {
+        const res = await axiosPlain.post('/user', registerFormData);
+        console.log(res);
+        navigate('/login');
+      } else {
+        setMessageResponse(() => 'Hasła nie spełniają warunków ');
+        setShowMessageResponse(() => true);
+      }
+    } catch (err) {
+      console.log(err);
+      setMessageResponse(() => 'Coś poszło nie tak spróbuj później ');
+      setShowMessageResponse(() => true);
+    }
   };
 
   const changedHandle = (
@@ -55,9 +81,14 @@ export const RegisterPanel = () => {
 
   return (
     <div className="register-panel">
+      <MessageResponse
+        message={messageResponse}
+        showMessageResponse={showMessageResponse}
+        closeMessage={setShowMessageResponse}
+      />
       <form
         className="register-panel__form"
-        onSubmit={() => void sendRegisterFormData()}
+        onSubmit={(e) => void sendRegisterFormData(e)}
       >
         <img className={'register-panel__img'} src={logo} alt={'logo-megak'} />
         <FormInput
