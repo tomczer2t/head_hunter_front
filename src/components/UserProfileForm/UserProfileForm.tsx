@@ -28,7 +28,7 @@ export const UserProfileForm = () => {
     firstName: '',
     lastName: '',
     githubUsername: '',
-    portfolioUrls: [''],
+    portfolioUrls: [],
     bio: '',
     expectedTypeWork: ExpectedWorkType.NO_PREFERENCES,
     expectedSalary: 0,
@@ -39,7 +39,7 @@ export const UserProfileForm = () => {
     workExperience: '',
     courses: '',
     targetWorkCity: '',
-    projectUrls: [''],
+    projectUrls: [],
   });
 
   const axiosPrivate = useAxiosPrivate();
