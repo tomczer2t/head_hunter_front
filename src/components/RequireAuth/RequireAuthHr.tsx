@@ -8,7 +8,8 @@ export const RequireAuthHr = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (false) navigate('/login', { state: { from: location.pathname } });
+    if (auth?.role !== 'hr')
+      navigate('/login', { state: { from: location.pathname } });
   }, [auth, navigate, location.pathname]);
 
   return <Outlet />;

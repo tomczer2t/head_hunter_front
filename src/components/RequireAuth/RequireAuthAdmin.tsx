@@ -8,7 +8,8 @@ export const RequireAuthAdmin = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (false) navigate('/login', { state: { from: location.pathname } });
+    if (auth?.role !== 'admin')
+      navigate('/login', { state: { from: location.pathname } });
   }, [auth, navigate, location.pathname]);
 
   return <Outlet />;
