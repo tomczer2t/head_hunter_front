@@ -7,7 +7,7 @@ export const MainLayout = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (!(!auth || location.pathname !== '/register')) {
+    if (!auth && !location.pathname.startsWith('/register')) {
       navigate('/login');
     }
   }, [auth, navigate, location.pathname]);
