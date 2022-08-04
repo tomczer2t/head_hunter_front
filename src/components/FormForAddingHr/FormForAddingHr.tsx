@@ -2,44 +2,79 @@ import React, { useEffect, useState } from 'react';
 import './FormForAddingHr.css';
 import { FormInput } from '../common/FormInput/FormInput';
 import { useHrFormDataForAdminValidation } from '../../hooks/validationForm/useHrFormDataForAdminValidation';
-import { axiosPrivate } from '../../api/axios';
+import { axiosPlain, axiosPrivate } from '../../api/axiosPlain';
 import { MessageResponse } from '../common/MessageResponse/MessageResponse';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { log } from 'util';
 
 export interface HrFormDataForAdmin {
   email: string;
   firstName: string;
-  secondName: string;
+  lastName: string;
   company: string;
   maxReservedStudents: number;
 }
 
 export const FormForAddingHr = () => {
+  // const axiosPrivate = useAxiosPrivate();
   const [hrFormData, setHrFormData] = useState<HrFormDataForAdmin>({
     email: '',
     firstName: '',
-    secondName: '',
+    lastName: '',
     company: '',
     maxReservedStudents: 0,
   });
   const [emailExist, setEmailExist] = useState<boolean>(false);
-  const [showMessageResponse, setShowMessageResponse] = useState<boolean>(true);
+  const [showMessageResponse, setShowMessageResponse] =
+    useState<boolean>(false);
+  const [messageResponse, setMessageResponse] = useState('');
+  const [correctForm, setCorrectForm] = useState(false);
 
   const { correct, message } = useHrFormDataForAdminValidation({
     hrFormData,
     emailExist,
   });
+  const checkValidForm = () => {
+    setCorrectForm(true);
+    for (const correctElement of Object.entries(correct)) {
+      if (correctElement[1] !== true) {
+        setCorrectForm(false);
+      }
+    }
+  };
 
   useEffect(() => {}, [showMessageResponse]);
   // @TODO set type response
-  const sendForm = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+
+  const sendForm = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
-      const res = await axiosPrivate.post('/admin/for-hr', hrFormData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-    } catch (err) {}
+      e.preventDefault();
+      checkValidForm();
+      if (correctForm) {
+        const res: AxiosResponse<any> = await axiosPlain.post(
+          '/admin/hr',
+          hrFormData,
+        );
+        setMessageResponse(() => 'HR dodany pomyślnie');
+        setShowMessageResponse(() => true);
+      } else {
+        setMessageResponse(() => 'Uzupełnij formularz');
+        setShowMessageResponse(() => true);
+      }
+    } catch (err) {
+      const error = err as AxiosError<{ error: string }> | Error;
+      if(axios.isAxiosError(error)){
+        if (error.response?.data.error === 'Conflict') {
+          setMessageResponse(() => `Email już istnieje w bazie `);
+        }
+        console
+      }else{
+        setMessageResponse(
+          () => `Coś poszło nie tak na serwerze (sprawdź konsole)`,
+        );
+      setShowMessageResponse(() => true);
+    }
   };
 
   const changedHandle = (
@@ -53,13 +88,11 @@ export const FormForAddingHr = () => {
 
   return (
     <div className="form-adding-hr">
-      {/*<MessageResponse*/}
-      {/*  showMessageResponse={showMessageResponse}*/}
-      {/*  status={'Testowy'}*/}
-      {/*  message={'Opis błedu'}*/}
-      {/*  correct={false}*/}
-      {/*  closeMessage={setShowMessageResponse}*/}
-      {/*/>*/}
+      <MessageResponse
+        message={messageResponse}
+        showMessageResponse={showMessageResponse}
+        closeMessage={setShowMessageResponse}
+      />
       <form
         className="form-adding-hr__form"
         onSubmit={(event) => {
@@ -86,13 +119,13 @@ export const FormForAddingHr = () => {
           message={message.firstName}
         />
         <FormInput
-          name={'secondName'}
-          value={hrFormData.secondName}
+          name={'lastName'}
+          value={hrFormData.lastName}
           type="text"
           setValue={changedHandle}
           placeholder="nazwisko"
-          correct={correct.secondName}
-          message={message.secondName}
+          correct={correct.lastName}
+          message={message.lastName}
         />
         <FormInput
           name={'company'}

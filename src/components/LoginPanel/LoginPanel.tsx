@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './LoginPanel.css';
 import { useNavigate, Link } from 'react-router-dom';
-import { axios } from '../../api/axios';
+import { axiosPlain } from '../../api/axiosPlain';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorLogin } from './ErrorLogin';
 import logo from '../../assets/images/logo-megak.webp';
@@ -18,7 +18,7 @@ export const LoginPanel = () => {
   const sendAction = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response: AxiosResponse<LoginResponse> = await axios.post(
+      const response: AxiosResponse<LoginResponse> = await axiosPlain.post(
         '/auth/login',
         {
           email,

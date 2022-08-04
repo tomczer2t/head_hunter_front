@@ -1,5 +1,5 @@
 import { useAuth } from './useAuth';
-import { axios } from '../api/axios';
+import { axiosPlain } from '../api/axiosPlain';
 import { LoginResponse } from 'types';
 
 type Data = LoginResponse;
@@ -7,7 +7,7 @@ type Data = LoginResponse;
 export const useRefresh = () => {
   const { setAuth } = useAuth();
   return async () => {
-    const { data } = await axios.get<Data>('auth/refresh', {
+    const { data } = await axiosPlain.get<Data>('auth/refresh', {
       withCredentials: true,
     });
     setAuth((prevState) => {
