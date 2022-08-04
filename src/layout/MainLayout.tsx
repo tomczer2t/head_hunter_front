@@ -4,11 +4,11 @@ export const MainLayout = () => {
   const navigate = useNavigate();
   const redirect = useCallback(() => {
     navigate('/login');
-  }, [navigate]);
+  }, []);
 
   useEffect(() => {
     redirect();
-  }, [redirect]);
+  }, []);
   return (
     <>
       <Outlet />
