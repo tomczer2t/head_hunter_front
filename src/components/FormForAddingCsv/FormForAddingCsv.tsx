@@ -1,33 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './FormForAddingCsv.css';
 import { MessageResponse } from '../common/MessageResponse/MessageResponse';
 import { AddStudentsResponse } from 'types';
 import { AxiosResponse } from 'axios';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
-import { axios } from '../../api/axios';
 
 export const FormForAddingCsv = () => {
-  // const axiosPrivate = useAxiosPrivate();
+  const axiosPrivate = useAxiosPrivate();
   const [selectedFile, setSelectedFile] = useState<FormData | null>(null);
   const [showMessageResponse, setShowMessageResponse] = useState(false);
+  const [message, setMessage] = useState('');
   const [resData, setResData] = useState<AddStudentsResponse | null>(null);
 
   const sendForm = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
       if (selectedFile) {
-        const res: AxiosResponse<AddStudentsResponse> = await axios.post(
+        const res: AxiosResponse<AddStudentsResponse> = await axiosPrivate.post(
           '/admin/import-students',
           selectedFile,
         );
-        console.log(res.data);
         setResData(res.data);
+        setMessage(() => 'Plik wysłany poprawnie');
         setShowMessageResponse(() => true);
       } else {
-        console.log('nie wybrałeś pliku');
+        setMessage(() => 'Nie wybrałeś pliku');
+        setShowMessageResponse(() => true);
       }
     } catch (err) {
+      setResData(null);
       console.log(err);
+      setMessage(() => `Coś poszło nie tak na serwerze (sprawdź konsole)`);
+      setShowMessageResponse(() => true);
     }
   };
 
@@ -43,10 +47,13 @@ export const FormForAddingCsv = () => {
     setSelectedFile(formData);
   };
 
+  useEffect(() => {}, [resData]);
+
   return (
     <div className="form-adding-csv">
       <MessageResponse
         data={resData}
+        message={message}
         showMessageResponse={showMessageResponse}
         closeMessage={setShowMessageResponse}
       />
