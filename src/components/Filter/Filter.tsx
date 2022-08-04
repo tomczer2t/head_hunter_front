@@ -5,14 +5,14 @@ import starWhite from '../../assets/images/star-white.svg';
 import { BtnStar, StarNames } from './BtnStar/BtnStar';
 
 export interface FiltState {
-  courseCompletion: boolean[]; //5,4,3,2,1
-  courseEngagment: boolean[]; //5,4,3,2,1
-  projectDegree: boolean[]; //5,4,3,2,1
-  teamProjectDegree: boolean[]; //5,4,3,2,1
-  expectedTypeWork: boolean[]; // zdalna, w biurze
+  courseCompletion: [boolean, boolean, boolean, boolean, boolean]; //5,4,3,2,1
+  courseEngagment: [boolean, boolean, boolean, boolean, boolean]; //5,4,3,2,1
+  projectDegree: [boolean, boolean, boolean, boolean, boolean]; //5,4,3,2,1
+  teamProjectDegree: [boolean, boolean, boolean, boolean, boolean]; //5,4,3,2,1
+  expectedTypeWork: [boolean, boolean]; //5,4,3,2,1
   targetWorkCity: string;
-  expectedContractType: boolean[]; //Umowa o pracę, B2B, Umowa zlecenie, Umowa o dzieło
-  expectedSalary: (null | number)[]; //kwota od, do
+  expectedContractType: [boolean, boolean, boolean, boolean]; //Umowa o pracę, B2B, Umowa zlecenie, Umowa o dzieło
+  expectedSalary: [null | number, null | number]; //kwota od, do
   canTakeApprenticeship: null | boolean; //false nie, true tak
   monthsOfCommercialExp: null | number;
 }
@@ -88,16 +88,110 @@ export const Filter = () => {
         <section className="filter-popup">
           <h3>Preferowane miejsce pracy</h3>
           <div>
-            <button className="filter-popup--btn">Praca zdalna</button>
-            <button className="filter-popup--btn">Praca w biurze</button>
+            <button
+              className={
+                filterState.expectedTypeWork[0]
+                  ? 'filter-popup--btn filter-popup--btn--active'
+                  : 'filter-popup--btn'
+              }
+              onClick={() => {
+                const newState = JSON.parse(
+                  JSON.stringify(filterState),
+                ) as FiltState;
+                newState.expectedTypeWork[0] = !newState.expectedTypeWork[0];
+                setFilterState(newState);
+              }}
+            >
+              Praca zdalna
+            </button>
+            <button
+              className={
+                filterState.expectedTypeWork[1]
+                  ? 'filter-popup--btn filter-popup--btn--active'
+                  : 'filter-popup--btn'
+              }
+              onClick={() => {
+                const newState = JSON.parse(
+                  JSON.stringify(filterState),
+                ) as FiltState;
+                newState.expectedTypeWork[1] = !newState.expectedTypeWork[1];
+                setFilterState(newState);
+              }}
+            >
+              Praca w biurze
+            </button>
           </div>
         </section>
         <section className="filter-popup">
           <h3>Oczekiwany typ kontraktu</h3>
-          <button className="filter-popup--btn">Umowa o pracę</button>
-          <button className="filter-popup--btn">B2B</button>
-          <button className="filter-popup--btn">Umowa zlecenie</button>
-          <button className="filter-popup--btn">Umowa o dzieło</button>
+          <button
+            className={
+              filterState.expectedContractType[0]
+                ? 'filter-popup--btn filter-popup--btn--active'
+                : 'filter-popup--btn'
+            }
+            onClick={() => {
+              const newState = JSON.parse(
+                JSON.stringify(filterState),
+              ) as FiltState;
+              newState.expectedContractType[0] =
+                !newState.expectedContractType[0];
+              setFilterState(newState);
+            }}
+          >
+            Umowa o pracę
+          </button>
+          <button
+            className={
+              filterState.expectedContractType[1]
+                ? 'filter-popup--btn filter-popup--btn--active'
+                : 'filter-popup--btn'
+            }
+            onClick={() => {
+              const newState = JSON.parse(
+                JSON.stringify(filterState),
+              ) as FiltState;
+              newState.expectedContractType[1] =
+                !newState.expectedContractType[1];
+              setFilterState(newState);
+            }}
+          >
+            B2B
+          </button>
+          <button
+            className={
+              filterState.expectedContractType[2]
+                ? 'filter-popup--btn filter-popup--btn--active'
+                : 'filter-popup--btn'
+            }
+            onClick={() => {
+              const newState = JSON.parse(
+                JSON.stringify(filterState),
+              ) as FiltState;
+              newState.expectedContractType[2] =
+                !newState.expectedContractType[2];
+              setFilterState(newState);
+            }}
+          >
+            Umowa zlecenie
+          </button>
+          <button
+            className={
+              filterState.expectedContractType[3]
+                ? 'filter-popup--btn filter-popup--btn--active'
+                : 'filter-popup--btn'
+            }
+            onClick={() => {
+              const newState = JSON.parse(
+                JSON.stringify(filterState),
+              ) as FiltState;
+              newState.expectedContractType[3] =
+                !newState.expectedContractType[3];
+              setFilterState(newState);
+            }}
+          >
+            Umowa o dzieło
+          </button>
         </section>
         <section className="filter-popup">
           <h3>Oczekiwane wynagrodzenie miesięczne netto</h3>

@@ -90,6 +90,18 @@
     cursor: pointer;
 }
 
+.filter-popup--btn--active {
+    background-color: var(--filter-module-show-results-button-color);
+    color: var(--filter-module-text-color);
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 400;
+    margin-right: 8px;
+    line-height: 19px;
+    font-family: "Catamaran", sans-serif;
+    cursor: pointer;
+}
+
 .filter-popup label {
     font-size: 12px;
     margin-right: 8px;
