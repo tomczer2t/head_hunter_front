@@ -13,6 +13,21 @@ export interface DummyAndReservationDate extends Dummy {
 
 export const HrInterviewStudents = () => {
   const [isError, setIsError] = useState(false); // @Todo co ma się stać jak jest błąd
+  const [dataToAxios, setDdtaToAxios] = useState({
+    numActualPage: 1,
+    numStudentsCountPerPage: 10,
+    search: '',
+    filterCourseCompletion: 3,
+    filterCourseEngagement: 4,
+    filterProjectDegree: 5,
+    filterTeamProjectDegree: 1,
+    filterExpectedTypeWork: 'Praca Zdalna',
+    filterTargetWorkCity: 'Warszawa, Gdańsk, Bździn',
+    filterExpectedContractType: 'BoB, Umowa zlecenie, Umowa o dzieło',
+    filterExpectedSalary: 100,
+    filterCanTakeApprenticeship: true,
+    filterMonthsOfCommercialExp: 0,
+  });
   const [allStudentsData, setAllStudentsData] = useState<
     DummyAndReservationDate[]
   >([]);
@@ -27,7 +42,7 @@ export const HrInterviewStudents = () => {
               numStudentsCountPerPage: 10,
               search: '',
               filterCourseCompletion: 3,
-              filterCourseEngagment: 4,
+              filterCourseEngagement: 4,
               filterProjectDegree: 5,
               filterTeamProjectDegree: 1,
               filterExpectedTypeWork: 'Praca Zdalna',
@@ -36,7 +51,7 @@ export const HrInterviewStudents = () => {
               filterExpectedSalary: 100,
               filterCanTakeApprenticeship: true,
               filterMonthsOfCommercialExp: 0,
-            },
+            }, //@ToDo ma być dataAxios se stanu
           },
         );
         setAllStudentsData(result.data);

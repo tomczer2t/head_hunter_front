@@ -19,6 +19,19 @@
     margin-right: 8px;
     border-radius: 5%;
     cursor: pointer;
+    transition: 0.1s;
+}
+
+.filter-popup-btn-star--active {
+    width: 42px;
+    height: 28px;
+    background-color: var(--filter-module-show-results-button-color);
+    color: var(--filter-module-text-color);
+    font-size: 12px;
+    margin-right: 8px;
+    border-radius: 5%;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 .filter-popup__wrapper img.star {
@@ -61,6 +74,8 @@
     font-size: 14px;
     color: var(--filter-module-text-color);
     font-weight: 400;
+    position: relative;
+    bottom: -8px;
 }
 
 .filter-popup--btn {

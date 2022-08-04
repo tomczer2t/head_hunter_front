@@ -6,7 +6,7 @@ import { Filter } from '../Filter/Filter';
 
 export const SearchFilterBar = () => {
   const [search, setSearch] = useState('');
-
+  const [activeFilter, setActiveFilter] = useState(false);
   function searchHandler(e: React.FormEvent) {
     e.preventDefault();
   }
@@ -26,7 +26,10 @@ export const SearchFilterBar = () => {
           />
         </form>
       </div>
-      <button className="search-filter-bar__filter">
+      <button
+        className="search-filter-bar__filter"
+        onClick={() => setActiveFilter(true)}
+      >
         <img
           src={filter}
           alt="Filtrowanie"
@@ -34,7 +37,7 @@ export const SearchFilterBar = () => {
         />
         Filter
       </button>
-      {/*<Filter /> // @ToDo to jest filtrowanie popup*/}
+      {activeFilter ? <Filter /> : null}
     </div>
   );
 };
