@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './LoginPanel.css';
 import { useNavigate, Link } from 'react-router-dom';
-import { axios } from '../../api/axios';
 import { AxiosError, AxiosResponse } from 'axios';
 import { ErrorLogin } from './ErrorLogin';
 import logo from '../../assets/images/logo-megak.webp';
 import { useAuth } from '../../hooks/useAuth';
 import { LoginResponse, UserRole } from 'types';
+import { axiosPrivate } from '../../api/axiosPlain';
 
 export const LoginPanel = () => {
   const { setAuth } = useAuth();
@@ -18,7 +18,7 @@ export const LoginPanel = () => {
   const sendAction = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response: AxiosResponse<LoginResponse> = await axios.post(
+      const response: AxiosResponse<LoginResponse> = await axiosPrivate.post(
         '/auth/login',
         {
           email,
@@ -33,8 +33,7 @@ export const LoginPanel = () => {
       //   [UserRole.ADMIN]: '/admin/panel',
       // };
 
-      navigate(`/${response.data.role}`)
-
+      navigate(`/${response.data.role}`);
     } catch (error) {
       console.log(error);
       const err = error as AxiosError;
