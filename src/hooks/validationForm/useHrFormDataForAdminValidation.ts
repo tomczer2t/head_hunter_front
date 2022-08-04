@@ -4,7 +4,7 @@ import { HrFormDataForAdmin } from '../../components/FormForAddingHr/FormForAddi
 export interface HrFormDataForAdminCorrect {
   email: boolean | null;
   firstName: boolean | null;
-  secondName: boolean | null;
+  lastName: boolean | null;
   company: boolean | null;
   maxReservedStudents: boolean | null;
 }
@@ -12,7 +12,7 @@ export interface HrFormDataForAdminCorrect {
 export interface HrFormDataForAdminMessage {
   email: string;
   firstName: string;
-  secondName: string;
+  lastName: string;
   company: string;
   maxReservedStudents: string;
 }
@@ -29,14 +29,14 @@ export const useHrFormDataForAdminValidation = (props: {
   const [message, setMessage] = useState<HrFormDataForAdminMessage>({
     email: '',
     firstName: '',
-    secondName: '',
+    lastName: '',
     company: '',
     maxReservedStudents: '',
   });
   const [correct, setCorrect] = useState<HrFormDataForAdminCorrect>({
     email: null,
     firstName: null,
-    secondName: null,
+    lastName: null,
     company: null,
     maxReservedStudents: null,
   });
@@ -121,38 +121,38 @@ export const useHrFormDataForAdminValidation = (props: {
   }, [props.hrFormData.firstName]);
   //Second name validation
   useEffect(() => {
-    if (props.hrFormData.secondName === '') {
+    if (props.hrFormData.lastName === '') {
       setCorrect((prev: HrFormDataForAdminCorrect) => ({
         ...prev,
-        secondName: null,
+        lastName: null,
       }));
       setMessage((prev: HrFormDataForAdminMessage) => ({
         ...prev,
-        secondName: '',
+        lastName: '',
       }));
     } else if (
-      props.hrFormData.secondName.length >= 2 &&
-      props.hrFormData.secondName.length <= 50
+      props.hrFormData.lastName.length >= 2 &&
+      props.hrFormData.lastName.length <= 50
     ) {
       setCorrect((prev: HrFormDataForAdminCorrect) => ({
         ...prev,
-        secondName: true,
+        lastName: true,
       }));
       setMessage((prev: HrFormDataForAdminMessage) => ({
         ...prev,
-        secondName: '',
+        lastName: '',
       }));
     } else {
       setCorrect((prev: HrFormDataForAdminCorrect) => ({
         ...prev,
-        secondName: false,
+        lastName: false,
       }));
       setMessage((prev: HrFormDataForAdminMessage) => ({
         ...prev,
-        secondName: 'Nazwisko musi  mieć długość od 2 do 50 znaków',
+        lastName: 'Nazwisko musi  mieć długość od 2 do 50 znaków',
       }));
     }
-  }, [props.hrFormData.secondName]);
+  }, [props.hrFormData.lastName]);
   //Company validation
   useEffect(() => {
     if (props.hrFormData.company === '') {
