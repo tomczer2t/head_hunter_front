@@ -16,8 +16,6 @@ export const MessageResponse = (props: Props) => {
   let mailsFailed = [];
   let mailsUpdate = [];
 
-  console.log(props.data);
-
   if (props.data) {
     for (let i = 0; i < props.data.failedFor.length; i++) {
       mailsFailed.push(<p>{`${props.data.failedFor[i].email}`}</p>);
