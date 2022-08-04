@@ -7,7 +7,7 @@ export const MenuAvailableTalk = () => {
     <>
       <div className="menu-available-talk">
         <NavLink
-          to="/hr/all-students"
+          to="/hr/students"
           className={({ isActive }) =>
             isActive
               ? 'menu-available-talk__selected menu-available-talk__link'

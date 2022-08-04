@@ -15,7 +15,7 @@ export const LoginPanel = () => {
   const navigate = useNavigate();
   const [statusErrorCode, setStatusErrorCode] = useState(200);
 
-  const sendAction = async (e: React.FormEvent) => {
+  const sendAction = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response: AxiosResponse<LoginResponse> = await axiosPlain.post(
@@ -35,10 +35,7 @@ export const LoginPanel = () => {
         [UserRole.ADMIN]: '/admin/panel',
       };
 
-      navigate(redirectionPath[role], {
-        replace: true,
-        state: { firstName, lastName, role, githubUsername, accessToken },
-      });
+      navigate(redirectionPath[role]);
     } catch (error) {
       console.log(error);
       const err = error as AxiosError;
