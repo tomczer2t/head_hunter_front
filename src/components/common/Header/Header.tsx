@@ -15,14 +15,12 @@ export const Header = (props: Props) => {
 
   const logoutHandler = async () => {
     try {
-      const res = await axiosPrivate('/auth/logout');
+      const res = await axiosPrivate.get('/auth/logout');
       setAuth(null);
-      console.log('elo');
-      console.log(res);
       navigate('/login');
     } catch (err) {
-      console.log('error?');
-      console.log(err);
+      setAuth(null);
+      navigate('/login');
     }
   };
 
