@@ -1,14 +1,15 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useAuth } from '../hooks/useAuth';
 export const MainLayout = () => {
+  const { auth } = useAuth();
   const navigate = useNavigate();
-  const redirect = useCallback(() => {
-    navigate('/login');
-  }, []);
 
   useEffect(() => {
-    redirect();
-  }, []);
+    if (!auth) {
+      navigate('/login');
+    }
+  }, [auth, navigate]);
   return (
     <>
       <Outlet />
