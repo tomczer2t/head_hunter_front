@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './RegisterPanel.css';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useRegisterFormDataValidation } from '../../hooks/validationForm/useRegisterFormDataValidation';
 import { FormInput } from '../common/FormInput/FormInput';
 import logo from './../../assets/images/logo-megak.webp';
-import axiosDefault from 'axios';
-import { axiosPlain } from '../../api/axiosPlain';
 import { MessageResponse } from '../common/MessageResponse/MessageResponse';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 
 type Params = {
   id: string;
@@ -21,8 +20,8 @@ interface RegisterFormData {
 }
 
 export const RegisterPanel = () => {
+  const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
-  const location = useLocation();
   const params = useParams<Params>();
   const [showMessageResponse, setShowMessageResponse] = useState(false);
   const [messageResponse, setMessageResponse] = useState('');
@@ -47,16 +46,11 @@ export const RegisterPanel = () => {
     return correctForm;
   };
 
-  //@TODO set type res and add handle message for user
-  useEffect(() => {
-    // navigate('/login', { state: { from: location.pathname } });
-  }, []);
-
   const sendRegisterFormData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       if (validForm()) {
-        const res = await axiosPlain.post('/user', registerFormData);
+        const res = await axiosPrivate.post('/user', registerFormData);
         console.log(res);
         navigate('/login');
       } else {
