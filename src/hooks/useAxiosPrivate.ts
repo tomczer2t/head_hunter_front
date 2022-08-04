@@ -1,7 +1,7 @@
 import { useRefresh } from './useRefresh';
 import { useAuth } from './useAuth';
 import { useEffect } from 'react';
-import { axiosPrivate } from '../api/axios';
+import { axiosPrivate } from '../api/axiosPlain';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 interface AxiosRequestConfigWithSent extends AxiosRequestConfig {

@@ -5,7 +5,7 @@ import './HrInterviewStudents.css';
 import { SearchFilterBar } from '../SearchFilterBar/SearchFilterBar';
 import { ListStudentsForInterview } from '../ListStudentsForInterview/ListStudentsForInterview';
 import { Dummy } from '../HrAllStudents/HrAllStudents';
-import { axios } from '../../api/axios';
+import { axiosPlain } from '../../api/axiosPlain';
 
 export interface DummyAndReservationDate extends Dummy {
   reservationDate: string;
