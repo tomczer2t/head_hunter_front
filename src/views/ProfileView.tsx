@@ -1,8 +1,9 @@
 import React from 'react';
+import { UserProfileForm } from '../components/UserProfileForm/UserProfileForm';
 export const ProfileView = () => {
   return (
     <>
-      <h1>Profile view</h1>
+      <UserProfileForm />
     </>
   );
 };

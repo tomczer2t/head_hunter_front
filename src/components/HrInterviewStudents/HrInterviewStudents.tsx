@@ -39,7 +39,9 @@ export const HrInterviewStudents = () => {
 
   const dummyListOfStudentsForBooking: DummyAndReservationDate[] = [
     {
-      fullName: 'Jacek Murański',
+      userId: 'asdgfgdh',
+      firstName: 'Jacek',
+      lastName: 'Murański',
       courseDegree: 5,
       courseEngagment: 3,
       courseCompletion: 3,
@@ -55,7 +57,9 @@ export const HrInterviewStudents = () => {
       studentInfoId: '13',
     },
     {
-      fullName: 'Agata Bufalo',
+      userId: 'asdhfgh',
+      firstName: 'Agata',
+      lastName: 'Bufalo',
       courseDegree: 5,
       courseEngagment: 3,
       courseCompletion: 3,
@@ -71,7 +75,9 @@ export const HrInterviewStudents = () => {
       studentInfoId: '13',
     },
     {
-      fullName: 'Elvis Presley',
+      userId: 'asdqweq',
+      firstName: 'Elvis',
+      lastName: 'Presley',
       courseDegree: 5,
       courseEngagment: 3,
       courseCompletion: 3,
@@ -87,7 +93,9 @@ export const HrInterviewStudents = () => {
       studentInfoId: '13',
     },
     {
-      fullName: 'Franek Kimono',
+      userId: 'asdassdf',
+      firstName: 'Franek',
+      lastName: 'Kimono',
       courseDegree: 5,
       courseEngagment: 3,
       courseCompletion: 3,
@@ -103,7 +111,9 @@ export const HrInterviewStudents = () => {
       studentInfoId: '13',
     },
     {
-      fullName: 'Zbyszko Mariacki',
+      userId: 'asdsda',
+      firstName: 'Zbyszko',
+      lastName: 'Mariacki',
       courseDegree: 5,
       courseEngagment: 3,
       courseCompletion: 3,
@@ -119,7 +129,9 @@ export const HrInterviewStudents = () => {
       studentInfoId: '13',
     },
     {
-      fullName: 'Maciek Maciek',
+      userId: 'asd',
+      firstName: 'Maciek',
+      lastName: 'Maciek',
       courseDegree: 5,
       courseEngagment: 3,
       courseCompletion: 3,

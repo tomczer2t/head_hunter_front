@@ -21,7 +21,6 @@ export const UserCv = () => {
         <UserDescription />
         <UserTable />
       </main>
-      <UserProfileForm />
     </div>
   );
 };

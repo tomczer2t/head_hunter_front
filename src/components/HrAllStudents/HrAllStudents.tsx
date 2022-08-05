@@ -12,10 +12,12 @@ import {
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 
 export interface Dummy {
+  userId: string;
   courseEngagment: number;
   courseCompletion: number;
   studentInfoId: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
   courseDegree: number;
   projectDegree: number;
   teamProjectDegree: number;
