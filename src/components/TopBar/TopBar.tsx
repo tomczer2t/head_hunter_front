@@ -4,9 +4,12 @@ import logo from '../../assets/images/logo-megak.webp';
 import default_avatar from '../../assets/images/default_avatar.jpg';
 
 import './TopBar.css';
+import { useAuth } from '../../hooks/useAuth';
 
 export const TopBar = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+  const { auth } = useAuth();
 
   const openMenu = () => {
     console.log('Kliknąłeś w menu');
@@ -21,10 +24,16 @@ export const TopBar = () => {
       <div className="top-bar__hr-container-menu" onClick={openMenu}>
         <img
           className="top-bar__hr-avatar"
-          src={default_avatar}
+          src={
+            auth?.githubUsername
+              ? `https://github.com/${auth.githubUsername}.png`
+              : default_avatar
+          }
           alt="hr avatar"
         />
-        <span className="top-bar__hr-avatar-name">Mateusz Kowalski</span>
+        <span className="top-bar__hr-avatar-name">
+          {auth?.firstName} {auth?.lastName}
+        </span>
         <button className="top-bar__hr-menu-button"></button>
         <ul
           className={
