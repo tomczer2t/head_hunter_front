@@ -1,4 +1,17 @@
+import { useState } from 'react';
+
+interface StudentProfile {
+  name: string;
+}
+
 export const StudentProfile = () => {
+  const [name, setName] = useState<StudentProfile>('');
+
+  function handleSubmit(e): any {
+    e.preventDefault();
+    const objStudentProfile = { name };
+  }
+
   return (
     <>
       <div className="container">
@@ -9,13 +22,18 @@ export const StudentProfile = () => {
             alt=""
           />
         </h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="form-body">
             <div className="form-col">
               <label>
                 Imie: <p>bład</p>
               </label>
-              <input type="text" required />
+              <input
+                type="text"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
 
               <label>Nazwisko:</label>
               <input type="text" required />
@@ -103,7 +121,9 @@ export const StudentProfile = () => {
               <textarea></textarea>
             </div>
           </div>
-          <button className="subminBnt">Wyślij</button>
+          <button type="submit" className="subminBnt">
+            Wyślij
+          </button>
         </form>
       </div>
     </>
