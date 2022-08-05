@@ -13,7 +13,9 @@ export const SingleStudent = (props: FilteredAvailableStudent) => {
   return (
     <>
       <li className="single-student">
-        <div className="single-student__name">{props.fullName}</div>
+        <div className="single-student__name">
+          {props.firstName} {props.lastName}
+        </div>
         <div className="single-student__small-wrapper">
           <button className="single-student__btn">Zarezerwuj rozmowę</button>
           <img
