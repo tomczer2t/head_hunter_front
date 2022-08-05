@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './SingleStudentForInterview.css';
 import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from '../../ListStudentsForBooking/SingleStudent/SingleStudentDetails/SingleStudentDetails';
-import { DummyAndReservationDate } from '../../HrInterviewStudents/HrInterviewStudents';
 import defaultAvatar from '../../../assets/images/default_avatar.jpg';
 import { StudentOnInterviewList } from 'types';
 
