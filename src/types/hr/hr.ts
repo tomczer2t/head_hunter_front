@@ -1,3 +1,5 @@
+import { ExpectedContractType } from 'types';
+
 export enum StarNames {
   V1 = 'courseCompletion',
   V2 = 'courseEngagment',
@@ -30,4 +32,25 @@ export interface StudentDetails {
   expectedSalary: number;
   canTakeApprenticeship: boolean;
   monthsOfCommercialExp: string;
+}
+
+export interface HrAllStudentsRequest {
+  numActualPage: number;
+  numStudentsCountPerPage: number;
+  search: string;
+  filterCourseCompletion: number | null;
+  filterCourseEngagement: number | null;
+  filterProjectDegree: number | null;
+  filterTeamProjectDegree: number | null;
+  filterExpectedTypeWork: ExpectedTypeWork[];
+  filterExpectedContractType: ExpectedContractType[];
+  filterExpectedSalaryFrom: number | null;
+  filterExpectedSalaryUpTo: number | null;
+  filterCanTakeApprenticeship: boolean | null;
+  filterMonthsOfCommercialExp: number | null;
+}
+
+export enum ExpectedTypeWork {
+  REMOTE_WORK = 'Praca zdalna',
+  OFFICE_WORK = 'Praca w biurze',
 }

@@ -5,7 +5,12 @@ import './HrInterviewStudents.css';
 import { SearchFilterBar } from '../SearchFilterBar/SearchFilterBar';
 import { ListStudentsForInterview } from '../ListStudentsForInterview/ListStudentsForInterview';
 import { axios } from '../../api/axios';
-import { StudentDetails } from '../../types/hr/hr';
+import {
+  ExpectedTypeWork,
+  HrAllStudentsRequest,
+  StudentDetails,
+} from '../../types/hr/hr';
+import { ExpectedContractType } from 'types';
 
 export interface StudentDetailsAndReservationDate extends StudentDetails {
   reservationDate: string;
@@ -13,24 +18,25 @@ export interface StudentDetailsAndReservationDate extends StudentDetails {
 
 export const HrInterviewStudents = () => {
   const [isError, setIsError] = useState(false); // @Todo co ma się stać jak jest błąd
-  const [dataToAxios, setDdtaToAxios] = useState({
+  const [dataToAxios, setDdtaToAxios] = useState<HrAllStudentsRequest>({
     numActualPage: 1,
     numStudentsCountPerPage: 10,
     search: '',
-    filterCourseCompletion: 3,
-    filterCourseEngagement: 4,
-    filterProjectDegree: 5,
-    filterTeamProjectDegree: 1,
-    filterExpectedTypeWork: 'Praca Zdalna',
-    filterTargetWorkCity: 'Warszawa, Gdańsk, Bździn',
-    filterExpectedContractType: 'BoB, Umowa zlecenie, Umowa o dzieło',
-    filterExpectedSalary: 100,
-    filterCanTakeApprenticeship: true,
-    filterMonthsOfCommercialExp: 0,
+    filterCourseCompletion: null,
+    filterCourseEngagement: null,
+    filterProjectDegree: null,
+    filterTeamProjectDegree: null,
+    filterExpectedTypeWork: [],
+    filterExpectedContractType: [],
+    filterExpectedSalaryFrom: null,
+    filterExpectedSalaryUpTo: null,
+    filterCanTakeApprenticeship: null,
+    filterMonthsOfCommercialExp: null,
   });
   const [allStudentsData, setAllStudentsData] = useState<
     StudentDetailsAndReservationDate[]
   >([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
