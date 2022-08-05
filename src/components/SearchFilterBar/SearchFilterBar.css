@@ -47,13 +47,18 @@
 
 .search-filter-bar__filter {
     width: 111px;
-    height: 27px;
+    height: 39px;
     margin: 6px 10px;
     font-size: 16px;
     background-color: var(--user-module-filter-color);
     color: var(--user-module-text-color);
+    border: none;
+    font-family: "Catamaran",sans-serif;
 }
 
 .search-filter-bar__filter-ico {
     width: 14px;
+    position: relative;
+    top: 2px;
+    left: -5px;
 }

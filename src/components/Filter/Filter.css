@@ -1,4 +1,17 @@
+.filter-popup__back-wrapper {
+    /*@ToDo uzupełnić zaciemnienie podczas filtrowania*/
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--filter-module-background-color);
+    opacity: 0.5;
+}
+
 .filter-popup__wrapper {
+    opacity: 1;
     width: 520px;
     height: 806px;
     position: fixed;
@@ -167,6 +180,8 @@
     margin-right: 20px;
     font-size: 16px;
     font-family: "Catamaran",sans-serif;
+    cursor: pointer;
+    border: none;
 }
 
 .filter-popup--submit-btn {
@@ -176,4 +191,6 @@
     padding: 6px 10px;
     font-family: "Catamaran",sans-serif;
     margin-right: 19px;
+    cursor: pointer;
+    border: none;
 }

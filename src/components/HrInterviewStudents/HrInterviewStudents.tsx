@@ -4,10 +4,10 @@ import { MenuAvailableTalk } from '../MenuAvailableTalk/MenuAvailableTalk';
 import './HrInterviewStudents.css';
 import { SearchFilterBar } from '../SearchFilterBar/SearchFilterBar';
 import { ListStudentsForInterview } from '../ListStudentsForInterview/ListStudentsForInterview';
-import { Dummy } from '../HrAllStudents/HrAllStudents';
 import { axios } from '../../api/axios';
+import { StudentDetails } from '../../types/hr/hr';
 
-export interface DummyAndReservationDate extends Dummy {
+export interface StudentDetailsAndReservationDate extends StudentDetails {
   reservationDate: string;
 }
 
@@ -29,12 +29,12 @@ export const HrInterviewStudents = () => {
     filterMonthsOfCommercialExp: 0,
   });
   const [allStudentsData, setAllStudentsData] = useState<
-    DummyAndReservationDate[]
+    StudentDetailsAndReservationDate[]
   >([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get<DummyAndReservationDate[]>(
+        const result = await axios.get<StudentDetailsAndReservationDate[]>(
           '/hr/students',
           {
             params: {
@@ -62,106 +62,107 @@ export const HrInterviewStudents = () => {
     void fetchData();
   }, []);
   // @Todo podpiąć odpowiedź z BE do FE oraz pozmieniać typy
-  const dummyListOfStudentsForBooking: DummyAndReservationDate[] = [
-    {
-      fullName: 'Jan Kowalski',
-      courseDegree: 1,
-      courseEngagement: 3,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-      reservationDate: '11.07.2020 r.',
-    },
-    {
-      fullName: 'Krzysztof Pawłowski',
-      courseDegree: 2,
-      courseEngagement: 3,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-      reservationDate: '18.07.2020 r.',
-    },
-    {
-      fullName: 'Mariusz Lewandowski',
-      courseDegree: 3,
-      courseEngagement: 3,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-      reservationDate: '20.07.2020 r.',
-    },
-    {
-      fullName: 'Tomasz Czerwiński',
-      courseDegree: 4,
-      courseEngagement: 3,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-      reservationDate: '21.07.2020 r.',
-    },
-    {
-      fullName: 'Marcin Łącała',
-      courseDegree: 5,
-      courseEngagement: 1,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-      reservationDate: '22.07.2020 r.',
-    },
-    {
-      fullName: 'Jan Błaszczyk',
-      courseDegree: 5,
-      courseEngagement: 2,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-      reservationDate: '24.07.2020 r.',
-    },
-    {
-      fullName: 'Adrian Majcher',
-      courseDegree: 5,
-      courseEngagement: 3,
-      projectDegree: 4,
-      teamProjectDegree: 5,
-      expectedTypeWork: 'Biuro',
-      targetWorkCity: 'Warszawa',
-      expectedContractType: 'Umowa o pracę',
-      expectedSalary: 8000,
-      canTakeApprenticeship: true,
-      monthsOfCommercialExp: '6 miesięcy',
-      reservationDate: '25.07.2020 r.',
-    },
-  ];
+  const studentDetailsAndReservationDateListForBooking: StudentDetailsAndReservationDate[] =
+    [
+      {
+        fullName: 'Jan Kowalski',
+        courseDegree: 1,
+        courseEngagement: 3,
+        projectDegree: 4,
+        teamProjectDegree: 5,
+        expectedTypeWork: 'Biuro',
+        targetWorkCity: 'Warszawa',
+        expectedContractType: 'Umowa o pracę',
+        expectedSalary: 8000,
+        canTakeApprenticeship: true,
+        monthsOfCommercialExp: '6 miesięcy',
+        reservationDate: '11.07.2020 r.',
+      },
+      {
+        fullName: 'Krzysztof Pawłowski',
+        courseDegree: 2,
+        courseEngagement: 3,
+        projectDegree: 4,
+        teamProjectDegree: 5,
+        expectedTypeWork: 'Biuro',
+        targetWorkCity: 'Warszawa',
+        expectedContractType: 'Umowa o pracę',
+        expectedSalary: 8000,
+        canTakeApprenticeship: true,
+        monthsOfCommercialExp: '6 miesięcy',
+        reservationDate: '18.07.2020 r.',
+      },
+      {
+        fullName: 'Mariusz Lewandowski',
+        courseDegree: 3,
+        courseEngagement: 3,
+        projectDegree: 4,
+        teamProjectDegree: 5,
+        expectedTypeWork: 'Biuro',
+        targetWorkCity: 'Warszawa',
+        expectedContractType: 'Umowa o pracę',
+        expectedSalary: 8000,
+        canTakeApprenticeship: true,
+        monthsOfCommercialExp: '6 miesięcy',
+        reservationDate: '20.07.2020 r.',
+      },
+      {
+        fullName: 'Tomasz Czerwiński',
+        courseDegree: 4,
+        courseEngagement: 3,
+        projectDegree: 4,
+        teamProjectDegree: 5,
+        expectedTypeWork: 'Biuro',
+        targetWorkCity: 'Warszawa',
+        expectedContractType: 'Umowa o pracę',
+        expectedSalary: 8000,
+        canTakeApprenticeship: true,
+        monthsOfCommercialExp: '6 miesięcy',
+        reservationDate: '21.07.2020 r.',
+      },
+      {
+        fullName: 'Marcin Łącała',
+        courseDegree: 5,
+        courseEngagement: 1,
+        projectDegree: 4,
+        teamProjectDegree: 5,
+        expectedTypeWork: 'Biuro',
+        targetWorkCity: 'Warszawa',
+        expectedContractType: 'Umowa o pracę',
+        expectedSalary: 8000,
+        canTakeApprenticeship: true,
+        monthsOfCommercialExp: '6 miesięcy',
+        reservationDate: '22.07.2020 r.',
+      },
+      {
+        fullName: 'Jan Błaszczyk',
+        courseDegree: 5,
+        courseEngagement: 2,
+        projectDegree: 4,
+        teamProjectDegree: 5,
+        expectedTypeWork: 'Biuro',
+        targetWorkCity: 'Warszawa',
+        expectedContractType: 'Umowa o pracę',
+        expectedSalary: 8000,
+        canTakeApprenticeship: true,
+        monthsOfCommercialExp: '6 miesięcy',
+        reservationDate: '24.07.2020 r.',
+      },
+      {
+        fullName: 'Adrian Majcher',
+        courseDegree: 5,
+        courseEngagement: 3,
+        projectDegree: 4,
+        teamProjectDegree: 5,
+        expectedTypeWork: 'Biuro',
+        targetWorkCity: 'Warszawa',
+        expectedContractType: 'Umowa o pracę',
+        expectedSalary: 8000,
+        canTakeApprenticeship: true,
+        monthsOfCommercialExp: '6 miesięcy',
+        reservationDate: '25.07.2020 r.',
+      },
+    ];
 
   return (
     <>
@@ -169,7 +170,9 @@ export const HrInterviewStudents = () => {
         <TopBar />
         <MenuAvailableTalk />
         <SearchFilterBar />
-        <ListStudentsForInterview {...dummyListOfStudentsForBooking} />
+        <ListStudentsForInterview
+          {...studentDetailsAndReservationDateListForBooking}
+        />
         <p style={{ color: 'cadetblue' }}>PaginationBar</p>
       </div>
     </>

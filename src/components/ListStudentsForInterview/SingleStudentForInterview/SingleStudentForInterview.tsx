@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import './SingleStudentForInterview.css';
 import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from '../../ListStudentsForBooking/SingleStudent/SingleStudentDetails/SingleStudentDetails';
-import { DummyAndReservationDate } from '../../HrInterviewStudents/HrInterviewStudents';
+import { StudentDetailsAndReservationDate } from '../../HrInterviewStudents/HrInterviewStudents';
 import defaultAvatar from '../../../assets/images/default_avatar.jpg';
 
-export const SingleStudentForInterview = (props: DummyAndReservationDate) => {
+export const SingleStudentForInterview = (
+  props: StudentDetailsAndReservationDate,
+) => {
   const [isActive, setActive] = useState(false);
   function hadleClickMoreInfo() {
     setActive(!isActive);

@@ -4,23 +4,10 @@ import { MenuAvailableTalk } from '../MenuAvailableTalk/MenuAvailableTalk';
 import './HrAllStudents.css';
 import { SearchFilterBar } from '../SearchFilterBar/SearchFilterBar';
 import { ListStudentsForBooking } from '../ListStudentsForBooking/ListStudentsForBooking';
-
-export interface Dummy {
-  fullName: string;
-  courseDegree: number;
-  courseEngagement: number;
-  projectDegree: number;
-  teamProjectDegree: number;
-  expectedTypeWork: string;
-  targetWorkCity: string;
-  expectedContractType: string;
-  expectedSalary: number;
-  canTakeApprenticeship: boolean;
-  monthsOfCommercialExp: string;
-}
+import { StudentDetails } from '../../types/hr/hr';
 
 export const HrAllStudents = () => {
-  const dummyListOfStudentsForBooking: Dummy[] = [
+  const studentDetailsListOfStudentsForBooking: StudentDetails[] = [
     {
       fullName: 'Jan Kowalski',
       courseDegree: 1,
@@ -119,7 +106,7 @@ export const HrAllStudents = () => {
         <TopBar />
         <MenuAvailableTalk />
         <SearchFilterBar />
-        <ListStudentsForBooking {...dummyListOfStudentsForBooking} />
+        <ListStudentsForBooking {...studentDetailsListOfStudentsForBooking} />
         <p>PaginationBar</p>
       </div>
     </>

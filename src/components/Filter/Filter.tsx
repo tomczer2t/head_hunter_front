@@ -1,24 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './Filter.css';
-import starRed from '../../assets/images/star-red.svg';
-import starWhite from '../../assets/images/star-white.svg';
-import { BtnStar, StarNames } from './BtnStar/BtnStar';
+import { BtnStar } from './BtnStar/BtnStar';
+import { FiltState, StarNames } from '../../types/hr/hr';
 
-export interface FiltState {
-  courseCompletion: [boolean, boolean, boolean, boolean, boolean]; //5,4,3,2,1
-  courseEngagment: [boolean, boolean, boolean, boolean, boolean]; //5,4,3,2,1
-  projectDegree: [boolean, boolean, boolean, boolean, boolean]; //5,4,3,2,1
-  teamProjectDegree: [boolean, boolean, boolean, boolean, boolean]; //5,4,3,2,1
-  expectedTypeWork: [boolean, boolean]; //5,4,3,2,1
-  targetWorkCity: string;
-  expectedContractType: [boolean, boolean, boolean, boolean]; //Umowa o pracę, B2B, Umowa zlecenie, Umowa o dzieło
-  expectedSalary: [null | number, null | number]; //kwota od, do
-  canTakeApprenticeship: null | boolean; //false nie, true tak
-  monthsOfCommercialExp: null | number;
-}
-
-export const Filter = () => {
-  const [filterState, setFilterState] = useState<FiltState>({
+export const Filter = ({
+  setActiveFilter,
+}: {
+  setActiveFilter: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const clearStatus = {
     courseCompletion: [false, false, false, false, false], //5,4,3,2,1
     courseEngagment: [false, false, false, false, false], //5,4,3,2,1
     projectDegree: [false, false, false, false, false], //5,4,3,2,1
@@ -29,15 +19,21 @@ export const Filter = () => {
     expectedSalary: [null, null], //kwota od, do
     canTakeApprenticeship: null, //false nie, true tak
     monthsOfCommercialExp: null, // liczba
-  });
+  } as FiltState;
+
+  const [filterState, setFilterState] = useState<FiltState>(clearStatus);
+
+  const clearAll = () => {
+    setFilterState(clearStatus);
+  };
 
   const handleStateChenge = (s: FiltState): void => {
     setFilterState(s);
-    console.log(s);
   };
-
+  //@Todo aby tło było zaciemnione i nie można było kliknąć innych rzeczy.
   return (
     <>
+      <div className="filter-popup__back-wrapper"></div>
       <div className="filter-popup__wrapper">
         <section className="filter-popup__s1">
           <h2 className="filter-popup__title">Filtrowanie</h2>
@@ -200,12 +196,26 @@ export const Filter = () => {
             id="filter-salary-from"
             type="number"
             placeholder="np. 1000 zł"
+            onChange={(e) => {
+              const newState = JSON.parse(
+                JSON.stringify(filterState),
+              ) as FiltState;
+              newState.expectedSalary[0] = Number(e.target.value);
+              setFilterState(newState);
+            }}
           />
           <label htmlFor="filter-salary-to">Do </label>
           <input
             id="filter-salary-to"
             type="number"
             placeholder="np. 10000 zł"
+            onChange={(e) => {
+              const newState = JSON.parse(
+                JSON.stringify(filterState),
+              ) as FiltState;
+              newState.expectedSalary[1] = Number(e.target.value);
+              setFilterState(newState);
+            }}
           />
         </section>
         <section className="filter-popup">
@@ -218,6 +228,13 @@ export const Filter = () => {
                 id="yes"
                 name="filterCanTakeApprenticeship"
                 value="yes"
+                onChange={(e) => {
+                  const newState = JSON.parse(
+                    JSON.stringify(filterState),
+                  ) as FiltState;
+                  newState.canTakeApprenticeship = e.target.value === 'yes';
+                  setFilterState(newState);
+                }}
               />
               <label htmlFor="yes"></label>
               <label htmlFor="yes">Tak</label>
@@ -228,6 +245,14 @@ export const Filter = () => {
                 id="no"
                 name="filterCanTakeApprenticeship"
                 value="no"
+                onChange={(e) => {
+                  const newState = JSON.parse(
+                    JSON.stringify(filterState),
+                  ) as FiltState;
+                  newState.canTakeApprenticeship =
+                    e.target.value === 'no' ? false : true;
+                  setFilterState(newState);
+                }}
               />
               <label htmlFor="no"></label>
               <label htmlFor="no">Nie</label>
@@ -242,10 +267,22 @@ export const Filter = () => {
             type="number"
             name="filterMonthsOfCommercialExp"
             placeholder="0 miesięcy"
+            onChange={(e) => {
+              const newState = JSON.parse(
+                JSON.stringify(filterState),
+              ) as FiltState;
+              newState.monthsOfCommercialExp = Number(e.target.value);
+              setFilterState(newState);
+            }}
           />
         </section>
         <section className="filter-popup__end">
-          <button className="filter-popup--cancel-btn">Anuluj</button>
+          <button
+            className="filter-popup--cancel-btn"
+            onClick={() => setActiveFilter(false)}
+          >
+            Anuluj
+          </button>
           <button className="filter-popup--submit-btn">Pokaż wyniki</button>
         </section>
       </div>

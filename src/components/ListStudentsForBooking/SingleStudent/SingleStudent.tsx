@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Dummy } from '../../HrAllStudents/HrAllStudents';
 import './SingleStudent.css';
 import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from './SingleStudentDetails/SingleStudentDetails';
+import { StudentDetails } from '../../../types/hr/hr';
 
-export const SingleStudent = (props: Dummy) => {
+export const SingleStudent = (props: StudentDetails) => {
   const [isActive, setActive] = useState(false);
   function hadleClickMoreInfo() {
     setActive(!isActive);

@@ -1,25 +1,24 @@
 import React from 'react';
-import { Dummy } from '../../../HrAllStudents/HrAllStudents';
 import './SingleStudentDetails.css';
+import { StudentDetails } from '../../../../types/hr/hr';
 
-interface DummyIsActive extends Dummy {
+interface StudentDetailsIsActive extends StudentDetails {
   isActive: boolean;
 }
 
-export const SingleStudentDetails = (props: DummyIsActive) => {
-  const {
-    courseDegree,
-    courseEngagement,
-    projectDegree,
-    teamProjectDegree,
-    expectedTypeWork,
-    targetWorkCity,
-    expectedContractType,
-    expectedSalary,
-    canTakeApprenticeship,
-    monthsOfCommercialExp,
-    isActive,
-  }: DummyIsActive = props;
+export const SingleStudentDetails = ({
+  courseDegree,
+  courseEngagement,
+  projectDegree,
+  teamProjectDegree,
+  expectedTypeWork,
+  targetWorkCity,
+  expectedContractType,
+  expectedSalary,
+  canTakeApprenticeship,
+  monthsOfCommercialExp,
+  isActive,
+}: StudentDetailsIsActive) => {
   return (
     <>
       <table
