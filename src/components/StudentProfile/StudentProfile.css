@@ -13,6 +13,7 @@
     align-items: center;
     color: var(--login-module-text-color);
     font-size: 15px;
+
 }
 
 
@@ -43,7 +44,7 @@
 
 .container form .form-body {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr ;
     gap: 30px;
 }
 
@@ -88,10 +89,10 @@
 
 
 .container img {
-    width: 80px;
+    width: 100px;
     border-radius: 50%;
-    position: fixed;
-    margin-left: 20px;
+    align-self: center;
+
 }
 
 
