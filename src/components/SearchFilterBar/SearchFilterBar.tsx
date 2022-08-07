@@ -3,16 +3,25 @@ import './SearchFilterBar.css';
 import magnifier from '../../assets/images/magnifier.svg';
 import filter from '../../assets/images/filter.svg';
 import { Filter } from '../Filter/Filter';
+import {
+  HrAllStudentsRequest,
+  SearchFilterRequestState,
+} from '../../types/hr/hr';
 
-export const SearchFilterBar = () => {
+export const SearchFilterBar = ({
+  dataToAxiosForListOfStudents,
+  setDataToAxiosForListOfStudents,
+}: SearchFilterRequestState) => {
   const [search, setSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState(false);
   function searchHandler(e: React.FormEvent) {
     e.preventDefault();
   }
+
   useEffect(() => {
     const keyDownHandler = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === 'Escape' && activeFilter) {
+        console.log('esc', activeFilter);
         event.preventDefault();
         setActiveFilter(false);
       }
@@ -24,23 +33,30 @@ export const SearchFilterBar = () => {
     return () => {
       document.removeEventListener('keydown', keyDownHandler);
     };
-  }, []);
+  }, [activeFilter]);
+
+  function handleSearch(event: React.FormEvent<HTMLFormElement>) {
+    const newState = JSON.parse(
+      JSON.stringify(dataToAxiosForListOfStudents),
+    ) as HrAllStudentsRequest;
+    newState.search = search;
+    setDataToAxiosForListOfStudents(newState);
+    event.preventDefault();
+  }
 
   return (
     <>
       <div className="search-filter-bar">
         <div>
-          <form onSubmit={SearchFilterBar}>
-            <button
-              className="search-filter-bar__bnt"
-              onSubmit={SearchFilterBar}
-            >
+          <form onSubmit={handleSearch}>
+            <button className="search-filter-bar__bnt">
               <img src={magnifier} className="search-filter-bar__magnifier" />
             </button>
             <input
               type="text"
               placeholder="Szukaj"
               className="search-filter-bar__input"
+              value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
           </form>
@@ -57,7 +73,13 @@ export const SearchFilterBar = () => {
           Filtrowanie
         </button>
       </div>
-      {activeFilter ? <Filter setActiveFilter={setActiveFilter} /> : null}
+      {activeFilter ? (
+        <Filter
+          setActiveFilter={setActiveFilter}
+          dataToAxiosForListOfStudents={dataToAxiosForListOfStudents}
+          setDataToAxiosForListOfStudents={setDataToAxiosForListOfStudents}
+        />
+      ) : null}
     </>
   );
 };

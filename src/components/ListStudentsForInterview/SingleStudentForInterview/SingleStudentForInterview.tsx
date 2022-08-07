@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './SingleStudentForInterview.css';
 import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from '../../ListStudentsForBooking/SingleStudent/SingleStudentDetails/SingleStudentDetails';
-import { StudentDetailsAndReservationDate } from '../../HrInterviewStudents/HrInterviewStudents';
 import defaultAvatar from '../../../assets/images/default_avatar.jpg';
+import { StudentDetailsAndReservationDate } from '../../../types/hr/hr';
 
 export const SingleStudentForInterview = (
   props: StudentDetailsAndReservationDate,
@@ -12,6 +12,7 @@ export const SingleStudentForInterview = (
   function hadleClickMoreInfo() {
     setActive(!isActive);
   }
+
   return (
     <>
       <li className="single-student-interview">

@@ -1,24 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import './Filter.css';
 import { BtnStar } from './BtnStar/BtnStar';
-import { FiltState, StarNames } from '../../types/hr/hr';
+import { FiltState, HrAllStudentsRequest, StarNames } from '../../types/hr/hr';
 
 export const Filter = ({
   setActiveFilter,
+  dataToAxiosForListOfStudents,
+  setDataToAxiosForListOfStudents,
 }: {
   setActiveFilter: React.Dispatch<React.SetStateAction<boolean>>;
+  dataToAxiosForListOfStudents: HrAllStudentsRequest;
+  setDataToAxiosForListOfStudents: React.Dispatch<
+    React.SetStateAction<HrAllStudentsRequest>
+  >;
 }) => {
   const clearStatus = {
-    courseCompletion: [false, false, false, false, false], //5,4,3,2,1
-    courseEngagment: [false, false, false, false, false], //5,4,3,2,1
-    projectDegree: [false, false, false, false, false], //5,4,3,2,1
-    teamProjectDegree: [false, false, false, false, false], //5,4,3,2,1
-    expectedTypeWork: [false, false], // zdalna, w biurze
-    targetWorkCity: '',
-    expectedContractType: [false, false, false, false], //Umowa o pracę, B2B, Umowa zlecenie, Umowa o dzieło
-    expectedSalary: [null, null], //kwota od, do
-    canTakeApprenticeship: null, //false nie, true tak
-    monthsOfCommercialExp: null, // liczba
+    filterCourseCompletion: [false, false, false, false, false], //5,4,3,2,1
+    filterCourseEngagement: [false, false, false, false, false], //5,4,3,2,1
+    filterProjectDegree: [false, false, false, false, false], //5,4,3,2,1
+    filterTeamProjectDegree: [false, false, false, false, false], //5,4,3,2,1
+    filterExpectedTypeWork: [false, false], // zdalna, w biurze
+    filterExpectedContractType: [false, false, false, false], //Umowa o pracę, B2B, Umowa zlecenie, Umowa o dzieło
+    filterExpectedSalaryFrom: null, //kwota od,
+    filterExpectedSalaryUpTo: null, //kwota  do
+    filterCanTakeApprenticeship: null, //false nie, true tak
+    filterMonthsOfCommercialExp: null, // liczba
   } as FiltState;
 
   const [filterState, setFilterState] = useState<FiltState>(clearStatus);
@@ -26,18 +32,17 @@ export const Filter = ({
   const clearAll = () => {
     setFilterState(clearStatus);
   };
-
   const handleStateChenge = (s: FiltState): void => {
+    console.log(s);
     setFilterState(s);
   };
-  //@Todo aby tło było zaciemnione i nie można było kliknąć innych rzeczy.
   return (
     <>
       <div className="filter-popup__back-wrapper"></div>
       <div className="filter-popup__wrapper">
         <section className="filter-popup__s1">
           <h2 className="filter-popup__title">Filtrowanie</h2>
-          <button className="filter-popup--clear-all-btn">
+          <button className="filter-popup--clear-all-btn" onClick={clearAll}>
             Wyczyść wszystkie
           </button>
         </section>
@@ -86,15 +91,22 @@ export const Filter = ({
           <div>
             <button
               className={
-                filterState.expectedTypeWork[0]
-                  ? 'filter-popup--btn filter-popup--btn--active'
+                filterState.filterExpectedTypeWork !== null
+                  ? filterState.filterExpectedTypeWork[0]
+                    ? 'filter-popup--btn filter-popup--btn--active'
+                    : 'filter-popup--btn'
                   : 'filter-popup--btn'
               }
               onClick={() => {
                 const newState = JSON.parse(
                   JSON.stringify(filterState),
                 ) as FiltState;
-                newState.expectedTypeWork[0] = !newState.expectedTypeWork[0];
+                if (newState.filterExpectedTypeWork !== null) {
+                  newState.filterExpectedTypeWork[0] =
+                    !newState.filterExpectedTypeWork[0];
+                } else {
+                  newState.filterExpectedTypeWork = [true, false];
+                }
                 setFilterState(newState);
               }}
             >
@@ -102,15 +114,22 @@ export const Filter = ({
             </button>
             <button
               className={
-                filterState.expectedTypeWork[1]
-                  ? 'filter-popup--btn filter-popup--btn--active'
+                filterState.filterExpectedTypeWork !== null
+                  ? filterState.filterExpectedTypeWork[1]
+                    ? 'filter-popup--btn filter-popup--btn--active'
+                    : 'filter-popup--btn'
                   : 'filter-popup--btn'
               }
               onClick={() => {
                 const newState = JSON.parse(
                   JSON.stringify(filterState),
                 ) as FiltState;
-                newState.expectedTypeWork[1] = !newState.expectedTypeWork[1];
+                if (newState.filterExpectedTypeWork !== null) {
+                  newState.filterExpectedTypeWork[1] =
+                    !newState.filterExpectedTypeWork[1];
+                } else {
+                  newState.filterExpectedTypeWork = [false, true];
+                }
                 setFilterState(newState);
               }}
             >
@@ -122,16 +141,28 @@ export const Filter = ({
           <h3>Oczekiwany typ kontraktu</h3>
           <button
             className={
-              filterState.expectedContractType[0]
-                ? 'filter-popup--btn filter-popup--btn--active'
+              filterState.filterExpectedContractType !== null
+                ? filterState.filterExpectedContractType[0]
+                  ? 'filter-popup--btn filter-popup--btn--active'
+                  : 'filter-popup--btn'
                 : 'filter-popup--btn'
             }
             onClick={() => {
               const newState = JSON.parse(
                 JSON.stringify(filterState),
               ) as FiltState;
-              newState.expectedContractType[0] =
-                !newState.expectedContractType[0];
+
+              if (newState.filterExpectedContractType !== null) {
+                newState.filterExpectedContractType[0] =
+                  !newState.filterExpectedContractType[0];
+              } else {
+                newState.filterExpectedContractType = [
+                  true,
+                  false,
+                  false,
+                  false,
+                ];
+              }
               setFilterState(newState);
             }}
           >
@@ -139,16 +170,27 @@ export const Filter = ({
           </button>
           <button
             className={
-              filterState.expectedContractType[1]
-                ? 'filter-popup--btn filter-popup--btn--active'
+              filterState.filterExpectedContractType !== null
+                ? filterState.filterExpectedContractType[1]
+                  ? 'filter-popup--btn filter-popup--btn--active'
+                  : 'filter-popup--btn'
                 : 'filter-popup--btn'
             }
             onClick={() => {
               const newState = JSON.parse(
                 JSON.stringify(filterState),
               ) as FiltState;
-              newState.expectedContractType[1] =
-                !newState.expectedContractType[1];
+              if (newState.filterExpectedContractType !== null) {
+                newState.filterExpectedContractType[1] =
+                  !newState.filterExpectedContractType[1];
+              } else {
+                newState.filterExpectedContractType = [
+                  true,
+                  false,
+                  false,
+                  false,
+                ];
+              }
               setFilterState(newState);
             }}
           >
@@ -156,16 +198,27 @@ export const Filter = ({
           </button>
           <button
             className={
-              filterState.expectedContractType[2]
-                ? 'filter-popup--btn filter-popup--btn--active'
+              filterState.filterExpectedContractType !== null
+                ? filterState.filterExpectedContractType[2]
+                  ? 'filter-popup--btn filter-popup--btn--active'
+                  : 'filter-popup--btn'
                 : 'filter-popup--btn'
             }
             onClick={() => {
               const newState = JSON.parse(
                 JSON.stringify(filterState),
               ) as FiltState;
-              newState.expectedContractType[2] =
-                !newState.expectedContractType[2];
+              if (newState.filterExpectedContractType !== null) {
+                newState.filterExpectedContractType[2] =
+                  !newState.filterExpectedContractType[2];
+              } else {
+                newState.filterExpectedContractType = [
+                  true,
+                  false,
+                  false,
+                  false,
+                ];
+              }
               setFilterState(newState);
             }}
           >
@@ -173,16 +226,27 @@ export const Filter = ({
           </button>
           <button
             className={
-              filterState.expectedContractType[3]
-                ? 'filter-popup--btn filter-popup--btn--active'
+              filterState.filterExpectedContractType !== null
+                ? filterState.filterExpectedContractType[3]
+                  ? 'filter-popup--btn filter-popup--btn--active'
+                  : 'filter-popup--btn'
                 : 'filter-popup--btn'
             }
             onClick={() => {
               const newState = JSON.parse(
                 JSON.stringify(filterState),
               ) as FiltState;
-              newState.expectedContractType[3] =
-                !newState.expectedContractType[3];
+              if (newState.filterExpectedContractType !== null) {
+                newState.filterExpectedContractType[3] =
+                  !newState.filterExpectedContractType[3];
+              } else {
+                newState.filterExpectedContractType = [
+                  true,
+                  false,
+                  false,
+                  false,
+                ];
+              }
               setFilterState(newState);
             }}
           >
@@ -196,11 +260,17 @@ export const Filter = ({
             id="filter-salary-from"
             type="number"
             placeholder="np. 1000 zł"
+            value={
+              Number(filterState.filterExpectedSalaryFrom) === 0
+                ? ''
+                : Number(filterState.filterExpectedSalaryFrom)
+            }
             onChange={(e) => {
               const newState = JSON.parse(
                 JSON.stringify(filterState),
               ) as FiltState;
-              newState.expectedSalary[0] = Number(e.target.value);
+              newState.filterExpectedSalaryFrom =
+                Number(e.target.value) === 0 ? null : Number(e.target.value);
               setFilterState(newState);
             }}
           />
@@ -209,11 +279,17 @@ export const Filter = ({
             id="filter-salary-to"
             type="number"
             placeholder="np. 10000 zł"
+            value={
+              Number(filterState.filterExpectedSalaryUpTo) === 0
+                ? ''
+                : Number(filterState.filterExpectedSalaryUpTo)
+            }
             onChange={(e) => {
               const newState = JSON.parse(
                 JSON.stringify(filterState),
               ) as FiltState;
-              newState.expectedSalary[1] = Number(e.target.value);
+              newState.filterExpectedSalaryUpTo =
+                Number(e.target.value) === 0 ? null : Number(e.target.value);
               setFilterState(newState);
             }}
           />
@@ -228,11 +304,13 @@ export const Filter = ({
                 id="yes"
                 name="filterCanTakeApprenticeship"
                 value="yes"
+                checked={filterState.filterCanTakeApprenticeship === true}
                 onChange={(e) => {
                   const newState = JSON.parse(
                     JSON.stringify(filterState),
                   ) as FiltState;
-                  newState.canTakeApprenticeship = e.target.value === 'yes';
+                  newState.filterCanTakeApprenticeship =
+                    e.target.value === 'yes';
                   setFilterState(newState);
                 }}
               />
@@ -245,12 +323,13 @@ export const Filter = ({
                 id="no"
                 name="filterCanTakeApprenticeship"
                 value="no"
+                checked={filterState.filterCanTakeApprenticeship === false}
                 onChange={(e) => {
                   const newState = JSON.parse(
                     JSON.stringify(filterState),
                   ) as FiltState;
-                  newState.canTakeApprenticeship =
-                    e.target.value === 'no' ? false : true;
+                  newState.filterCanTakeApprenticeship =
+                    e.target.value !== 'no';
                   setFilterState(newState);
                 }}
               />
@@ -267,11 +346,17 @@ export const Filter = ({
             type="number"
             name="filterMonthsOfCommercialExp"
             placeholder="0 miesięcy"
+            value={
+              Number(filterState.filterMonthsOfCommercialExp) === 0
+                ? ''
+                : Number(filterState.filterMonthsOfCommercialExp)
+            }
             onChange={(e) => {
               const newState = JSON.parse(
                 JSON.stringify(filterState),
               ) as FiltState;
-              newState.monthsOfCommercialExp = Number(e.target.value);
+              newState.filterMonthsOfCommercialExp =
+                Number(e.target.value) === 0 ? null : Number(e.target.value);
               setFilterState(newState);
             }}
           />
@@ -283,7 +368,15 @@ export const Filter = ({
           >
             Anuluj
           </button>
-          <button className="filter-popup--submit-btn">Pokaż wyniki</button>
+          <button
+            className="filter-popup--submit-btn"
+            onClick={() => {
+              console.log('aaa');
+              //@Todo co ma być po Pokaż wyniki
+            }}
+          >
+            Pokaż wyniki
+          </button>
         </section>
       </div>
     </>

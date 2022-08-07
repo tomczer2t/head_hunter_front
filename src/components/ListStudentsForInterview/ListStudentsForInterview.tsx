@@ -1,12 +1,13 @@
 import React from 'react';
 import './ListStudentsForInterview.css';
 import { SingleStudentForInterview } from './SingleStudentForInterview/SingleStudentForInterview';
-import { StudentDetailsAndReservationDate } from '../HrInterviewStudents/HrInterviewStudents';
+import { StudentDetailsAndReservationDate } from '../../types/hr/hr';
 
 export const ListStudentsForInterview = (
   props: StudentDetailsAndReservationDate[],
 ) => {
   const studentsList = [];
+
   for (let i = 0; i < Object.keys(props).length; i++) {
     studentsList.push(props[i]);
   }

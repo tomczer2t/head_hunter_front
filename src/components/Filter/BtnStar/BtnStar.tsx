@@ -15,24 +15,32 @@ export const BtnStar = ({
   const btn = [];
   function handleStarClicked(starIndex: number, starName: StarNames) {
     const newState = JSON.parse(JSON.stringify(filterState)) as FiltState;
-    newState[starName][starIndex] = !newState[starName][starIndex];
+    // newState[starName][starIndex] = !newState[starName][starIndex];
+    const nS = newState[starName];
+    if (nS !== null) {
+      nS[starIndex] = !nS[starIndex];
+    }
     handleStat(newState);
   }
 
-  for (let i = 5; i > 0; i--) {
+  for (let i = 4; i > -1; i--) {
+    const fS = filterState[nameVar];
+
     btn.push(
       <button
         className={
-          filterState[nameVar][i]
-            ? 'filter-popup-btn-star filter-popup-btn-star--active'
+          fS !== null
+            ? fS[i]
+              ? 'filter-popup-btn-star filter-popup-btn-star--active'
+              : 'filter-popup-btn-star'
             : 'filter-popup-btn-star'
         }
         onClick={() => handleStarClicked(i, nameVar)}
         key={i}
       >
-        {i}{' '}
+        {i + 1}{' '}
         <img
-          src={filterState[nameVar][i] ? starWhite : starRed}
+          src={fS !== null ? (fS[i] ? starWhite : starRed) : starWhite}
           alt="star"
           className="star"
         />

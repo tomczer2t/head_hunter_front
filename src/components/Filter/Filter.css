@@ -1,5 +1,4 @@
 .filter-popup__back-wrapper {
-    /*@ToDo uzupełnić zaciemnienie podczas filtrowania*/
     position: fixed;
     height: 100vh;
     width: 100vw;

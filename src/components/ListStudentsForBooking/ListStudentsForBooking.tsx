@@ -1,12 +1,16 @@
 import React from 'react';
 import { SingleStudent } from './SingleStudent/SingleStudent';
 import './ListStudentsForBooking.css';
-import { StudentDetails } from '../../types/hr/hr';
+import { HrAllStudentsRequestState } from '../../types/hr/hr';
 
-export const ListStudentsForBooking = (props: StudentDetails[]) => {
+export const ListStudentsForBooking = (props: HrAllStudentsRequestState) => {
   const studentsList = [];
-  for (let i = 0; i < Object.keys(props).length; i++) {
-    studentsList.push(props[i]);
+  for (
+    let i = 0;
+    i < Object.keys(props.studentDetailsListOfStudentsForBooking).length;
+    i++
+  ) {
+    studentsList.push(props.studentDetailsListOfStudentsForBooking[i]);
   }
 
   return (
