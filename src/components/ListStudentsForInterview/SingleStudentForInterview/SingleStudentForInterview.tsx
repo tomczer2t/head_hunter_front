@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import './SingleStudentForInterview.css';
 import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from '../../ListStudentsForBooking/SingleStudent/SingleStudentDetails/SingleStudentDetails';
-import { DummyAndReservationDate } from '../../HrInterviewStudents/HrInterviewStudents';
 import defaultAvatar from '../../../assets/images/default_avatar.jpg';
+import { StudentOnInterviewList } from 'types';
 
-export const SingleStudentForInterview = (props: DummyAndReservationDate) => {
+export const SingleStudentForInterview = (props: StudentOnInterviewList) => {
   const [isActive, setActive] = useState(false);
   function hadleClickMoreInfo() {
     setActive(!isActive);
@@ -16,7 +16,7 @@ export const SingleStudentForInterview = (props: DummyAndReservationDate) => {
         <div className="single-student-interview__reservation_name_wrapper">
           <div className="single-student-interview__reservation-date">
             <div>Rezerwacja do</div>
-            <div>{props.reservationDate}</div>
+            <div>{props.bookedUntil}</div>
           </div>
           <img src={defaultAvatar} alt="Zdjęcie kursanta" />
           <div className="single-student-interview__name">
