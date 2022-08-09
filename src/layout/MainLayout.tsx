@@ -3,32 +3,26 @@ import { useCallback, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useCookies } from 'react-cookie';
 import { useRefresh } from '../hooks/useRefresh';
+import { useLoggedHandler } from '../hooks/useLoggedHandler';
 export const MainLayout = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [cookies] = useCookies();
+  const logged = useLoggedHandler();
   const refresh = useRefresh();
 
   const checkLogged = useCallback(async () => {
-    if (cookies.logged) {
-      await refresh();
-    }
+    await refresh();
   }, []);
 
   useEffect(() => {
-    void checkLogged();
-    let logged = null;
-    if (typeof cookies.logged == 'string') {
-      logged = JSON.parse(cookies.logged) as boolean;
+    if (logged()) {
+      void checkLogged();
+      navigate(`/${auth == null ? '' : auth.role}`);
     }
 
-    if (logged && auth) {
-      navigate(`/${auth.role}`);
-    }
-
-    if (!logged && !auth && !location.pathname.startsWith('/register')) {
+    if (!logged() && !auth && !location.pathname.startsWith('/register')) {
       navigate('/login');
     }
   }, [auth?.role]);

@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { useCookies } from 'react-cookie';
 import { useRefresh } from '../../hooks/useRefresh';
+import { useLoggedHandler } from '../../hooks/useLoggedHandler';
 
 export const RequireAuthUser = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [cookies] = useCookies();
+  const logged = useLoggedHandler();
   const refresh = useRefresh();
 
   const checkLogged = useCallback(async () => {
-    if (cookies.logged) {
+    if (logged()) {
       await refresh();
     }
   }, []);

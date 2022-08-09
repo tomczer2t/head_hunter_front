@@ -5,11 +5,13 @@ import default_avatar from '../../assets/images/default_avatar.jpg';
 
 import './TopBar.css';
 import { useAuth } from '../../hooks/useAuth';
+import { useLogoutHandler } from '../../hooks/useLogout';
 
 export const TopBar = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
   const { auth } = useAuth();
+  const logoutHandler = useLogoutHandler();
 
   const openMenu = () => {
     console.log('Kliknąłeś w menu');
@@ -46,9 +48,12 @@ export const TopBar = () => {
             </Link>
           </li>
           <li className="top-bar__hr-element">
-            <Link className="top-bar__hr-link" to={'/login'}>
+            <button
+              className="top-bar__hr-link"
+              onClick={() => void logoutHandler()}
+            >
               Wyloguj
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
