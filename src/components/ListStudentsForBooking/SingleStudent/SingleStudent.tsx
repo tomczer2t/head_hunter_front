@@ -3,21 +3,43 @@ import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from './SingleStudentDetails/SingleStudentDetails';
 import { FilteredAvailableStudent } from 'types';
 import './SingleStudent.css';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
 
-export const SingleStudent = (props: FilteredAvailableStudent) => {
+interface Props {
+  student: FilteredAvailableStudent;
+  fetchStudents: () => void;
+}
+
+export const SingleStudent = ({ student, fetchStudents }: Props) => {
   const [isActive, setActive] = useState(false);
+  const axiosPrivate = useAxiosPrivate();
   function hadleClickMoreInfo() {
     setActive(!isActive);
   }
+
+  const handleReserveStudent = async (userId: string) => {
+    try {
+      const { data } = await axiosPrivate.post<FilteredAvailableStudent[]>(
+        '/hr/student',
+        { userId },
+      );
+      fetchStudents();
+    } catch (err) {}
+  };
 
   return (
     <>
       <li className="single-student">
         <div className="single-student__name">
-          {props.firstName} {props.lastName}
+          {student.firstName} {student.lastName}
         </div>
         <div className="single-student__small-wrapper">
-          <button className="single-student__btn">Zarezerwuj rozmowę</button>
+          <button
+            className="single-student__btn"
+            onClick={() => void handleReserveStudent(student.userId)}
+          >
+            Zarezerwuj rozmowę
+          </button>
           <img
             onClick={hadleClickMoreInfo}
             src={upArrow}
@@ -44,7 +66,7 @@ export const SingleStudent = (props: FilteredAvailableStudent) => {
               : 'single-student__details'
           }
         >
-          <SingleStudentDetails {...props} isActive={isActive} />
+          <SingleStudentDetails {...student} isActive={isActive} />
         </div>
       </li>
     </>
