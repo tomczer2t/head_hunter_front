@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import githubIcon from '../../../assets/images/github-brands.svg';
 import phoneIcon from '../../../assets/images/phone-solid.svg';
 import emailIcon from '../../../assets/images/envelope-solid.svg';
 import default_avatar from '../../../assets/images/default_avatar.jpg';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
+import { SingleStudentProfile } from 'types';
 
 import './UserDescription.css';
 
 export const UserDescription = () => {
+  const [student, setStudent] = useState<SingleStudentProfile | null>(null);
+  const axiosPrivate = useAxiosPrivate();
+
+  const fetchStudent = async () => {
+    try {
+      const { data } = await axiosPrivate.get<SingleStudentProfile>('/student');
+      console.log({ data });
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    void fetchStudent();
+  }, []);
+
   return (
     <div className="UserDescription">
       <img
