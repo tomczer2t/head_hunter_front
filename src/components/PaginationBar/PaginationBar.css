@@ -1,0 +1,73 @@
+.pagination {
+  max-width: 1430px;
+  font-family: "Catamaran", sans-serif;
+  margin: 30px auto 30px auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--user-module-pagination-amount-of-users-on-page-color);
+  line-height: 27px;
+}
+
+
+.pagination__title {
+  margin-right: 11px;
+}
+
+.pagination__select {
+  margin-right: 20px;
+  height: 27px;
+  line-height: 27px;
+}
+
+.pagination__select select{
+  background-color: var(--user-module-pagination-available);
+  color: var(--user-module-pagination-unavailable-icon);
+  font-size: 12px;
+  height: 27px;
+  line-height: 27px;
+  font-family: "Catamaran";
+  cursor: pointer;
+}
+
+.pagination__details {
+  margin-right: 13px;
+}
+
+.pagination__btn--back {
+  margin-right: 8px;
+  line-height: 26px;
+  width: 26px;
+  height: 26px;
+  background-color: var(--user-module-pagination-available);
+  cursor: pointer;
+  border: none;
+}
+
+.pagination__btn--back img {
+  display: flex;
+  height: 11px;
+  margin: 0 0 0 3px;
+
+}
+
+.pagination__btn--forward {
+  transform: rotate(180deg);
+  line-height: 26px;
+  width: 26px;
+  height: 26px;
+  background-color: var(--user-module-pagination-available);
+  border: none;
+  cursor: pointer;
+}
+
+.pagination__btn--forward img {
+  display: flex;
+  height: 11px;
+  margin: 0 0 0 3px;
+}
+
+.pagination__btn--active {
+  background-color: #5e5e5e;
+  cursor: none;
+}

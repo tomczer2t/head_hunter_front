@@ -44,16 +44,22 @@ export interface HrAllStudentsRequest extends FiltState {
   numActualPage: number;
   numStudentsCountPerPage: number;
   search: string;
-  // filterCourseCompletion: number | null;
-  // filterCourseEngagement: number | null;
-  // filterProjectDegree: number | null;
-  // filterTeamProjectDegree: number | null;
-  // filterExpectedTypeWork: ExpectedTypeWork[];
-  // filterExpectedContractType: ExpectedContractType[];
-  // filterExpectedSalaryFrom: number | null;
-  // filterExpectedSalaryUpTo: number | null;
-  // filterCanTakeApprenticeship: boolean | null;
-  // filterMonthsOfCommercialExp: number | null;
+  sortedBy: Sorted;
+}
+
+export enum Sorted {
+  courseCompletion_ASC = 'Ocena przejścia kursu: rosnąco',
+  courseCompletion_DESC = '  Ocena przejścia kursu: malejąco',
+  courseEngagement_ASC = 'Ocena aktywności i zaangażowania na kursie: rosnąco',
+  courseEngagement_DESC = 'Ocena aktywności i zaangażowania na kursie: malejąco',
+  projectDegree_ASC = 'Ocena kodu w projekcie własnym: rosnąco',
+  projectDegree_DESC = 'Ocena kodu w projekcie własnym: malejąco',
+  teamProjectDegree_ASC = 'Ocena pracy w zespole w Scrum: rosnąco',
+  teamProjectDegree_DESC = 'Ocena pracy w zespole w Scrum: malejąco',
+  expectedSalary_ASC = 'Oczekiwane wynagrodzenie miesięczne netto: rosnąco',
+  expectedSalary_DESC = 'Oczekiwane wynagrodzenie miesięczne netto: malejąco',
+  monthsOfCommercialExp_ASC = 'Ilość miesięcy doświadczenia komercyjnego kandydata w programowaniu: rosnąco',
+  monthsOfCommercialExp_DESC = 'Ilość miesięcy doświadczenia komercyjnego kandydata w programowaniu: malejąco',
 }
 
 export interface HrAllStudentsRequestState {
@@ -81,6 +87,7 @@ export const defaultRequestForStudents: HrAllStudentsRequest = {
   filterExpectedSalaryUpTo: null,
   filterCanTakeApprenticeship: null,
   filterMonthsOfCommercialExp: null,
+  sortedBy: Sorted.projectDegree_ASC,
 };
 
 export interface SearchFilterRequestState {

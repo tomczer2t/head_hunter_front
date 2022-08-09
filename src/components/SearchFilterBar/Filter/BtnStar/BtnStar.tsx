@@ -1,7 +1,7 @@
-import starWhite from '../../../assets/images/star-white.svg';
-import starRed from '../../../assets/images/star-red.svg';
+import starWhite from '../../../../assets/images/star-white.svg';
+import starRed from '../../../../assets/images/star-red.svg';
 import React from 'react';
-import { FiltState, StarNames } from '../../../types/hr/hr';
+import { FiltState, StarNames } from '../../../../types/hr/hr';
 
 export const BtnStar = ({
   nameVar,

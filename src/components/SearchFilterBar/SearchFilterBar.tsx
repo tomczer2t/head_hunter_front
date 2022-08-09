@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './SearchFilterBar.css';
 import magnifier from '../../assets/images/magnifier.svg';
 import filter from '../../assets/images/filter.svg';
-import { Filter } from '../Filter/Filter';
+import { Filter } from './Filter/Filter';
 import {
   HrAllStudentsRequest,
   SearchFilterRequestState,
 } from '../../types/hr/hr';
+import { Sort } from './Sort/Sort';
 
 export const SearchFilterBar = ({
   dataToAxiosForListOfStudents,
@@ -14,6 +15,7 @@ export const SearchFilterBar = ({
 }: SearchFilterRequestState) => {
   const [search, setSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState(false);
+  const [activeSort, setActiveSort] = useState(false);
   function searchHandler(e: React.FormEvent) {
     e.preventDefault();
   }
@@ -21,19 +23,28 @@ export const SearchFilterBar = ({
   useEffect(() => {
     const keyDownHandler = (event: KeyboardEvent) => {
       if (event.key === 'Escape' && activeFilter) {
-        console.log('esc', activeFilter);
         event.preventDefault();
         setActiveFilter(false);
       }
     };
-
     document.addEventListener('keydown', keyDownHandler);
-
-    // 👇️ clean up event listener
     return () => {
       document.removeEventListener('keydown', keyDownHandler);
     };
   }, [activeFilter]);
+
+  useEffect(() => {
+    const keyDownHandler = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && activeSort) {
+        event.preventDefault();
+        setActiveSort(false);
+      }
+    };
+    document.addEventListener('keydown', keyDownHandler);
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler);
+    };
+  }, [activeSort]);
 
   function handleSearch(event: React.FormEvent<HTMLFormElement>) {
     const newState = JSON.parse(
@@ -43,7 +54,6 @@ export const SearchFilterBar = ({
     setDataToAxiosForListOfStudents(newState);
     event.preventDefault();
   }
-
   return (
     <>
       <div className="search-filter-bar">
@@ -61,6 +71,20 @@ export const SearchFilterBar = ({
             />
           </form>
         </div>
+        <button
+          className="search-filter-bar__filter"
+          onClick={() => setActiveSort(true)}
+        >
+          Sortowanie
+        </button>
+        {activeSort ? (
+          <Sort
+            setActiveSort={setActiveSort}
+            dataToAxiosForListOfStudents={dataToAxiosForListOfStudents}
+            setDataToAxiosForListOfStudents={setDataToAxiosForListOfStudents}
+          />
+        ) : null}
+
         <button
           className="search-filter-bar__filter"
           onClick={() => setActiveFilter(true)}

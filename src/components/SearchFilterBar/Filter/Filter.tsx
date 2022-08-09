@@ -1,7 +1,11 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import './Filter.css';
 import { BtnStar } from './BtnStar/BtnStar';
-import { FiltState, HrAllStudentsRequest, StarNames } from '../../types/hr/hr';
+import {
+  FiltState,
+  HrAllStudentsRequest,
+  StarNames,
+} from '../../../types/hr/hr';
 
 export const Filter = ({
   setActiveFilter,
@@ -14,6 +18,49 @@ export const Filter = ({
     React.SetStateAction<HrAllStudentsRequest>
   >;
 }) => {
+  const cancelStatus = {
+    filterCourseCompletion:
+      dataToAxiosForListOfStudents.filterCourseCompletion === null
+        ? [false, false, false, false, false]
+        : dataToAxiosForListOfStudents.filterCourseCompletion, //5,4,3,2,1
+    filterCourseEngagement:
+      dataToAxiosForListOfStudents.filterCourseEngagement === null
+        ? [false, false, false, false, false]
+        : dataToAxiosForListOfStudents.filterCourseEngagement, //5,4,3,2,1
+    filterProjectDegree:
+      dataToAxiosForListOfStudents.filterProjectDegree === null
+        ? [false, false, false, false, false]
+        : dataToAxiosForListOfStudents.filterProjectDegree, //5,4,3,2,1
+    filterTeamProjectDegree:
+      dataToAxiosForListOfStudents.filterTeamProjectDegree === null
+        ? [false, false, false, false, false]
+        : dataToAxiosForListOfStudents.filterTeamProjectDegree, //5,4,3,2,1
+    filterExpectedTypeWork:
+      dataToAxiosForListOfStudents.filterExpectedTypeWork === null
+        ? [false, false]
+        : dataToAxiosForListOfStudents.filterExpectedTypeWork, // zdalna, w biurze
+    filterExpectedContractType:
+      dataToAxiosForListOfStudents.filterExpectedContractType === null
+        ? [false, false, false, false]
+        : dataToAxiosForListOfStudents.filterExpectedContractType, //Umowa o pracę, B2B, Umowa zlecenie, Umowa o dzieło
+    filterExpectedSalaryFrom:
+      dataToAxiosForListOfStudents.filterExpectedSalaryFrom === null
+        ? null
+        : dataToAxiosForListOfStudents.filterExpectedSalaryFrom, //kwota od,
+    filterExpectedSalaryUpTo:
+      dataToAxiosForListOfStudents.filterExpectedSalaryUpTo === null
+        ? null
+        : dataToAxiosForListOfStudents.filterExpectedSalaryUpTo, //kwota  do
+    filterCanTakeApprenticeship:
+      dataToAxiosForListOfStudents.filterCanTakeApprenticeship === null
+        ? null
+        : dataToAxiosForListOfStudents.filterCanTakeApprenticeship, //false nie, true tak
+    filterMonthsOfCommercialExp:
+      dataToAxiosForListOfStudents.filterMonthsOfCommercialExp === null
+        ? null
+        : dataToAxiosForListOfStudents.filterMonthsOfCommercialExp, // liczba
+  } as FiltState;
+
   const clearStatus = {
     filterCourseCompletion: [false, false, false, false, false], //5,4,3,2,1
     filterCourseEngagement: [false, false, false, false, false], //5,4,3,2,1
@@ -27,22 +74,74 @@ export const Filter = ({
     filterMonthsOfCommercialExp: null, // liczba
   } as FiltState;
 
-  const [filterState, setFilterState] = useState<FiltState>(clearStatus);
-
-  const clearAll = () => {
-    setFilterState(clearStatus);
+  const [filterState, setFilterState] = useState<FiltState>(cancelStatus);
+  const cancelAll = () => {
+    setFilterState(cancelStatus);
+    setActiveFilter(false);
   };
   const handleStateChenge = (s: FiltState): void => {
-    console.log(s);
     setFilterState(s);
   };
+
+  function handleSubmit() {
+    const newData = JSON.parse(
+      JSON.stringify(dataToAxiosForListOfStudents),
+    ) as HrAllStudentsRequest;
+
+    newData.filterCourseCompletion =
+      JSON.stringify(filterState.filterCourseCompletion) ===
+      JSON.stringify([false, false, false, false, false])
+        ? null
+        : filterState.filterCourseCompletion;
+    newData.filterCourseEngagement =
+      JSON.stringify(filterState.filterCourseEngagement) ===
+      JSON.stringify([false, false, false, false, false])
+        ? null
+        : filterState.filterCourseEngagement;
+    newData.filterProjectDegree =
+      JSON.stringify(filterState.filterProjectDegree) ===
+      JSON.stringify([false, false, false, false, false])
+        ? null
+        : filterState.filterProjectDegree;
+    newData.filterTeamProjectDegree =
+      JSON.stringify(filterState.filterTeamProjectDegree) ===
+      JSON.stringify([false, false, false, false, false])
+        ? null
+        : filterState.filterTeamProjectDegree;
+    newData.filterExpectedTypeWork =
+      JSON.stringify(filterState.filterExpectedTypeWork) ===
+      JSON.stringify([false, false])
+        ? null
+        : filterState.filterExpectedTypeWork; //: [boolean, boolean] | null; //biuro, zdalna
+    newData.filterExpectedContractType =
+      JSON.stringify(filterState.filterExpectedContractType) ===
+      JSON.stringify([false, false, false, false])
+        ? null
+        : filterState.filterExpectedContractType; //: [boolean, boolean, boolean, boolean] | null; //Umowa o pracę, B2B, Umowa zlecenie, Umowa o dzieło
+    newData.filterExpectedSalaryFrom = filterState.filterExpectedSalaryFrom; //: null | number; //kwota od,
+    newData.filterExpectedSalaryUpTo = filterState.filterExpectedSalaryUpTo; //: null | number; //kwota  do
+    newData.filterCanTakeApprenticeship =
+      filterState.filterCanTakeApprenticeship; //: null | boolean; //false nie, true tak
+    newData.filterMonthsOfCommercialExp =
+      filterState.filterMonthsOfCommercialExp; //:
+    setDataToAxiosForListOfStudents(newData);
+    setActiveFilter(false);
+  }
+
+  function clearAllFilters() {
+    setFilterState(clearStatus);
+  }
+
   return (
     <>
       <div className="filter-popup__back-wrapper"></div>
       <div className="filter-popup__wrapper">
         <section className="filter-popup__s1">
           <h2 className="filter-popup__title">Filtrowanie</h2>
-          <button className="filter-popup--clear-all-btn" onClick={clearAll}>
+          <button
+            className="filter-popup--clear-all-btn"
+            onClick={clearAllFilters}
+          >
             Wyczyść wszystkie
           </button>
         </section>
@@ -362,19 +461,10 @@ export const Filter = ({
           />
         </section>
         <section className="filter-popup__end">
-          <button
-            className="filter-popup--cancel-btn"
-            onClick={() => setActiveFilter(false)}
-          >
+          <button className="filter-popup--cancel-btn" onClick={cancelAll}>
             Anuluj
           </button>
-          <button
-            className="filter-popup--submit-btn"
-            onClick={() => {
-              console.log('aaa');
-              //@Todo co ma być po Pokaż wyniki
-            }}
-          >
+          <button className="filter-popup--submit-btn" onClick={handleSubmit}>
             Pokaż wyniki
           </button>
         </section>

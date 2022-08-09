@@ -20,7 +20,6 @@ export const fetchDataStudentsInterview = async (
         timeout: 2000,
       },
     );
-    console.log('axios fire');
     setAllStudentsData(result.data);
   } catch (e) {
     console.log('axios error');
