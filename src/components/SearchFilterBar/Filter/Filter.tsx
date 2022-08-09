@@ -321,7 +321,7 @@ export const Filter = ({
               setFilterState(newState);
             }}
           >
-            Umowa zlecenie
+            Umowa zlecenie, dzieło
           </button>
           <button
             className={
@@ -349,7 +349,7 @@ export const Filter = ({
               setFilterState(newState);
             }}
           >
-            Umowa o dzieło
+            Dowolna
           </button>
         </section>
         <section className="filter-popup">

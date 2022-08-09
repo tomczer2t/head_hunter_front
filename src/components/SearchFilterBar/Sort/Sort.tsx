@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HrAllStudentsRequest, Sorted } from '../../../types/hr/hr';
 import './Sort.css';
 
@@ -13,15 +13,18 @@ export const Sort = ({
     React.SetStateAction<HrAllStudentsRequest>
   >;
 }) => {
+  const [defSort, setDefSort] = useState<Sorted>(Sorted.courseCompletion_ASC);
+
   function handleSelect(value: Sorted) {
+    setDefSort(value);
     console.log(value); // @Todo dodać co się stanie
     const newSort = JSON.parse(
       JSON.stringify(dataToAxiosForListOfStudents),
     ) as HrAllStudentsRequest;
     newSort.sortedBy = value;
     setDataToAxiosForListOfStudents(newSort);
+    setActiveSort(false);
   }
-
   return (
     <>
       <div className="sort-popup__back-wrapper"></div>
@@ -29,44 +32,48 @@ export const Sort = ({
         <div className="sort-popup__title">Sortuj po:</div>
         <div className="sort__select">
           <select
-            onChange={(event) => handleSelect(event.target.value as Sorted)}
-            defaultValue="courseCompletion_ASC"
+            onChange={(event) => {
+              event.preventDefault();
+              handleSelect(event.target.value as Sorted);
+            }}
+            defaultValue={defSort}
           >
-            <option value="courseCompletion_ASC">
+            <option value={Sorted.noSort}>--------------------------</option>
+            <option value={Sorted.courseCompletion_ASC}>
               Ocena przejścia kursu: rosnąco
             </option>
-            <option value="courseCompletion_DESC">
+            <option value={Sorted.courseCompletion_DESC}>
               Ocena przejścia kursu: malejąco
             </option>
-            <option value="courseEngagement_ASC">
+            <option value={Sorted.courseEngagement_ASC}>
               Ocena aktywności i zaangażowania na kursie: rosnąco
             </option>
-            <option value="courseEngagement_DESC">
+            <option value={Sorted.courseEngagement_DESC}>
               Ocena aktywności i zaangażowania na kursie: malejąco
             </option>
-            <option value="projectDegree_ASC">
+            <option value={Sorted.projectDegree_ASC}>
               Ocena kodu w projekcie własnym: rosnąco
             </option>
-            <option value="projectDegree_DESC">
+            <option value={Sorted.projectDegree_DESC}>
               Ocena kodu w projekcie własnym: malejąco
             </option>
-            <option value="teamProjectDegree_ASC">
+            <option value={Sorted.teamProjectDegree_ASC}>
               Ocena pracy w zespole w Scrum: rosnąco
             </option>
-            <option value="teamProjectDegree_DESC">
+            <option value={Sorted.teamProjectDegree_DESC}>
               Ocena pracy w zespole w Scrum: malejąco
             </option>
-            <option value="expectedSalary_ASC">
+            <option value={Sorted.expectedSalary_ASC}>
               Oczekiwane wynagrodzenie miesięczne netto: rosnąco
             </option>
-            <option value="expectedSalary_DESC">
+            <option value={Sorted.expectedSalary_DESC}>
               Oczekiwane wynagrodzenie miesięczne netto: malejąco
             </option>
-            <option value="monthsOfCommercialExp_ASC">
+            <option value={Sorted.monthsOfCommercialExp_ASC}>
               Ilość miesięcy doświadczenia komercyjnego kandydata w
               programowaniu: rosnąco
             </option>
-            <option value="monthsOfCommercialExp_DESC">
+            <option value={Sorted.monthsOfCommercialExp_DESC}>
               Ilość miesięcy doświadczenia komercyjnego kandydata w
               programowaniu: malejąco
             </option>

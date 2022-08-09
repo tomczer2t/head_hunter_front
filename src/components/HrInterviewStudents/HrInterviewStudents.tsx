@@ -46,10 +46,10 @@ export const HrInterviewStudents = () => {
     })();
   }, [dataToAxiosForListOfStudentsIn]);
   // //@Todo podpiąć odpowiedź z BE do FE oraz pozmieniać typy podmienić (poniżej odkomentować i zakomentować)
-  // const studentDetailsAndReservationDateListForBooking: StudentDetailsAndReservationDate[] =
-  //   allStudentsResDataIn;
   const studentDetailsAndReservationDateListForBooking: StudentDetailsAndReservationDate[] =
-    dummyHrAllStudentsInterviewResponse;
+    allStudentsResDataIn;
+  // const studentDetailsAndReservationDateListForBooking: StudentDetailsAndReservationDate[] =
+  //   dummyHrAllStudentsInterviewResponse;
 
   return (
     <>

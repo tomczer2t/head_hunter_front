@@ -1,4 +1,4 @@
-import { ExpectedContractType } from 'types';
+import { ExpectedContractType, ExpectedWorkType, SortBy } from 'types';
 import React from 'react';
 
 export enum StarNames {
@@ -13,7 +13,7 @@ export interface FiltState {
   filterCourseEngagement: [boolean, boolean, boolean, boolean, boolean] | null; //5,4,3,2,1
   filterProjectDegree: [boolean, boolean, boolean, boolean, boolean] | null; //5,4,3,2,1
   filterTeamProjectDegree: [boolean, boolean, boolean, boolean, boolean] | null; //5,4,3,2,1
-  filterExpectedTypeWork: [boolean, boolean] | null; //biuro, zdalna
+  filterExpectedTypeWork: boolean[] | null; //biuro, zdalna
   filterExpectedContractType: [boolean, boolean, boolean, boolean] | null; //Umowa o pracę, B2B, Umowa zlecenie, Umowa o dzieło
   filterExpectedSalaryFrom: null | number; //kwota od,
   filterExpectedSalaryUpTo: null | number; //kwota  do
@@ -48,18 +48,19 @@ export interface HrAllStudentsRequest extends FiltState {
 }
 
 export enum Sorted {
-  courseCompletion_ASC = 'Ocena przejścia kursu: rosnąco',
-  courseCompletion_DESC = '  Ocena przejścia kursu: malejąco',
-  courseEngagement_ASC = 'Ocena aktywności i zaangażowania na kursie: rosnąco',
-  courseEngagement_DESC = 'Ocena aktywności i zaangażowania na kursie: malejąco',
-  projectDegree_ASC = 'Ocena kodu w projekcie własnym: rosnąco',
-  projectDegree_DESC = 'Ocena kodu w projekcie własnym: malejąco',
-  teamProjectDegree_ASC = 'Ocena pracy w zespole w Scrum: rosnąco',
-  teamProjectDegree_DESC = 'Ocena pracy w zespole w Scrum: malejąco',
-  expectedSalary_ASC = 'Oczekiwane wynagrodzenie miesięczne netto: rosnąco',
-  expectedSalary_DESC = 'Oczekiwane wynagrodzenie miesięczne netto: malejąco',
-  monthsOfCommercialExp_ASC = 'Ilość miesięcy doświadczenia komercyjnego kandydata w programowaniu: rosnąco',
-  monthsOfCommercialExp_DESC = 'Ilość miesięcy doświadczenia komercyjnego kandydata w programowaniu: malejąco',
+  courseCompletion_ASC = 'courseCompletion_ASC',
+  courseCompletion_DESC = 'courseCompletion_DESC',
+  courseEngagement_ASC = 'courseEngagement_ASC',
+  courseEngagement_DESC = 'courseEngagement_DESC',
+  projectDegree_ASC = 'projectDegree_ASC',
+  projectDegree_DESC = 'projectDegree_DESC',
+  teamProjectDegree_ASC = 'teamProjectDegree_ASC',
+  teamProjectDegree_DESC = 'teamProjectDegree_DESC',
+  expectedSalary_ASC = 'expectedSalary_ASC',
+  expectedSalary_DESC = 'expectedSalary_DESC',
+  monthsOfCommercialExp_ASC = 'monthsOfCommercialExp_ASC',
+  monthsOfCommercialExp_DESC = 'monthsOfCommercialExp_DESC',
+  noSort = 'no',
 }
 
 export interface HrAllStudentsRequestState {
@@ -95,4 +96,32 @@ export interface SearchFilterRequestState {
   setDataToAxiosForListOfStudents: React.Dispatch<
     React.SetStateAction<HrAllStudentsRequest>
   >;
+}
+
+export interface AxiosRequest {
+  numActualPage: number;
+  numStudentsCountPerPage: number;
+  search?: string;
+  sortBy?: SortBy;
+  sortByOrder?: SortByOrder;
+  courseCompletion?: number[]; //5,4,3,2,1
+  courseEngagment?: number[]; //5,4,3,2,1
+  projectDegree?: number[]; //5,4,3,2,1
+  teamProjectDegree?: number[]; //5,4,3,2,1
+  expectedTypeWork?: ExpectedWorkType[]; //biuro, zdalna
+  expectedContractType?: ExpectedContractType[]; //Umowa o pracę, B2B, Umowa zlecenie, Umowa o dzieło
+  salaryFrom?: number; //kwota od,
+  salaryTo?: number; //kwota  do
+  canTakeApprenticeship?: CanTakeApprenticeship; //false nie, true tak
+  monthsOfCommercialExp?: number;
+}
+
+export enum CanTakeApprenticeship {
+  TRUE = 'true',
+  FALSE = 'false',
+}
+
+export enum SortByOrder {
+  ASC = 'ASC',
+  DESC = 'DESC',
 }

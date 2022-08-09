@@ -41,10 +41,10 @@ export const HrAllStudents = () => {
   }, [dataToAxiosForListOfStudents]);
 
   // @Todo podpiąć odpowiedź z BE do FE oraz pozmieniać typy podmienić (poniżej odkomentować i zakomentować)
-  // const studentDetailsListOfStudentsForBooking: StudentDetails[] =
-  //   allStudentsData;
   const studentDetailsListOfStudentsForBooking: StudentDetails[] =
-    dummyHrAllStudentsResponse;
+    allStudentsData;
+  // const studentDetailsListOfStudentsForBooking: StudentDetails[] =
+  //   dummyHrAllStudentsResponse;
 
   return (
     <>
