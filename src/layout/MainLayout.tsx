@@ -1,25 +1,37 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useCookies } from 'react-cookie';
+import { useRefresh } from '../hooks/useRefresh';
 export const MainLayout = () => {
-  const [cookies] = useCookies();
   const { auth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [cookies] = useCookies();
+  const refresh = useRefresh();
+
+  const checkLogged = useCallback(async () => {
+    if (cookies.logged) {
+      await refresh();
+    }
+  }, []);
+
   useEffect(() => {
-    console.log(!auth);
-    console.log(!cookies.looged);
-    console.log(!location.pathname.startsWith('/register'));
-    if (
-      !cookies.logged &&
-      !auth &&
-      !location.pathname.startsWith('/register')
-    ) {
+    void checkLogged();
+    let logged = null;
+    if (typeof cookies.logged == 'string') {
+      logged = JSON.parse(cookies.logged) as boolean;
+    }
+
+    if (logged && auth) {
+      navigate(`/${auth.role}`);
+    }
+
+    if (!logged && !auth && !location.pathname.startsWith('/register')) {
       navigate('/login');
     }
-  }, [auth, navigate, location.pathname, cookies.logged]);
+  }, [auth?.role]);
   return (
     <>
       <Outlet />

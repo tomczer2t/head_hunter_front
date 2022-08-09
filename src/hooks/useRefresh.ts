@@ -3,7 +3,6 @@ import { useAuth } from './useAuth';
 import { axiosPlain } from '../api/axiosPlain';
 import { useCookies } from 'react-cookie';
 import { LoginResponse } from 'types';
-import { log } from 'util';
 
 export const useRefresh = () => {
   const [cookies] = useCookies(['logged']);
@@ -18,19 +17,13 @@ export const useRefresh = () => {
       );
       if (data) {
         console.log(auth);
-        setAuth((prevState: LoginResponse | null) => {
-          if (prevState === null && cookies.logged) {
+        setAuth(() => {
+          if (cookies.logged) {
             return data;
           } else {
-            return {
-              ...prevState,
-              role: data.role,
-              accessToken: data.accessToken,
-              accountStatus: data.accountStatus,
-            };
+            return null;
           }
         });
-        console.log(auth);
         return data.accessToken;
       } else {
         return null;
