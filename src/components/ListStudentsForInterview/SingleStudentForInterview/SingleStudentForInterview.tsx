@@ -5,7 +5,11 @@ import { SingleStudentDetails } from '../../ListStudentsForBooking/SingleStudent
 import defaultAvatar from '../../../assets/images/default_avatar.jpg';
 import { StudentOnInterviewList } from 'types';
 
-export const SingleStudentForInterview = (props: StudentOnInterviewList) => {
+interface Props {
+  student: StudentOnInterviewList;
+}
+
+export const SingleStudentForInterview = ({ student }: Props) => {
   const [isActive, setActive] = useState(false);
   function hadleClickMoreInfo() {
     setActive(!isActive);
@@ -16,11 +20,11 @@ export const SingleStudentForInterview = (props: StudentOnInterviewList) => {
         <div className="single-student-interview__reservation_name_wrapper">
           <div className="single-student-interview__reservation-date">
             <div>Rezerwacja do</div>
-            <div>{props.bookedUntil}</div>
+            <div>{student.bookedUntil}</div>
           </div>
           <img src={defaultAvatar} alt="Zdjęcie kursanta" />
           <div className="single-student-interview__name">
-            {props.firstName} {props.lastName}
+            {student.firstName} {student.lastName}
           </div>
         </div>
         <div className="single-student-interview__small-wrapper">
@@ -57,7 +61,7 @@ export const SingleStudentForInterview = (props: StudentOnInterviewList) => {
               : 'single-student__details'
           }
         >
-          <SingleStudentDetails {...props} isActive={isActive} />
+          <SingleStudentDetails {...student} isActive={isActive} />
         </div>
       </li>
     </>
