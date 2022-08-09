@@ -5,6 +5,7 @@ import { StudentOnInterviewList } from 'types';
 
 interface Props {
   students: StudentOnInterviewList[];
+  fetchStudents: () => void;
 }
 
 export const ListStudentsForInterview = (props: Props) => {
@@ -17,7 +18,11 @@ export const ListStudentsForInterview = (props: Props) => {
       <div className="hr-all-students-interview__wrapper">
         <ul className="hr-all-students-interview">
           {studentsList.map((student) => (
-            <SingleStudentForInterview student={student} key={student.userId} />
+            <SingleStudentForInterview
+              fetchStudents={props.fetchStudents}
+              student={student}
+              key={student.userId}
+            />
           ))}
         </ul>
       </div>

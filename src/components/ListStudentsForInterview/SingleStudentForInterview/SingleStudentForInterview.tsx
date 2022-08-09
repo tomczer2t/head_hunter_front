@@ -4,16 +4,30 @@ import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from '../../ListStudentsForBooking/SingleStudent/SingleStudentDetails/SingleStudentDetails';
 import defaultAvatar from '../../../assets/images/default_avatar.jpg';
 import { StudentOnInterviewList } from 'types';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
 
 interface Props {
   student: StudentOnInterviewList;
+  fetchStudents: () => void;
 }
 
-export const SingleStudentForInterview = ({ student }: Props) => {
+export const SingleStudentForInterview = ({
+  student,
+  fetchStudents,
+}: Props) => {
   const [isActive, setActive] = useState(false);
+  const axiosPrivate = useAxiosPrivate();
   function hadleClickMoreInfo() {
     setActive(!isActive);
   }
+
+  const handleNotInterested = async (studentId: string) => {
+    try {
+      await axiosPrivate.delete(`/hr/student/${studentId}`);
+      fetchStudents();
+    } catch (err) {}
+  };
+
   return (
     <>
       <li className="single-student-interview">
@@ -29,7 +43,10 @@ export const SingleStudentForInterview = ({ student }: Props) => {
         </div>
         <div className="single-student-interview__small-wrapper">
           <button className="single-student-interview__btni">Pokaż CV</button>
-          <button className="single-student-interview__btni">
+          <button
+            className="single-student-interview__btni"
+            onClick={() => void handleNotInterested(student.userId)}
+          >
             Brak zainteresowania
           </button>
           <button className="single-student-interview__btni">
