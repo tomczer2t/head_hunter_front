@@ -1,19 +1,42 @@
 import { useAuth } from './useAuth';
-import { axiosPlain } from '../api/axiosPlain';
-import { LoginResponse } from 'types';
 
-type Data = LoginResponse;
+import { axiosPlain } from '../api/axiosPlain';
+import { useCookies } from 'react-cookie';
+import { LoginResponse } from 'types';
+import { log } from 'util';
 
 export const useRefresh = () => {
-  const { setAuth } = useAuth();
+  const [cookies] = useCookies(['logged']);
+  const { auth, setAuth } = useAuth();
   return async () => {
-    const { data } = await axiosPlain.get<Data>('auth/refresh', {
-      withCredentials: true,
-    });
-    setAuth((prevState) => {
-      if (prevState === null) return null;
-      return { ...prevState, accessToken: data.accessToken } as Data;
-    });
-    return data.accessToken;
+    try {
+      const { data } = await axiosPlain.get<LoginResponse | null>(
+        'auth/refresh',
+        {
+          withCredentials: true,
+        },
+      );
+      if (data) {
+        console.log(auth);
+        setAuth((prevState: LoginResponse | null) => {
+          if (prevState === null && cookies.logged) {
+            return data;
+          } else {
+            return {
+              ...prevState,
+              role: data.role,
+              accessToken: data.accessToken,
+              accountStatus: data.accountStatus,
+            };
+          }
+        });
+        console.log(auth);
+        return data.accessToken;
+      } else {
+        return null;
+      }
+    } catch (err) {
+      return null;
+    }
   };
 };

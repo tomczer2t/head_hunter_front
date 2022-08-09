@@ -3,7 +3,7 @@ import './Header.css';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
-
+import { useCookies } from 'react-cookie';
 interface Props {
   section: string;
 }
@@ -11,15 +11,18 @@ interface Props {
 export const Header = (props: Props) => {
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
-  const { setAuth } = useAuth();
+  const [cookies, setCookie] = useCookies();
+  const { auth, setAuth } = useAuth();
 
   const logoutHandler = async () => {
     try {
-      const res = await axiosPrivate.get('/auth/logout');
-      setAuth(null);
+      await axiosPrivate.get('/auth/logout');
+      setAuth(() => null);
+      setCookie('logged', false, { path: '/' });
       navigate('/login');
     } catch (err) {
-      setAuth(null);
+      setAuth(() => null);
+      setCookie('logged', false, { path: '/' });
       navigate('/login');
     }
   };

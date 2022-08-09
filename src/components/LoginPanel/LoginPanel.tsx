@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import './LoginPanel.css';
 import { useNavigate, Link } from 'react-router-dom';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { ErrorLogin } from './ErrorLogin';
 import logo from '../../assets/images/logo-megak.webp';
 import { useAuth } from '../../hooks/useAuth';
-import { LoginResponse, UserRole } from 'types';
-import { axiosPrivate } from '../../api/axiosPlain';
-
+import { LoginResponse } from 'types';
+import { axiosPlain } from '../../api/axiosPlain';
+import { useCookies } from 'react-cookie';
 export const LoginPanel = () => {
-  const { setAuth } = useAuth();
+  const [cookies, setCookie] = useCookies();
+  const { auth, setAuth } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -18,22 +19,19 @@ export const LoginPanel = () => {
   const sendAction = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response: AxiosResponse<LoginResponse> = await axiosPrivate.post(
+      const { data } = await axiosPlain.post<LoginResponse>(
         '/auth/login',
         {
           email,
           password,
         },
+        { withCredentials: true },
       );
-      setAuth(response.data);
+      setAuth(() => data);
 
-      // const redirectionPath = {
-      //   [UserRole.STUDENT]: '/user/cv',
-      //   [UserRole.HR]: '/hr/students',
-      //   [UserRole.ADMIN]: '/admin/panel',
-      // };
+      setCookie('logged', true, { path: '/' });
 
-      navigate(`/${response.data.role}`);
+      navigate(`/${data.role}`);
     } catch (error) {
       console.log(error);
       const err = error as AxiosError;
