@@ -1,6 +1,6 @@
 module.exports = {
   parser: "@typescript-eslint/parser",
-  plugins: ["react", "@typescript-eslint", "jest"],
+  plugins: ["react", "@typescript-eslint", "jest", "react-hooks"],
   overrides: [
     {
       files: ["*.ts", "*.tsx"], // Your TypeScript files extension
@@ -16,6 +16,7 @@ module.exports = {
         "plugin:jest/recommended",
         "plugin:prettier/recommended",
         "plugin:import/recommended",
+        "plugin:react-hooks/recommended"
       ],
 
       parserOptions: {
@@ -48,6 +49,8 @@ module.exports = {
         "caseSensitive": false
       }
     ],
+    "react-hooks/exhaustive-deps": "off",
+    "react-hooks/rules-of-hooks": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-return": "off",
