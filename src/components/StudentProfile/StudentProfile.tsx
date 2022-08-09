@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Input } from './compo/Input';
 
 enum EnumExpectedTypeWork {
   naMiejscu = 'Na miejscu',
@@ -12,6 +13,11 @@ enum EnumExpectedContractType {
   mozliwoscB2B = 'Możliwość B2B',
   mozliwoscUZUoP = 'Możliwość UZ/UoP',
   brakPreferencji = 'Brak preferencji',
+}
+
+enum EnumCanTakeApprenticeship {
+  tak = 'Tak',
+  nie = 'Nie',
 }
 
 interface ErrorMessage {
@@ -32,10 +38,10 @@ interface StudentProfile {
   portfolioUrls: string[];
   bio: string;
   expectedTypeWork: string;
-  expectedSalary: number;
+  expectedSalary: number | '';
   expectedContractType: string;
   canTakeApprenticeship: string;
-  monthsOfCommercialExp: number;
+  monthsOfCommercialExp: number | '';
   education: string;
   workExperience: string;
   courses: string;
@@ -46,6 +52,9 @@ interface StudentProfile {
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const StudentProfile = () => {
   const [isSubmit, setIsSubmit] = useState(false);
+  const [employed, setEmployed] = useState(false);
+  const [addPortfolioUrls, setAddPortfolioUrls] = useState<string>('');
+  const [addProjectUrls, setAddProjectUrls] = useState<string>('');
   const [studentAvatar, setStudentAvatar] = useState('');
   const [errorMessage, setErrorMessage] = useState<ErrorMessage>({});
   const [dataStudent, setDataStudent] = useState<StudentProfile>({
@@ -57,10 +66,10 @@ export const StudentProfile = () => {
     portfolioUrls: [],
     bio: '',
     expectedTypeWork: EnumExpectedTypeWork.bezZnaczenia,
-    expectedSalary: 0,
+    expectedSalary: '',
     expectedContractType: EnumExpectedContractType.brakPreferencji,
-    canTakeApprenticeship: '',
-    monthsOfCommercialExp: 0,
+    canTakeApprenticeship: EnumCanTakeApprenticeship.nie,
+    monthsOfCommercialExp: '',
     education: '',
     workExperience: '',
     courses: '',
@@ -70,12 +79,20 @@ export const StudentProfile = () => {
 
   const changeData = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) =>
+  ) => {
     // eslint-disable-next-line @typescript-eslint/no-shadow
-    setDataStudent((dataStudent) => ({
-      ...dataStudent,
-      [e.target.name]: e.target.value,
-    }));
+    if (e.target.type === 'number') {
+      setDataStudent((dataStudent) => ({
+        ...dataStudent,
+        [e.target.name]: Number(e.target.value),
+      }));
+    } else {
+      setDataStudent((dataStudent) => ({
+        ...dataStudent,
+        [e.target.name]: e.target.value,
+      }));
+    }
+  };
 
   const validate = async (values: StudentProfile): Promise<ErrorMessage> => {
     const errors: ErrorMessage = {};
@@ -89,7 +106,8 @@ export const StudentProfile = () => {
 
     if (!values.email) {
       errors.email = 'To pole jest wymagane';
-    } else if (!values.email.includes('@')) {
+    }
+    if (!values.email.includes('@')) {
       errors.email = 'Podany adres nie zawiera @';
     }
 
@@ -98,7 +116,7 @@ export const StudentProfile = () => {
 
       const res = await fetch(url);
       if (!res.ok) {
-        errors.githubUsername = 'Login jest niepoprawny';
+        errors.githubUsername = 'Konto jest niepoprawde';
       } else {
         const data = await res.json();
         setStudentAvatar(data.avatar_url);
@@ -126,6 +144,44 @@ export const StudentProfile = () => {
     }
   }, [errorMessage]);
 
+  const handleAddPortfolioUrls = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    // setDataStudent([...url2, url]);
+    setDataStudent((dataStudent) => ({
+      ...dataStudent,
+      portfolioUrls: [...dataStudent.portfolioUrls, addPortfolioUrls],
+    }));
+    console.log(dataStudent);
+  };
+
+  const handleRemovePortfolioUrls = (link: string) => {
+    setDataStudent((dataStudent) => ({
+      ...dataStudent,
+      portfolioUrls: dataStudent.portfolioUrls.filter((item) => item !== link),
+    }));
+  };
+  const handleAddProjectUrls = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    // setDataStudent([...url2, url]);
+    setDataStudent((dataStudent) => ({
+      ...dataStudent,
+      projectUrls: [...dataStudent.projectUrls, addProjectUrls],
+    }));
+    console.log(dataStudent);
+  };
+
+  const handleRemoveProjectUrls = (link: string) => {
+    setDataStudent((dataStudent) => ({
+      ...dataStudent,
+      projectUrls: dataStudent.projectUrls.filter((item) => item !== link),
+    }));
+  };
+  const handleEmployed = () => {
+    setEmployed(confirm('Proszę potwierdzić czy jesteś zatrudniony'));
+  };
+
   return (
     <>
       <div className="container">
@@ -135,17 +191,22 @@ export const StudentProfile = () => {
         <form onSubmit={handleSubmit}>
           <div className="form-body">
             <div className="form-col">
-              <label htmlFor="firstName">
-                Imie: <p>{errorMessage.firstName}</p>
-              </label>
-              <input
-                type="text"
-                id="firstName"
+              <Input
                 name="firstName"
-                // required
+                errorMessage={errorMessage.firstName}
                 value={dataStudent.firstName}
-                onChange={changeData}
+                changeData={changeData}
               />
+              {/*<label htmlFor="firstName">*/}
+              {/*  Imie: <p>{errorMessage.firstName}</p>*/}
+              {/*</label>*/}
+              {/*<input*/}
+              {/*  type="text"*/}
+              {/*  id="firstName"*/}
+              {/*  name="firstName"*/}
+              {/*  value={dataStudent.firstName}*/}
+              {/*  onChange={changeData}*/}
+              {/*/>*/}
 
               <label htmlFor="lastName">
                 Nazwisko: <p>{errorMessage.lastName}</p>
@@ -154,7 +215,6 @@ export const StudentProfile = () => {
                 type="text"
                 id="lastName"
                 name="lastName"
-                // required
                 value={dataStudent.lastName}
                 onChange={changeData}
               />
@@ -267,50 +327,147 @@ export const StudentProfile = () => {
                 </option>
               </select>
 
-              <label>Ilość miesięcy doświadczenia komercyjnego</label>
-              <input type="number" />
+              <label htmlFor="monthsOfCommercialExp">
+                Ilość miesięcy doświadczenia komercyjnego
+              </label>
+              <input
+                type="number"
+                id="monthsOfCommercialExp"
+                name="monthsOfCommercialExp"
+                value={dataStudent.monthsOfCommercialExp}
+                onChange={changeData}
+              />
 
-              <label>Przebieg edukacji:</label>
-              <textarea></textarea>
+              <label htmlFor="education">Przebieg edukacji:</label>
+              <textarea
+                id="education"
+                name="education"
+                value={dataStudent.education}
+                onChange={changeData}
+              ></textarea>
             </div>
             <div className="form-col">
-              <label>Zgoda na odbycie bezpłatnych praktyk:</label>
-              <select>
-                <option value="jeden">Tak</option>
-                <option value="dwa">Nie</option>
+              <label htmlFor="canTakeApprenticeship">
+                Zgoda na odbycie bezpłatnych praktyk:
+              </label>
+              <select
+                id="canTakeApprenticeship"
+                name="canTakeApprenticeship"
+                value={dataStudent.canTakeApprenticeship}
+                onChange={changeData}
+              >
+                <option value={EnumCanTakeApprenticeship.tak}>
+                  {EnumCanTakeApprenticeship.tak}
+                </option>
+                <option value={EnumCanTakeApprenticeship.nie}>
+                  {EnumCanTakeApprenticeship.nie}
+                </option>
               </select>
 
               <div className="form-url">
-                <label>URL do portfolio</label>
-                <input type="text" />
-                <button className="url-bnt">Dodaj</button>
+                <label htmlFor="portfolioUrls">URL do portfolio</label>
+                <input
+                  type="text"
+                  id="portfolioUrls"
+                  value={addPortfolioUrls}
+                  onChange={(e) => setAddPortfolioUrls(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="url-bnt"
+                  onClick={handleAddPortfolioUrls}
+                >
+                  Dodaj
+                </button>
                 <div className="url-list">
-                  <p>url</p>
-                  <p>url</p>
-                  <p>url</p>
+                  {dataStudent.portfolioUrls.length === 0
+                    ? ''
+                    : dataStudent.portfolioUrls.map((link, index) => (
+                        <p key={index} style={{ padding: '6px' }}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              handleRemovePortfolioUrls(link);
+                            }}
+                            className="button_x"
+                          >
+                            X
+                          </button>
+                          {link}
+                        </p>
+                      ))}
                 </div>
               </div>
 
               <div className="form-url">
-                <label>URL do porojektu zaliczeniowego na GitHub</label>
-                <input type="text" />
-                <button className="url-bnt">Dodaj</button>
+                <label htmlFor="projectUrls">
+                  URL do porojektu zaliczeniowego na GitHub
+                </label>
+                <input
+                  type="text"
+                  id="projectUrls"
+                  value={addProjectUrls}
+                  onChange={(e) => setAddProjectUrls(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="url-bnt"
+                  onClick={handleAddProjectUrls}
+                >
+                  Dodaj
+                </button>
                 <div className="url-list">
-                  <p>url</p>
-                  <p>url</p>
-                  <p>url</p>
+                  {dataStudent.projectUrls.length === 0
+                    ? ''
+                    : dataStudent.projectUrls.map((link, index) => (
+                        <p key={index} style={{ padding: '6px' }}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              handleRemoveProjectUrls(link);
+                            }}
+                            className="button_x"
+                          >
+                            X
+                          </button>
+                          {link}
+                        </p>
+                      ))}
                 </div>
               </div>
 
-              <label>Przebieg doświadczenia zawodowego:</label>
-              <textarea></textarea>
+              <label htmlFor="workExperience">
+                Przebieg doświadczenia zawodowego:
+              </label>
+              <textarea
+                id="workExperience"
+                name="workExperience"
+                value={dataStudent.workExperience}
+                onChange={changeData}
+              ></textarea>
 
-              <label>Kursy i certyfikaty związane z programowanie:</label>
-              <textarea></textarea>
+              <label htmlFor="courses">
+                Kursy i certyfikaty związane z programowanie:
+              </label>
+              <textarea
+                id="courses"
+                name="courses"
+                value={dataStudent.courses}
+                onChange={changeData}
+              ></textarea>
             </div>
           </div>
-          <button type="submit" className="subminBnt">
+          <button type="submit" className="submitBnt">
             Wyślij
+          </button>
+          <button
+            type="button"
+            onClick={handleEmployed}
+            className={
+              employed ? 'submitBnt yesEmployedBnt' : 'submitBnt noEmployedBnt'
+            }
+          >
+            Jestem zatrudniony
           </button>
         </form>
       </div>
