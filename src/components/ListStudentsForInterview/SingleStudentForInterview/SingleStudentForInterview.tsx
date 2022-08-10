@@ -3,8 +3,9 @@ import './SingleStudentForInterview.css';
 import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from '../../ListStudentsForBooking/SingleStudent/SingleStudentDetails/SingleStudentDetails';
 import defaultAvatar from '../../../assets/images/default_avatar.jpg';
-import { StudentOnInterviewList } from 'types';
+import { StudentOnInterviewList, StudentUpdateProfileResponse } from 'types';
 import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
+import { Link } from 'react-router-dom';
 
 interface Props {
   student: StudentOnInterviewList;
@@ -21,9 +22,9 @@ export const SingleStudentForInterview = ({
     setActive(!isActive);
   }
 
-  const handleNotInterested = async (studentId: string) => {
+  const handleNotInterested = async () => {
     try {
-      await axiosPrivate.delete(`/hr/student/${studentId}`);
+      await axiosPrivate.delete(`/hr/student/${student.userId}`);
       fetchStudents();
     } catch (err) {}
   };
@@ -42,10 +43,12 @@ export const SingleStudentForInterview = ({
           </div>
         </div>
         <div className="single-student-interview__small-wrapper">
-          <button className="single-student-interview__btni">Pokaż CV</button>
+          <Link to={`${student.userId}`}>
+            <button className="single-student-interview__btni">Pokaż CV</button>
+          </Link>
           <button
             className="single-student-interview__btni"
-            onClick={() => void handleNotInterested(student.userId)}
+            onClick={() => void handleNotInterested()}
           >
             Brak zainteresowania
           </button>
