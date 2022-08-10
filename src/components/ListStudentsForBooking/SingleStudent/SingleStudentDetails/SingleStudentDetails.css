@@ -1,0 +1,53 @@
+.single-student-details {
+    font-weight: normal;
+    display: none;
+    color: var(--user-module-text-secondary-color);
+}
+
+.single-student-details--active {
+    display: block;
+}
+
+.single-student-details {
+    height: 110px;
+
+}
+
+.single-student-details tr {
+
+}
+
+.single-student-details tbody, .single-student-details thead {
+    margin-left: 15px;
+}
+
+.single-student-details tr th {
+    font-size: 12px;
+    font-weight: lighter;
+    letter-spacing: 0;
+    font-family: 'Catamaran', sans-serif;
+    height: 34px;
+    padding-top: 17px;
+    border: 5px solid var(--user-module-background-color);
+}
+
+.single-student-details tr th:first-child {
+    padding-left: 0px;
+}
+
+.single-student-details tr td {
+    font-size: 15px;
+    height: 25px;
+    padding-top: 18px;
+    color: var(--user-module-text-color);
+}
+
+.single-student-details tr td:first-child {
+    padding-left: 15px;
+}
+
+.single-student-details__number {
+    color: var(--user-module-degree-second-color);
+    height: 50px;
+    letter-spacing: 1.5px;
+}

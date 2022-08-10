@@ -1,0 +1,89 @@
+@import-normalize;
+
+:root {
+  /* Colors: */
+
+  /** LOGIN MODULE **/
+  --login-module-background-color: #222224;
+  --login-module-input-color: #292A2B;
+  --login-module-input-placeholder-color: #7E7E7E;
+  --login-module-button-color: #E02735;
+  --login-module-text-color: #F7F7F7;
+
+  /** USER MODULE **/
+  --user-module-background-color: #222224;
+  --user-module-table-color: #292A2B;
+  --user-module-top-bar-color: #1E1E1F;
+  --user-module-drop-down-menu-icon-color: #9E9E9E;
+  --user-module-active-menu-line-color: #E02735;
+  --user-module-text-color: #F7F7F7;
+  --user-module-text-secondary-color: #CFCFCF;
+  --user-module-input-color: #1E1E1F;
+  --user-module-input-placeholder-color: #666666;
+  --user-module-input-icon-color: #666666;
+  --user-module-filter-color: #1E1E1F;
+  --user-module-filter-icon-color: #4D4D4D;
+  --user-module-line-under-input-color: #202122;
+  --user-module-button-color: #E02735;
+  --user-module-expand-user-icon-color: #666666;
+  --user-module-degree-describe-color: #CFCFCF;
+  --user-module-degree-second-color: #9E9E9E;
+  --user-module-pagination-amount-of-users-on-page-color: #F7F7F7;
+  --user-module-pagination-amount-of-users-on-page-border-color: #CFCFCF;
+  --user-module-pagination-amount-of-users-on-page-icon-color: #333333;
+  --user-module-pagination-unavailable: #666666;
+  --user-module-pagination-unavailable-icon: #333333;
+  --user-module-pagination-available: #CFCFCF;
+  --user-module-pagination-available-icon: #333333;
+
+  /** FILTER MODULE **/
+  --filter-module-background-color: #0A0A0A;
+  --filter-module-text-color: #F7F7F7;
+  --filter-module-clear-button-color: #172A35;
+  --filter-module-tiles-color: #292A2B;
+  --filter-module-tiles-selected-color: #292A2B;
+  --filter-module-star-color: #E02735;
+  --filter-module-star-selected-color: #F7F7F7;
+  --filter-module-salary-placeholder-color: #7E7E7E;
+  --filter-module-apprenticeship-agreement-border-color: #292A2B;
+  --filter-module-commercial-experience-menu-color: #292A2B;
+  --filter-module-commercial-experience-text-color: #7E7E7E;
+  --filter-module-commercial-experience-icon-color: #666666;
+  --filter-module-show-results-button-color: #E02735;
+  --filter-module-cancel-button-color: #0A0A0A;
+
+  /** CV USER MODULE **/
+  --cv-user-module-background-color: #222224;
+  --cv-user-module-text-color: #F7F7F7;
+  --cv-user-module-back-icon-color: #666666;
+  --cv-user-module-user-description-color: #292A2B;
+  --cv-user-module-link-color: #0B8BD4;
+  --cv-user-module-link-icon-color: #0B8BD4;
+  --cv-user-module-email-phone-icon-color: #4D4D4D;
+  --cv-user-module-bio-title-text-color: #4D4D4D;
+  --cv-user-module-button-color: #E02735;
+  --cv-user-module-header-color: #292A2B;
+  --cv-user-module-header-description-color: #292A2B;
+  --cv-user-module-star-selected-color: #E02735;
+  --cv-user-module-star-unselected-color: #4D4D4D;
+  --cv-user-module-text-rate-second-color: #9E9E9E;
+  --cv-user-module-text-rate-expectation-color: #CFCFCF;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--user-module-background-color);
+  font-family: 'Catamaran', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

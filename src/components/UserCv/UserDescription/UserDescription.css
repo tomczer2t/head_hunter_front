@@ -1,0 +1,112 @@
+.UserDescription {
+  background-color: var(--cv-user-module-user-description-color);
+  padding: 1.875rem 1.75rem 1.4375rem 1.375rem;
+  height: max-content;
+}
+
+.UserDescription__user-avatar {
+  border-radius: 50%;
+  display: block;
+  height: 9.375rem;
+  margin: 0 auto 0.75rem;
+  width: 9.375rem;
+}
+
+.UserDescription__full-name {
+  display: flex;
+  justify-content: center;
+  line-height: 2.4375rem;
+  margin-bottom: 2px;
+}
+
+.UserDescription__first-name,
+.UserDescription__last-name {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.UserDescription__first-name {
+  margin-right: 0.25rem;
+}
+
+.UserDescription__github-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.4375rem;
+}
+
+.UserDescription__github-icon {
+  margin-right: 5px;
+  width: 1.375rem;
+}
+
+.UserDescription__github-name {
+  color: var(--cv-user-module-link-color);
+  display: block;
+  font-weight: 500;
+  line-height: 1.6875rem;
+  text-align: center;
+  text-decoration: none;
+}
+
+.UserDescription__github-name:visited {
+  color: var(--cv-user-module-link-color);
+}
+
+.UserDescription__phone-email-container {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1.125rem max-content;
+  grid-column-gap: 0.625rem;
+  grid-row-gap: 0.5rem;
+  margin-bottom: 1.5625rem;
+}
+
+.UserDescription__phone-icon {
+  justify-self: center;
+  width: 0.75rem;
+}
+
+.UserDescription__phone, .UserDescription__email {
+  font-weight: 500;
+  line-height: 1.6875rem;
+}
+
+.UserDescription__email-icon {
+  width: 1.125rem;
+}
+
+.UserDescription__bio {
+  margin-bottom: 1.875rem;
+}
+
+.UserDescription__bio-title {
+  color: var(--cv-user-module-bio-title-text-color);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.125rem;
+  margin: 0;
+}
+
+.UserDescription__bio-text {
+  line-height: 1.6875rem;
+  margin: 0;
+}
+
+.UserDescription__button {
+  background-color: var(--cv-user-module-button-color);
+  border: none;
+  color: var(--cv-user-module-text-color);
+  cursor: pointer;
+  font-family: 'Catamaran', sans-serif;
+  height: 2.4375rem;
+  margin-bottom: 0.875rem;
+  padding: 0.375rem 1.875rem;
+  width: 100%;
+}
+
+.UserDescription__button:last-child {
+  margin-bottom: 0;
+}
