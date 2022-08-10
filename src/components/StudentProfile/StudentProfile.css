@@ -84,7 +84,7 @@
     font-size: 16px;
     color: #0B8BD4;
     padding: 3px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
 }
 .container form .form-body .form-col .form-url .url-list p .button_x{
