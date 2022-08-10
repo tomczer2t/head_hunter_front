@@ -51,7 +51,7 @@ export const UserTable = ({ student }: Props) => {
         />
         <Expectation
           title="Oczekiwane wynagrodzenie miesięczne netto"
-          value="8000 zł"
+          value={`${student.expectedSalary} zł`}
         />
         <Expectation
           title="Zgoda na odbycie bezpłatnych praktyk/stażu na początek"
@@ -64,23 +64,43 @@ export const UserTable = ({ student }: Props) => {
         />
       </div>
 
-      <UserTableHeader title="Edukacja" />
-      <TextDescription text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+      {student.education && (
+        <>
+          <UserTableHeader title="Edukacja" />
+          <TextDescription text={student.education} />
+        </>
+      )}
 
-      <UserTableHeader title="Kursy" />
-      <TextDescription text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+      {student.courses && (
+        <>
+          <UserTableHeader title="Kursy" />
+          <TextDescription text={student.courses} />
+        </>
+      )}
 
-      <UserTableHeader title="Doświadczenie zawodowe" />
-      <TextDescription text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+      {student.workExperience && (
+        <>
+          <UserTableHeader title="Doświadczenie zawodowe" />
+          <TextDescription text={student.workExperience} />
+        </>
+      )}
 
-      <UserTableHeader title="Portfolio" />
-      <div className="UserTable__links-container">
-        <ProjectLink link="https://Loremipsum/dolor/sit/amet" />
-      </div>
+      {student.portfolioUrls && (
+        <>
+          <UserTableHeader title="Portfolio" />
+          <div className="UserTable__links-container">
+            {student.portfolioUrls.map((url) => (
+              <ProjectLink link={url} />
+            ))}
+          </div>
+        </>
+      )}
 
       <UserTableHeader title="Projekt w zespole Scrumowym" />
       <div className="UserTable__links-container">
-        <ProjectLink link="https://github.com/Ami777/MegaKursTest/commits?author=Ami777" />
+        <ProjectLink
+          link={`https://github.com/tomczer2t/head_hunter_back/commits/develop?author=tomczer2t`}
+        />
         <ProjectLink link="https://github.com/Ami777/MegaKursTest/pulls?q=is%3Apr+reviewed-by%3AAmi777" />
       </div>
 
