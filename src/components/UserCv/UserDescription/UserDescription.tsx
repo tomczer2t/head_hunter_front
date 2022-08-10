@@ -48,18 +48,22 @@ export const UserDescription = ({ student }: Props) => {
         </a>
       </div>
       <div className="UserDescription__phone-email-container">
-        <img
-          className="UserDescription__phone-icon"
-          src={phoneIcon}
-          alt="phone icon"
-        />
-        <span className="UserDescription__phone">brak w zwrotce</span>
+        {student.tel && (
+          <>
+            <img
+              className="UserDescription__phone-icon"
+              src={phoneIcon}
+              alt="phone icon"
+            />
+            <span className="UserDescription__phone">{student.tel}</span>
+          </>
+        )}
         <img
           className="UserDescription__email-icon"
           src={emailIcon}
           alt="email icon"
         />
-        <span className="UserDescription__email">brak w zwrotce</span>
+        <span className="UserDescription__email">{student.email}</span>
       </div>
       {student.bio && (
         <div className="UserDescription__bio">
