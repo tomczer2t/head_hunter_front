@@ -1,5 +1,5 @@
 import React from 'react';
-import { axios } from './axios';
+import { axiosPrivate } from './axios';
 import {
   AxiosRequest,
   CanTakeApprenticeship,
@@ -139,7 +139,7 @@ export const fetchDataStudentsInterview = async (
   }
   console.log('iiiiiiiiiiii', axiosRequestData);
   try {
-    const result = await axios.get<StudentDetailsAndReservationDate[]>(
+    const result = await axiosPrivate.get<StudentDetailsAndReservationDate[]>(
       '/hr/students',
       {
         params: axiosRequestData,
@@ -278,7 +278,7 @@ export const fetchDataStudents = async (
   }
   console.log('nnnnnn', axiosRequestData);
   try {
-    const result = await axios.get<StudentDetailsAndReservationDate[]>(
+    const result = await axiosPrivate.get<StudentDetailsAndReservationDate[]>(
       '/hr/students',
       {
         params: axiosRequestData,
