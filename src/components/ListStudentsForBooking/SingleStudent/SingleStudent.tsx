@@ -31,7 +31,7 @@ export const SingleStudent = ({ student, fetchStudents }: Props) => {
     <>
       <li className="single-student">
         <div className="single-student__name">
-          {student.firstName} {student.lastName}
+          {student.firstName} {student.lastName}.
         </div>
         <div className="single-student__small-wrapper">
           <button
