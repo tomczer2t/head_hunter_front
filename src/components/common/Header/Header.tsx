@@ -3,26 +3,14 @@ import './Header.css';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
-
+import { useCookies } from 'react-cookie';
+import { useLogoutHandler } from '../../../hooks/useLogout';
 interface Props {
   section: string;
 }
 
 export const Header = (props: Props) => {
-  const axiosPrivate = useAxiosPrivate();
-  const navigate = useNavigate();
-  const { setAuth } = useAuth();
-
-  const logoutHandler = async () => {
-    try {
-      const res = await axiosPrivate.get('/auth/logout');
-      setAuth(null);
-      navigate('/login');
-    } catch (err) {
-      setAuth(null);
-      navigate('/login');
-    }
-  };
+  const logoutHandler = useLogoutHandler();
 
   return (
     <div className="header">

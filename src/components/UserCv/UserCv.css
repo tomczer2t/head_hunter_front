@@ -1,7 +1,7 @@
 .UserCv {
   background-color: var(--cv-user-module-background-color);
   color: var(--cv-user-module-text-color);
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .UserCv__interview-student-link {
@@ -9,6 +9,7 @@
   border: none;
   cursor: pointer;
   font-size: 16px;
+  font-weight: 700;
   padding: 0;
   position: absolute;
   left: 11.4375rem;
@@ -18,9 +19,16 @@
 }
 
 .UserCv__interview-student-link::before {
-  content: url("/src/assets/back-arrow.svg");
+  content: url("/src/assets/images/back-arrow.svg");
   height: 1.875rem;
   right: 100%;
   position: absolute;
   top: -7px;
+}
+
+.UserCv__container {
+  display: grid;
+  grid-column-gap: 0.25rem;
+  grid-template-columns: 15.625rem 73.5rem;
+  padding: 0 15.3125rem;
 }

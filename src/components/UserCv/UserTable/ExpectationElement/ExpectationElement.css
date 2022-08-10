@@ -1,0 +1,59 @@
+.Expectation {
+  justify-content: end;
+  display: flex;
+  flex-direction: column;
+  margin-right: 2.1875rem;
+  position: relative;
+}
+
+.Expectation::after {
+  content: '';
+  background-color: var(--cv-user-module-user-description-color);
+  position: absolute;
+  right: -1.125rem;
+  top: -0.625rem;
+  width: 1px;
+  height: 6.5625rem;
+}
+
+.Expectation:last-child::after {
+  display: none;
+}
+
+.Expectation__title {
+  color: var(--cv-user-module-text-rate-expectation-color);
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.125rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.Expectation:nth-child(1) .Expectation__title {
+  width: max-content;
+}
+
+.Expectation:nth-child(2) .Expectation__title {
+  width: 8.9375rem;
+}
+
+.Expectation:nth-child(3) .Expectation__title {
+  width: max-content;
+}
+
+.Expectation:nth-child(4) .Expectation__title {
+  width: 10.1875rem;
+}
+
+.Expectation:nth-child(5) .Expectation__title {
+  width: 11.25rem;
+}
+
+.Expectation:nth-child(6) .Expectation__title {
+  width: 9.8125rem;
+}
+
+.Expectation__value {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
