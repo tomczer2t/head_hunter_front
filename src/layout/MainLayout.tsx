@@ -22,7 +22,12 @@ export const MainLayout = () => {
       navigate(`/${auth == null ? '' : auth.role}`);
     }
 
-    if (!logged() && !auth && !location.pathname.startsWith('/register')) {
+    if (
+      !logged() &&
+      !auth &&
+      !location.pathname.startsWith('/register') &&
+      !location.pathname.startsWith('/send-email')
+    ) {
       navigate('/login');
     }
   }, [auth?.role]);
