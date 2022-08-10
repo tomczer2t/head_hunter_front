@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 
 enum EnumExpectedTypeWork {
   naMiejscu = 'Na miejscu',
@@ -48,7 +48,6 @@ interface DataStudent {
   projectUrls: string[];
 }
 
-// eslint-disable-next-line @typescript-eslint/no-redeclare
 export const StudentProfile = () => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [employed, setEmployed] = useState(false);
@@ -77,7 +76,9 @@ export const StudentProfile = () => {
   });
 
   const changeData = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
   ) => {
     if (e.target.type === 'number') {
       setDataStudent(() => ({
@@ -120,7 +121,7 @@ export const StudentProfile = () => {
         setStudentAvatar(data.avatar_url);
       }
     } else if (!values.githubUsername) {
-      errors.githubUsername = 'To pole jes wymagane';
+      errors.githubUsername = 'To pole jest wymagane';
     }
     return errors;
   };
@@ -129,7 +130,6 @@ export const StudentProfile = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     setErrorMessage(await validate(dataStudent));
     setIsSubmit(true);
   };
@@ -181,7 +181,7 @@ export const StudentProfile = () => {
         <img src={studentAvatar} alt="" />
         <h2>Profil Kursanta</h2>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(event) => void handleSubmit(event)}>
           <div className="form-body">
             <div className="form-col">
               <label htmlFor="firstName">
@@ -192,7 +192,7 @@ export const StudentProfile = () => {
                 id="firstName"
                 name="firstName"
                 value={dataStudent.firstName}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               />
 
               <label htmlFor="lastName">
@@ -203,7 +203,7 @@ export const StudentProfile = () => {
                 id="lastName"
                 name="lastName"
                 value={dataStudent.lastName}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               />
 
               <label htmlFor="email">
@@ -214,7 +214,7 @@ export const StudentProfile = () => {
                 id="email"
                 name="email"
                 value={dataStudent.email}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               />
 
               <label htmlFor="tel">
@@ -225,7 +225,7 @@ export const StudentProfile = () => {
                 id="tel"
                 name="tel"
                 value={dataStudent.tel}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               />
 
               <label htmlFor="GitHub">
@@ -236,7 +236,7 @@ export const StudentProfile = () => {
                 id="GitHub"
                 name="githubUsername"
                 value={dataStudent.githubUsername}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               />
 
               <label htmlFor="bio">Bio:</label>
@@ -244,7 +244,7 @@ export const StudentProfile = () => {
                 id="bio"
                 name="bio"
                 value={dataStudent.bio}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               ></textarea>
             </div>
             <div className="form-col">
@@ -254,7 +254,7 @@ export const StudentProfile = () => {
                 id="targetWorkCity"
                 name="targetWorkCity"
                 value={dataStudent.targetWorkCity}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               />
 
               <label htmlFor="expectedSalary">
@@ -265,7 +265,7 @@ export const StudentProfile = () => {
                 id="expectedSalary"
                 name="expectedSalary"
                 value={dataStudent.expectedSalary}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               />
 
               <label htmlFor="expectedTypeWork">
@@ -275,7 +275,7 @@ export const StudentProfile = () => {
                 id="expectedTypeWork"
                 name="expectedTypeWork"
                 value={dataStudent.expectedTypeWork}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               >
                 <option value={EnumExpectedTypeWork.naMiejscu}>
                   {EnumExpectedTypeWork.naMiejscu}
@@ -298,7 +298,7 @@ export const StudentProfile = () => {
                 id="expectedContractType"
                 name="expectedContractType"
                 value={dataStudent.expectedContractType}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               >
                 <option value={EnumExpectedContractType.tylkoUoP}>
                   {EnumExpectedContractType.tylkoUoP}
@@ -322,7 +322,7 @@ export const StudentProfile = () => {
                 id="monthsOfCommercialExp"
                 name="monthsOfCommercialExp"
                 value={dataStudent.monthsOfCommercialExp}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               />
 
               <label htmlFor="education">Przebieg edukacji:</label>
@@ -330,7 +330,7 @@ export const StudentProfile = () => {
                 id="education"
                 name="education"
                 value={dataStudent.education}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               ></textarea>
             </div>
             <div className="form-col">
@@ -341,7 +341,7 @@ export const StudentProfile = () => {
                 id="canTakeApprenticeship"
                 name="canTakeApprenticeship"
                 value={dataStudent.canTakeApprenticeship}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               >
                 <option value={EnumCanTakeApprenticeship.tak}>
                   {EnumCanTakeApprenticeship.tak}
@@ -362,7 +362,7 @@ export const StudentProfile = () => {
                 <button
                   type="button"
                   className="url-bnt"
-                  onClick={handleAddPortfolioUrls}
+                  onClick={(event) => handleAddPortfolioUrls(event)}
                 >
                   Dodaj
                 </button>
@@ -399,7 +399,7 @@ export const StudentProfile = () => {
                 <button
                   type="button"
                   className="url-bnt"
-                  onClick={handleAddProjectUrls}
+                  onClick={(event) => handleAddProjectUrls(event)}
                 >
                   Dodaj
                 </button>
@@ -430,7 +430,7 @@ export const StudentProfile = () => {
                 id="workExperience"
                 name="workExperience"
                 value={dataStudent.workExperience}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               ></textarea>
 
               <label htmlFor="courses">
@@ -440,7 +440,7 @@ export const StudentProfile = () => {
                 id="courses"
                 name="courses"
                 value={dataStudent.courses}
-                onChange={changeData}
+                onChange={(event) => changeData(event)}
               ></textarea>
             </div>
           </div>
