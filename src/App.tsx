@@ -37,7 +37,7 @@ function App() {
           </Route>
           {/*HR auth require*/}
           <Route path="hr" element={<RequireAuthHr />}>
-            <Route path="students" element={<AllStudentsView />} />
+            <Route index element={<AllStudentsView />} />
             <Route path="interview-students">
               <Route index element={<StudentsInterviewListViews />} />
               <Route path=":studentId" element={<HrUserCvView />} />
