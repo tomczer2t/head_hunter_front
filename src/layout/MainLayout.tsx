@@ -4,6 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useCookies } from 'react-cookie';
 import { useRefresh } from '../hooks/useRefresh';
 import { useLoggedHandler } from '../hooks/useLoggedHandler';
+import { useLogoutHandler } from '../hooks/useLogout';
 export const MainLayout = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
@@ -11,9 +12,14 @@ export const MainLayout = () => {
 
   const logged = useLoggedHandler();
   const refresh = useRefresh();
+  const logoutHandler = useLogoutHandler();
 
   const checkLogged = useCallback(async () => {
-    await refresh();
+    const accessToken = await refresh();
+    if (!accessToken) {
+      await logoutHandler();
+      navigate('/login');
+    }
   }, []);
 
   useEffect(() => {
