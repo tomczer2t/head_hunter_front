@@ -26,13 +26,9 @@ function App() {
             element={<RegisterView />}
           />
           <Route path="send-email" element={<EmailPasswordRecoveryView />} />
-          <Route
-            path="register/:id/:verificationToken"
-            element={<LoginView />}
-          />
           {/*user auth require*/}
-          <Route path="user" element={<RequireAuthUser />}>
-            <Route path="cv" element={<HrUserCvView />} />
+          <Route path="student" element={<RequireAuthUser />}>
+            <Route index element={<HrUserCvView />} />
             <Route path="profile" element={<ProfileView />} />
           </Route>
           {/*HR auth require*/}
@@ -45,7 +41,7 @@ function App() {
           </Route>
           {/*Admin auth require*/}
           <Route path="admin" element={<RequireAuthAdmin />}>
-            <Route path="panel" element={<AdminPanelViews />} />
+            <Route index element={<AdminPanelViews />} />
           </Route>
         </Route>
       </Routes>

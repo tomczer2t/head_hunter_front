@@ -3,7 +3,7 @@ import './SingleStudentForInterview.css';
 import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from '../../ListStudentsForBooking/SingleStudent/SingleStudentDetails/SingleStudentDetails';
 import defaultAvatar from '../../../assets/images/default_avatar.jpg';
-import { StudentOnInterviewList, StudentUpdateProfileResponse } from 'types';
+import { StudentOnInterviewList } from 'types';
 import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
 import { Link } from 'react-router-dom';
 
