@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Input } from './compo/Input';
 
 enum EnumExpectedTypeWork {
   naMiejscu = 'Na miejscu',
@@ -29,7 +28,7 @@ interface ErrorMessage {
   bio?: string;
 }
 
-interface StudentProfile {
+interface DataStudent {
   tel: number | '';
   firstName: string;
   lastName: string;
@@ -57,7 +56,7 @@ export const StudentProfile = () => {
   const [addProjectUrls, setAddProjectUrls] = useState<string>('');
   const [studentAvatar, setStudentAvatar] = useState('');
   const [errorMessage, setErrorMessage] = useState<ErrorMessage>({});
-  const [dataStudent, setDataStudent] = useState<StudentProfile>({
+  const [dataStudent, setDataStudent] = useState<DataStudent>({
     tel: '',
     firstName: '',
     lastName: '',
@@ -80,21 +79,20 @@ export const StudentProfile = () => {
   const changeData = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     if (e.target.type === 'number') {
-      setDataStudent((dataStudent) => ({
+      setDataStudent(() => ({
         ...dataStudent,
         [e.target.name]: Number(e.target.value),
       }));
     } else {
-      setDataStudent((dataStudent) => ({
+      setDataStudent(() => ({
         ...dataStudent,
         [e.target.name]: e.target.value,
       }));
     }
   };
 
-  const validate = async (values: StudentProfile): Promise<ErrorMessage> => {
+  const validate = async (values: DataStudent): Promise<ErrorMessage> => {
     const errors: ErrorMessage = {};
     if (!values.firstName) {
       errors.firstName = 'To pole jest wymagane';
@@ -120,12 +118,10 @@ export const StudentProfile = () => {
       } else {
         const data = await res.json();
         setStudentAvatar(data.avatar_url);
-        console.log('awatar', studentAvatar);
       }
     } else if (!values.githubUsername) {
       errors.githubUsername = 'To pole jes wymagane';
     }
-    console.log('erroes', errors);
     return errors;
   };
 
@@ -135,7 +131,6 @@ export const StudentProfile = () => {
     e.preventDefault();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     setErrorMessage(await validate(dataStudent));
-    console.log('errorMessage', errorMessage);
     setIsSubmit(true);
   };
   useEffect(() => {
@@ -148,15 +143,14 @@ export const StudentProfile = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     // setDataStudent([...url2, url]);
-    setDataStudent((dataStudent) => ({
+    setDataStudent(() => ({
       ...dataStudent,
       portfolioUrls: [...dataStudent.portfolioUrls, addPortfolioUrls],
     }));
-    console.log(dataStudent);
   };
 
   const handleRemovePortfolioUrls = (link: string) => {
-    setDataStudent((dataStudent) => ({
+    setDataStudent(() => ({
       ...dataStudent,
       portfolioUrls: dataStudent.portfolioUrls.filter((item) => item !== link),
     }));
@@ -165,15 +159,14 @@ export const StudentProfile = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     // setDataStudent([...url2, url]);
-    setDataStudent((dataStudent) => ({
+    setDataStudent(() => ({
       ...dataStudent,
       projectUrls: [...dataStudent.projectUrls, addProjectUrls],
     }));
-    console.log(dataStudent);
   };
 
   const handleRemoveProjectUrls = (link: string) => {
-    setDataStudent((dataStudent) => ({
+    setDataStudent(() => ({
       ...dataStudent,
       projectUrls: dataStudent.projectUrls.filter((item) => item !== link),
     }));
@@ -191,22 +184,16 @@ export const StudentProfile = () => {
         <form onSubmit={handleSubmit}>
           <div className="form-body">
             <div className="form-col">
-              <Input
+              <label htmlFor="firstName">
+                Imie: <p>{errorMessage.firstName}</p>
+              </label>
+              <input
+                type="text"
+                id="firstName"
                 name="firstName"
-                errorMessage={errorMessage.firstName}
                 value={dataStudent.firstName}
-                changeData={changeData}
+                onChange={changeData}
               />
-              {/*<label htmlFor="firstName">*/}
-              {/*  Imie: <p>{errorMessage.firstName}</p>*/}
-              {/*</label>*/}
-              {/*<input*/}
-              {/*  type="text"*/}
-              {/*  id="firstName"*/}
-              {/*  name="firstName"*/}
-              {/*  value={dataStudent.firstName}*/}
-              {/*  onChange={changeData}*/}
-              {/*/>*/}
 
               <label htmlFor="lastName">
                 Nazwisko: <p>{errorMessage.lastName}</p>
