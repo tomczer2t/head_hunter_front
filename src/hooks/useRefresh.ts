@@ -1,19 +1,33 @@
 import { useAuth } from './useAuth';
 import { axiosPlain } from '../api/axiosPlain';
 import { LoginResponse } from 'types';
-
-type Data = LoginResponse;
+import { useLoggedHandler } from './useLoggedHandler';
 
 export const useRefresh = () => {
+  const logged = useLoggedHandler();
   const { setAuth } = useAuth();
   return async () => {
-    const { data } = await axiosPlain.get<Data>('auth/refresh', {
-      withCredentials: true,
-    });
-    setAuth((prevState) => {
-      if (prevState === null) return null;
-      return { ...prevState, accessToken: data.accessToken } as Data;
-    });
-    return data.accessToken;
+    try {
+      const { data } = await axiosPlain.get<LoginResponse | null>(
+        'auth/refresh',
+        {
+          withCredentials: true,
+        },
+      );
+      if (data) {
+        setAuth(() => {
+          if (logged()) {
+            return data;
+          } else {
+            return null;
+          }
+        });
+        return data.accessToken;
+      } else {
+        return null;
+      }
+    } catch (err) {
+      return null;
+    }
   };
 };

@@ -1,0 +1,21 @@
+.ProjectLink__image-link {
+  align-items: center;
+  display: flex;
+  margin-bottom: 11px;
+}
+
+.ProjectLink__image-link:last-child {
+  margin-bottom: 0;
+}
+
+.ProjectLink__image {
+  height: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+.ProjectLink__address {
+  color: var(--cv-user-module-link-color);
+  font-size: 1rem;
+  line-height: 1.6875rem;
+  text-decoration: none;
+}

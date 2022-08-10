@@ -1,41 +1,37 @@
 import React, { useState } from 'react';
 import './LoginPanel.css';
 import { useNavigate, Link } from 'react-router-dom';
-import { axiosPlain } from '../../api/axiosPlain';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { ErrorLogin } from './ErrorLogin';
 import logo from '../../assets/images/logo-megak.webp';
 import { useAuth } from '../../hooks/useAuth';
-import { LoginResponse, UserRole } from 'types';
-
+import { LoginResponse } from 'types';
+import { axiosPlain } from '../../api/axiosPlain';
+import { useCookies } from 'react-cookie';
 export const LoginPanel = () => {
-  const { setAuth } = useAuth();
+  const [cookies, setCookie] = useCookies();
+  const { auth, setAuth } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [statusErrorCode, setStatusErrorCode] = useState(200);
 
-  const sendAction = async (e: React.FormEvent<HTMLFormElement>) => {
+  const sendAction = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response: AxiosResponse<LoginResponse> = await axiosPlain.post(
+      const { data } = await axiosPlain.post<LoginResponse>(
         '/auth/login',
         {
           email,
           password,
         },
+        { withCredentials: true },
       );
-      console.log(response.data);
-      setAuth(response.data);
-      const { firstName, lastName, role, githubUsername, accessToken } =
-        response.data;
-      const redirectionPath = {
-        [UserRole.STUDENT]: '/user/cv',
-        [UserRole.HR]: '/hr/students',
-        [UserRole.ADMIN]: '/admin/panel',
-      };
+      setAuth(() => data);
 
-      navigate(redirectionPath[role]);
+      setCookie('logged', true, { path: '/' });
+
+      navigate(`/${data.role}`);
     } catch (error) {
       console.log(error);
       const err = error as AxiosError;
@@ -72,7 +68,7 @@ export const LoginPanel = () => {
                 setStatusErrorCode(200);
               }}
             />
-            <Link className="linkForgotPass" to="/">
+            <Link className="linkForgotPass" to="/send-email">
               Zapomniałeś hasła?
             </Link>
             <div className="login-panel__last-line">
