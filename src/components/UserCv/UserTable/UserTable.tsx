@@ -4,42 +4,63 @@ import { DegreeElement } from './DegreeElement/DegreeElement';
 import { Expectation } from './ExpectationElement/ExpectationElement';
 import { TextDescription } from './TextDescription/TextDescription';
 import { ProjectLink } from './ProjectLink/ProjectLink';
+import { SingleStudentProfile } from 'types';
 
 import './UserTable.css';
 
-export const UserTable = () => {
+interface Props {
+  student: SingleStudentProfile;
+}
+
+export const UserTable = ({ student }: Props) => {
   return (
     <div className="UserTable">
       <UserTableHeader title="Oceny" />
       <div className="UserTable__container">
-        <DegreeElement title="Ocena przejścia kursu" stars={5} />
+        <DegreeElement
+          title="Ocena przejścia kursu"
+          stars={student.courseCompletion}
+        />
         <DegreeElement
           title="Ocena aktywności i zaangażowania na kursie"
-          stars={3}
+          stars={student.courseEngagment}
         />
-        <DegreeElement title="Ocena kodu w projekcie własnym" stars={4} />
-        <DegreeElement title="Ocena pracy w zespole w Scrum" stars={5} />
+        <DegreeElement
+          title="Ocena kodu w projekcie własnym"
+          stars={student.projectDegree}
+        />
+        <DegreeElement
+          title="Ocena pracy w zespole w Scrum"
+          stars={student.teamProjectDegree}
+        />
       </div>
 
       <UserTableHeader title="Oczekiwanie w stosunku do zatrudnienia" />
       <div className="UserTable__container">
-        <Expectation title="Preferowane miejsce pracy" value="Biuro" />
+        <Expectation
+          title="Preferowane miejsce pracy"
+          value={student.expectedTypeWork}
+        />
         <Expectation
           title="Docelowe miasto, gdzie chce pracować kandydat"
           value="Warszawa"
         />
-        <Expectation title="Oczekiwany typ kontraktu" value="Umowa o pracę" />
+        <Expectation
+          title="Oczekiwany typ kontraktu"
+          value={student.expectedContractType}
+        />
         <Expectation
           title="Oczekiwane wynagrodzenie miesięczne netto"
           value="8000 zł"
         />
         <Expectation
           title="Zgoda na odbycie bezpłatnych praktyk/stażu na początek"
-          value="TAK"
+          value={student.canTakeApprenticeship ? 'Tak' : 'Nie'}
         />
         <Expectation
           title="Komercyjne doświadczenie w programowaniu"
-          value="6 miesięcy"
+          value={student.workExperience}
+          isMonthsExp={true}
         />
       </div>
 
