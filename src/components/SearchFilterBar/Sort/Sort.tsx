@@ -17,7 +17,6 @@ export const Sort = ({
 
   function handleSelect(value: Sorted) {
     setDefSort(value);
-    console.log(value); // @Todo dodać co się stanie
     const newSort = JSON.parse(
       JSON.stringify(dataToAxiosForListOfStudents),
     ) as HrAllStudentsRequest;
