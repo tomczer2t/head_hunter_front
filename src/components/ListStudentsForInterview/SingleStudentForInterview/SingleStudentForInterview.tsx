@@ -3,29 +3,53 @@ import './SingleStudentForInterview.css';
 import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from '../../ListStudentsForBooking/SingleStudent/SingleStudentDetails/SingleStudentDetails';
 import defaultAvatar from '../../../assets/images/default_avatar.jpg';
-import { StudentOnInterviewList } from 'types';
+import { StudentOnInterviewList, StudentUpdateProfileResponse } from 'types';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
+import { Link } from 'react-router-dom';
 
-export const SingleStudentForInterview = (props: StudentOnInterviewList) => {
+interface Props {
+  student: StudentOnInterviewList;
+  fetchStudents: () => void;
+}
+
+export const SingleStudentForInterview = ({
+  student,
+  fetchStudents,
+}: Props) => {
   const [isActive, setActive] = useState(false);
+  const axiosPrivate = useAxiosPrivate();
   function hadleClickMoreInfo() {
     setActive(!isActive);
   }
+
+  const handleNotInterested = async () => {
+    try {
+      await axiosPrivate.delete(`/hr/student/${student.userId}`);
+      fetchStudents();
+    } catch (err) {}
+  };
+
   return (
     <>
       <li className="single-student-interview">
         <div className="single-student-interview__reservation_name_wrapper">
           <div className="single-student-interview__reservation-date">
             <div>Rezerwacja do</div>
-            <div>{props.bookedUntil}</div>
+            <div>{student.bookedUntil}</div>
           </div>
           <img src={defaultAvatar} alt="Zdjęcie kursanta" />
           <div className="single-student-interview__name">
-            {props.firstName} {props.lastName}
+            {student.firstName} {student.lastName}
           </div>
         </div>
         <div className="single-student-interview__small-wrapper">
-          <button className="single-student-interview__btni">Pokaż CV</button>
-          <button className="single-student-interview__btni">
+          <Link to={`${student.userId}`}>
+            <button className="single-student-interview__btni">Pokaż CV</button>
+          </Link>
+          <button
+            className="single-student-interview__btni"
+            onClick={() => void handleNotInterested()}
+          >
             Brak zainteresowania
           </button>
           <button className="single-student-interview__btni">
@@ -57,7 +81,7 @@ export const SingleStudentForInterview = (props: StudentOnInterviewList) => {
               : 'single-student__details'
           }
         >
-          <SingleStudentDetails {...props} isActive={isActive} />
+          <SingleStudentDetails {...student} isActive={isActive} />
         </div>
       </li>
     </>

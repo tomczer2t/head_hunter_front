@@ -59,7 +59,10 @@ export const HrAllStudents = () => {
         <TopBar />
         <MenuAvailableTalk />
         <SearchFilterBar />
-        <ListStudentsForBooking {...students} />
+        <ListStudentsForBooking
+          students={students}
+          fetchStudents={() => void fetchStudents()}
+        />
         <p>PaginationBar</p>
       </div>
     </>
