@@ -1,6 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { StudentStatus } from 'types';
 import { useAvatar } from '../../hooks/useAvatar';
+import './StudentProfile.css';
 
 enum EnumExpectedTypeWork {
   naMiejscu = 'Na miejscu',
@@ -104,7 +105,7 @@ export const StudentProfile = () => {
     }
   };
 
-  const validate = async (values: DataStudent): Promise<ErrorMessage> => {
+  const validate = (values: DataStudent): ErrorMessage => {
     const errors: ErrorMessage = {};
     if (!values.firstName) {
       errors.firstName = 'To pole jest wymagane';
@@ -124,11 +125,11 @@ export const StudentProfile = () => {
     return errors;
   };
 
-  const handleSubmit = async (
+  const handleSubmit = (
     e: React.FormEvent<HTMLFormElement | HTMLSelectElement>,
   ) => {
     e.preventDefault();
-    setErrorMessage(await validate(dataStudent));
+    setErrorMessage(validate(dataStudent));
     setIsSubmit(true);
   };
   useEffect(() => {
