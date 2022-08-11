@@ -1,11 +1,10 @@
 .studentProfile {
     background-color: var(--user-module-background-color);
-    min-height: 110vh;
+    min-height: 100vh;
 }
 
 .container {
     background-color: var(--login-module-background-color);
-    height: 100vh;
     font-family: 'Catamaran', sans-serif;
     display: flex;
     flex-direction: column;
@@ -28,9 +27,9 @@
     line-height: 27px;
     border: none;
     padding-left: 17px;
-    width: 300px;
+    width:80%;
     height: 40px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .container form p {
@@ -49,12 +48,15 @@
 }
 
 .container form .form-body .form-col {
-    max-width: 300px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    max-width: 400px;
 
 }
 
 .container form .form-body .form-col .form-url {
-    width: 370px;
+    width: 400px;
     display: inline-block;
 }
 
@@ -90,7 +92,7 @@
 .container form .form-body .form-col .form-url .url-list p .button_x{
     max-width: 17px;
     height: 24px;
-    padding: 0px;
+    padding: 0;
     margin-right: 5px;
 }
 
@@ -98,9 +100,7 @@
     width: 100px;
     border-radius: 50%;
     align-self: center;
-
 }
-
 
 .container form .submitBnt {
     background-color: var(--login-module-button-color);
@@ -110,7 +110,6 @@
     border: none;
     width: 91px;
     height: 39px;
-    margin-left: 259px;
     font-weight: 300;
     letter-spacing: 0.3px;
     line-height: 27px;
@@ -128,7 +127,20 @@
 }
 
 
-.container form .subminBnt:hover {
+.container form .submitBnt:hover {
     background-color: #c98383;
     color: #1a1515;
+}
+.container__form{
+    min-height: 100%;
+}
+
+.container__box-helper{
+    margin-top: 10px;
+    border-top: 2px solid var(--user-module-text-color);
+    width: 100%;
+    display: flex;
+    height: 100px;
+    align-items: center;
+    justify-content: space-evenly;
 }
