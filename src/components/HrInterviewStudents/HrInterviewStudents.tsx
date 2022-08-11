@@ -14,7 +14,7 @@ export const HrInterviewStudents = () => {
   const fetchStudents = useCallback(async () => {
     try {
       const { data } = await axiosPrivate.get<StudentOnInterviewList[]>(
-        '/hr/students',
+        '/hr/students/interview',
       );
       setStudents(data);
     } catch (err) {

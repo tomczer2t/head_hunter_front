@@ -39,7 +39,7 @@ export const HrAllStudents = () => {
     setError('');
     try {
       const { data } = await axiosPrivate.get<FilteredAvailableStudent[]>(
-        '/student',
+        'hr/students/available',
       );
       setStudents(data);
     } catch (err) {
