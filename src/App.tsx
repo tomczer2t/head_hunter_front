@@ -14,6 +14,7 @@ import { RegisterView } from './views/RegisterView';
 import { EmailPasswordRecoveryView } from './views/EmailPasswordRecoveryView';
 
 import './App.css';
+import { StudentCvView } from './views/StudentCvView';
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
           <Route path="send-email" element={<EmailPasswordRecoveryView />} />
           {/*user auth require*/}
           <Route path="student" element={<RequireAuthUser />}>
-            <Route index element={<HrUserCvView />} />
+            <Route index element={<StudentCvView />} />
             <Route path="profile" element={<ProfileView />} />
           </Route>
           {/*HR auth require*/}

@@ -31,6 +31,7 @@ export const LoginPanel = () => {
 
       setCookie('logged', true, { path: '/' });
 
+      console.log(data.role);
       navigate(`/${data.role}`);
     } catch (error) {
       console.log(error);

@@ -1,9 +1,9 @@
 import React from 'react';
-import { UserCv } from '../components/UserCv/UserCv';
 import { useAuth } from '../hooks/useAuth';
 import { UserRole } from 'types';
+import { HrUserCv } from '../components/HrUserCv/HrUserCv';
 
 export const HrUserCvView = () => {
   const { auth } = useAuth();
-  return auth?.role === UserRole.HR ? <UserCv /> : null;
+  return auth?.role === UserRole.HR ? <HrUserCv /> : null;
 };
