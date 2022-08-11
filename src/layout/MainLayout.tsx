@@ -20,7 +20,7 @@ export const MainLayout = () => {
       await logoutHandler();
       navigate('/login');
     }
-  }, []);
+  }, [logged]);
 
   useEffect(() => {
     if (logged()) {
