@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { useLoggedHandler } from '../../hooks/useLoggedHandler';
 
 export const RequireAuthAdmin = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const logged = useLoggedHandler();
 
   useEffect(() => {
-    if (auth?.role !== 'admin' && !logged()) {
+    if (auth?.role !== 'admin') {
       navigate('/login', { state: { from: location.pathname } });
     }
   }, [auth?.role, location.pathname, navigate]);
