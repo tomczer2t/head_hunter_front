@@ -3,7 +3,10 @@ import githubIcon from '../../../assets/images/github-brands.svg';
 import phoneIcon from '../../../assets/images/phone-solid.svg';
 import emailIcon from '../../../assets/images/envelope-solid.svg';
 import default_avatar from '../../../assets/images/default_avatar.jpg';
-import { SingleStudentProfile } from 'types';
+import { SingleStudentProfile, UserRole } from 'types';
+import { useAuth } from '../../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
 
 import './UserDescription.css';
 
@@ -12,7 +15,16 @@ interface Props {
 }
 
 export const UserDescription = ({ student }: Props) => {
+  const { auth } = useAuth();
   const imgRef = useRef<HTMLImageElement>(null!);
+  const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
+
+  const handleNotInterested = () => {
+    // @todo dodać na be zwracanie id
+    // await axiosPrivate.delete(`/hr/student/${student.userId}`);
+    navigate('/hr');
+  };
 
   return (
     <div className="UserDescription">
@@ -71,8 +83,17 @@ export const UserDescription = ({ student }: Props) => {
           <p className="UserDescription__bio-text">{student.bio}</p>
         </div>
       )}
-      <button className="UserDescription__button">Brak zainteresowania</button>
-      <button className="UserDescription__button">Zatrudniony</button>
+      {auth?.role === UserRole.HR && (
+        <>
+          <button
+            className="UserDescription__button"
+            onClick={() => void handleNotInterested()}
+          >
+            Brak zainteresowania
+          </button>
+          <button className="UserDescription__button">Zatrudniony</button>
+        </>
+      )}
     </div>
   );
 };
