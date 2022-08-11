@@ -6,12 +6,13 @@ import default_avatar from '../../assets/images/default_avatar.jpg';
 import './TopBar.css';
 import { useAuth } from '../../hooks/useAuth';
 import { useLogoutHandler } from '../../hooks/useLogout';
+import { useAvatar } from '../../hooks/useAvatar';
 
 export const TopBar = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-
   const { auth } = useAuth();
   const logoutHandler = useLogoutHandler();
+  const avatar = useAvatar();
 
   const openMenu = () => {
     setMenuIsOpen((prevState) => !prevState);
@@ -25,11 +26,7 @@ export const TopBar = () => {
       <div className="top-bar__hr-container-menu" onClick={openMenu}>
         <img
           className="top-bar__hr-avatar"
-          src={
-            auth?.githubUsername
-              ? `https://github.com/${auth.githubUsername}.png`
-              : default_avatar
-          }
+          src={avatar(auth?.githubUsername || default_avatar)}
           alt="hr avatar"
         />
         <span className="top-bar__hr-avatar-name">
