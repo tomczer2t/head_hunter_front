@@ -23,7 +23,8 @@ export interface FiltState {
 
 export interface StudentDetails {
   id: string;
-  fullName: string;
+  firstName: string;
+  lastName: string;
   courseDegree: number;
   courseEngagement: number;
   projectDegree: number;
@@ -33,7 +34,9 @@ export interface StudentDetails {
   expectedContractType: string;
   expectedSalary: number;
   canTakeApprenticeship: boolean;
-  monthsOfCommercialExp: string;
+  monthsOfCommercialExp: number;
+  reservationDate: string;
+  studentInfoId: string;
 }
 
 export interface StudentDetailsAndReservationDate extends StudentDetails {
