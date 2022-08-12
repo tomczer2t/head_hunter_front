@@ -9,7 +9,7 @@ import {
   HrAllStudentsRequest,
   StudentDetailsAndReservationDate,
 } from '../../types/hr/hr';
-import { dummyHrAllStudentsInterviewResponse } from '../../FakeResponses/FakeResponses';
+import { dummyHrAllStudentsResponse } from '../../FakeResponses/FakeResponses';
 import { PaginationBar } from '../PaginationBar/PaginationBar';
 import { useFetchInterview } from '../../hooks/useFetchAllStudentsToHrInterview';
 
@@ -34,7 +34,7 @@ export const HrInterviewStudents = () => {
   // const studentDetailsAndReservationDateListForBooking: StudentDetailsAndReservationDate[] =
   //   allStudentsResDataIn;
   const studentDetailsAndReservationDateListForBooking: StudentDetailsAndReservationDate[] =
-    dummyHrAllStudentsInterviewResponse;
+    dummyHrAllStudentsResponse;
 
   return (
     <>

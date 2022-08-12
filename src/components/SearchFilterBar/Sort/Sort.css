@@ -31,6 +31,9 @@
 }
 
 .sort__cancel {
+    position: absolute;
+    bottom: 20px;
+    right: 100px;
     width: 72px;
     height: 28px;
     background-color: var(--filter-module-background-color);

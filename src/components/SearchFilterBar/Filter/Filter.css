@@ -7,6 +7,7 @@
     transform: translate(-50%, -50%);
     background-color: var(--filter-module-background-color);
     opacity: 0.5;
+
 }
 
 .filter-popup__wrapper {
@@ -16,7 +17,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(0.8);
     background-color: var(--filter-module-background-color);
     color: var(--filter-module-text-color);
     font-family: 'Catamaran', sans-serif;
@@ -181,6 +182,11 @@
     font-family: "Catamaran",sans-serif;
     cursor: pointer;
     border: none;
+    transition: 0.4s;
+}
+.filter-popup--cancel-btn:hover {
+    background-color: var(--filter-module-show-results-button-color);
+    color: var(--filter-module-text-color);
 }
 
 .filter-popup--submit-btn {
