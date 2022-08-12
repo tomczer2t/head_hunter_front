@@ -28,7 +28,7 @@ export const StudentCv = () => {
     <div className="UserCv">
       <TopBar />
       <Link className="UserCv__interview-student-link" to="/student/profile">
-        zrobić link do profilu
+        Profil
       </Link>
       <UserCv student={student} />
     </div>

@@ -81,3 +81,13 @@
 .top-bar__hr-link:visited {
   color: var(--cv-user-module-text-color);
 }
+
+.top-bar__button-logout{
+    background-color: var(--user-module-button-color);
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.4s;
+}
+.top-bar__button-logout:hover{
+    background-color: #e04a55;
+}

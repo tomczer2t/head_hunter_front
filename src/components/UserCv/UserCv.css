@@ -2,10 +2,12 @@
   background-color: var(--cv-user-module-background-color);
   color: var(--cv-user-module-text-color);
   min-height: 100vh;
+  width: 100vw;
 }
 
 .UserCv__interview-student-link {
   background-color: transparent;
+  margin-top: 10px;
   border: none;
   cursor: pointer;
   font-size: 16px;
@@ -16,6 +18,10 @@
   color: var(--cv-user-module-text-color);
   text-transform: capitalize;
   text-decoration: none;
+  transition: 0.3s;
+}
+.UserCv__interview-student-link:hover{
+  border-bottom: 2px solid var(--user-module-button-color);
 }
 
 .UserCv__interview-student-link::before {

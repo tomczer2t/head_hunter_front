@@ -2,6 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { StudentStatus } from 'types';
 import { useAvatar } from '../../hooks/useAvatar';
 import './StudentProfile.css';
+import { Link } from 'react-router-dom';
 
 enum EnumExpectedTypeWork {
   naMiejscu = 'Na miejscu',
@@ -183,14 +184,20 @@ export const StudentProfile = () => {
     }));
   };
   const handleEmployed = () => {
-    setEmployed(confirm('Proszę potwierdzić czy jesteś zatrudniony'));
+    setEmployed(
+      confirm(
+        'Jeśli potwierdzisz zatrudnienie nie będziesz miał/miała już dostępu do konta na tej platformie . Czy chcesz potwierdzić zatrudnienie ?',
+      ),
+    );
   };
 
   return (
     <>
       <div className="container">
         <h2>Profil Kursanta</h2>
-
+        <Link className="UserCv__interview-student-link" to="/student">
+          widok CV
+        </Link>
         <form
           className="container__form"
           onSubmit={(event) => void handleSubmit(event)}
