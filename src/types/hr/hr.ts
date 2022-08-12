@@ -43,6 +43,7 @@ export interface StudentDetailsAndReservationDate extends StudentDetails {
 export interface HrAllStudentsRequest extends FiltState {
   numActualPage: number;
   numStudentsCountPerPage: number;
+  numAllUsers: number;
   search: string;
   sortedBy: Sorted;
 }
@@ -77,6 +78,7 @@ export enum ExpectedTypeWork {
 export const defaultRequestForStudents: HrAllStudentsRequest = {
   numActualPage: 1,
   numStudentsCountPerPage: 10,
+  numAllUsers: 45,
   search: '',
   filterCourseCompletion: null,
   filterCourseEngagement: null,

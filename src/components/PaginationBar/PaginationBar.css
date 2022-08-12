@@ -44,11 +44,15 @@
   border: none;
 }
 
+.pagination__btn--back--disable {
+  cursor: not-allowed;
+  background-color: #616161;
+}
+
 .pagination__btn--back img {
   display: flex;
   height: 11px;
   margin: 0 0 0 3px;
-
 }
 
 .pagination__btn--forward {
@@ -59,6 +63,11 @@
   background-color: var(--user-module-pagination-available);
   border: none;
   cursor: pointer;
+}
+
+.pagination__btn--forward--disable {
+  cursor: not-allowed;
+  background-color: #616161;
 }
 
 .pagination__btn--forward img {

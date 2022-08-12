@@ -29,6 +29,9 @@ export const Sort = ({
       <div className="sort-popup__back-wrapper"></div>
       <div className="sort-popup__wrapper">
         <div className="sort-popup__title">Sortuj po:</div>
+        <button className="sort__cancel" onClick={() => setActiveSort(false)}>
+          Anuluj
+        </button>
         <div className="sort__select">
           <select
             onChange={(event) => {
