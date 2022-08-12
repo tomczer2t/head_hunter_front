@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
 import './Header.css';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks/useAuth';
-import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
-import { useCookies } from 'react-cookie';
 import { useLogoutHandler } from '../../../hooks/useLogout';
 interface Props {
   section: string;

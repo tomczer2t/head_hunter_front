@@ -29,4 +29,10 @@
     display: block;
     height: 100%;
     width: 10%;
+    font-size: 1.2rem;
+    background-color: var(--user-module-button-color);
+    transition: 0.4s;
+}
+.header__btn-logout:hover{
+    background-color: #d44b56;
 }

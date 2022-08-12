@@ -4,6 +4,7 @@ import { MessageResponse } from '../common/MessageResponse/MessageResponse';
 import { AddStudentsResponse } from 'types';
 import { AxiosResponse } from 'axios';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import pattern from '../../assets/images/pattern.png';
 
 export const FormForAddingCsv = () => {
   const axiosPrivate = useAxiosPrivate();
@@ -68,6 +69,11 @@ export const FormForAddingCsv = () => {
           type="file"
           accept=".csv"
           onChange={(e) => handleFileSelect(e)}
+        />
+        <img
+          className="form-adding-csv__form__pattern"
+          src={pattern}
+          alt="patern csv"
         />
         <button type="submit">Wyślij plik CSV</button>
       </form>
