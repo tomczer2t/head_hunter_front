@@ -53,7 +53,13 @@ export const PaginationBar = ({
         >
           <img src={ArrowBack} alt="poprzednia strona" />
         </button>
-        <button className={Math.ceil(numAllUsers / numStudentsCountPerPage) <= numActualPage ? "pagination__btn--forward pagination__btn--forward--disable" :"pagination__btn--forward"}>
+        <button
+          className={
+            Math.ceil(numAllUsers / numStudentsCountPerPage) <= numActualPage
+              ? 'pagination__btn--forward pagination__btn--forward--disable'
+              : 'pagination__btn--forward'
+          }
+        >
           <img src={ArrowBack} alt="następna strona" />
         </button>
       </div>
