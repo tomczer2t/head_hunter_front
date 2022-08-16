@@ -3,16 +3,22 @@ import './SearchFilterBar.css';
 import magnifier from '../../assets/images/magnifier.svg';
 import filter from '../../assets/images/filter.svg';
 import { Filter } from './Filter/Filter';
-import {
-  HrAllStudentsRequest,
-  SearchFilterRequestState,
-} from '../../types/hr/hr';
+import { HrAllStudentsRequest } from '../../types/hr/hr';
 import { Sort } from './Sort/Sort';
+
+interface Props {
+  dataToAxiosForListOfStudents: HrAllStudentsRequest;
+  setDataToAxiosForListOfStudents: React.Dispatch<
+    React.SetStateAction<HrAllStudentsRequest>
+  >;
+  fetchStudents: () => Promise<void>;
+}
 
 export const SearchFilterBar = ({
   dataToAxiosForListOfStudents,
   setDataToAxiosForListOfStudents,
-}: SearchFilterRequestState) => {
+  fetchStudents,
+}: Props) => {
   const [search, setSearch] = useState('');
   const [activeFilter, setActiveFilter] = useState(false);
   const [activeSort, setActiveSort] = useState(false);
@@ -99,6 +105,7 @@ export const SearchFilterBar = ({
       </div>
       {activeFilter ? (
         <Filter
+          fetchStudents={fetchStudents}
           setActiveFilter={setActiveFilter}
           dataToAxiosForListOfStudents={dataToAxiosForListOfStudents}
           setDataToAxiosForListOfStudents={setDataToAxiosForListOfStudents}

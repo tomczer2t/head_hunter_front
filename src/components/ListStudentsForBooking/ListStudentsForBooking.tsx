@@ -1,24 +1,19 @@
 import React from 'react';
 import { SingleStudent } from './SingleStudent/SingleStudent';
 import './ListStudentsForBooking.css';
-import { HrAllStudentsRequestState } from '../../types/hr/hr';
+import { FilteredAvailableStudent } from 'types';
 
-export const ListStudentsForBooking = (props: HrAllStudentsRequestState) => {
-  const studentsList = [];
-  for (
-    let i = 0;
-    i < Object.keys(props.studentDetailsListOfStudentsForBooking).length;
-    i++
-  ) {
-    studentsList.push(props.studentDetailsListOfStudentsForBooking[i]);
-  }
+interface Props {
+  students: FilteredAvailableStudent[];
+}
 
+export const ListStudentsForBooking = (props: Props) => {
   return (
     <>
       <div className="list-students-for-booking__wrapper">
         <ul className="list-students-for-booking">
-          {studentsList.map((student, index) => (
-            <SingleStudent {...student} key={index} />
+          {props.students.map((student) => (
+            <SingleStudent student={student} key={student.userId} />
           ))}
         </ul>
       </div>

@@ -9,28 +9,28 @@ import {
   HrAllStudentsRequest,
   StudentDetails,
 } from '../../types/hr/hr';
-import { dummyHrAllStudentsResponse } from '../../FakeResponses/FakeResponses';
 import { PaginationBar } from '../PaginationBar/PaginationBar';
 import { useFetchAllStudentsToHr } from '../../hooks/useFetchAllStudentsToHr';
+import { StudentOnInterviewList } from 'types';
 
 export const HrAllStudents = () => {
   // const [isError, setIsError] = useState(false); // @Todo co ma się stać jak jest błąd
   const [dataToAxiosForListOfStudents, setDataToAxiosForListOfStudents] =
     useState<HrAllStudentsRequest>(defaultRequestForStudents);
   const fetchDataStudents = useFetchAllStudentsToHr();
-  const [allStudentsData, setAllStudentsData] = useState<StudentDetails[]>([]);
+  const [allStudentsData, setAllStudentsData] = useState<
+    StudentOnInterviewList[]
+  >([]);
+
+  const fetchStudents = async () => {
+    await fetchDataStudents(setAllStudentsData, dataToAxiosForListOfStudents);
+  };
 
   useEffect(() => {
     void (async (): Promise<void> => {
-      await fetchDataStudents(setAllStudentsData, dataToAxiosForListOfStudents);
+      await fetchStudents();
     })();
-  }, [dataToAxiosForListOfStudents, fetchDataStudents]);
-
-  // @Todo podpiąć odpowiedź z BE do FE oraz pozmieniać typy podmienić (poniżej odkomentować i zakomentować)
-  // const studentDetailsListOfStudentsForBooking: StudentDetails[] =
-  //   allStudentsData;
-  const studentDetailsListOfStudentsForBooking: StudentDetails[] =
-    dummyHrAllStudentsResponse;
+  }, [dataToAxiosForListOfStudents]);
 
   return (
     <>
@@ -38,14 +38,11 @@ export const HrAllStudents = () => {
         <TopBar />
         <MenuAvailableTalk />
         <SearchFilterBar
+          fetchStudents={fetchStudents}
           dataToAxiosForListOfStudents={dataToAxiosForListOfStudents}
           setDataToAxiosForListOfStudents={setDataToAxiosForListOfStudents}
         />
-        <ListStudentsForBooking
-          studentDetailsListOfStudentsForBooking={
-            studentDetailsListOfStudentsForBooking
-          }
-        />
+        <ListStudentsForBooking students={allStudentsData} />
         <PaginationBar
           dataToAxiosForListOfStudents={dataToAxiosForListOfStudents}
           setDataToAxiosForListOfStudents={setDataToAxiosForListOfStudents}

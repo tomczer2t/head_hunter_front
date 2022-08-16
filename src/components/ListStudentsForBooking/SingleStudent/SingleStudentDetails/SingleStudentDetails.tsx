@@ -1,14 +1,15 @@
 import React from 'react';
 import './SingleStudentDetails.css';
-import { StudentDetails } from '../../../../types/hr/hr';
+import { PickedStudentInfoProperties } from 'types';
 
-interface StudentDetailsIsActive extends StudentDetails {
+interface StudentDetailsIsActive extends PickedStudentInfoProperties {
   isActive: boolean;
+  reservationDate?: string;
 }
 
 export const SingleStudentDetails = ({
-  courseDegree,
-  courseEngagement,
+  courseCompletion,
+  courseEngagment,
   projectDegree,
   teamProjectDegree,
   expectedTypeWork,
@@ -45,11 +46,11 @@ export const SingleStudentDetails = ({
         <tbody>
           <tr>
             <td>
-              {courseDegree}
+              {courseCompletion}
               <span className="single-student-details__number"> /5</span>
             </td>
             <td>
-              {courseEngagement}
+              {courseEngagment}
               <span className="single-student-details__number"> /5</span>
             </td>
             <td>

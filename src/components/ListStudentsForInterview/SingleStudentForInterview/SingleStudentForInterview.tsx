@@ -1,17 +1,42 @@
 import React, { useState } from 'react';
-import './SingleStudentForInterview.css';
 import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from '../../ListStudentsForBooking/SingleStudent/SingleStudentDetails/SingleStudentDetails';
 import defaultAvatar from '../../../assets/images/default_avatar.jpg';
-import { StudentDetailsAndReservationDate } from '../../../types/hr/hr';
+import { StudentOnInterviewList } from 'types';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
+import { useNavigate } from 'react-router-dom';
+import './SingleStudentForInterview.css';
 
-export const SingleStudentForInterview = (
-  props: StudentDetailsAndReservationDate,
-) => {
+interface Props {
+  student: StudentOnInterviewList;
+  fetchStudents: () => Promise<void>;
+}
+
+export const SingleStudentForInterview = ({
+  student,
+  fetchStudents,
+}: Props) => {
   const [isActive, setActive] = useState(false);
+  const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
+
   function hadleClickMoreInfo() {
     setActive(!isActive);
   }
+
+  const handleRemoveFromBooked = async () => {
+    const res = await axiosPrivate.delete(`hr/student/${student.userId}`);
+    void fetchStudents();
+  };
+
+  const handleShowCv = () => {
+    navigate(`/hr/interview-students/${student.userId}`);
+  };
+
+  const handleHireStudent = async () => {
+    const res = await axiosPrivate.patch(`/hr/hire-student/${student.userId}`);
+    console.log('hire response: ', res);
+  };
 
   return (
     <>
@@ -19,19 +44,30 @@ export const SingleStudentForInterview = (
         <div className="single-student-interview__reservation_name_wrapper">
           <div className="single-student-interview__reservation-date">
             <div>Rezerwacja do</div>
-            <div>{props.reservationDate}</div>
+            <div>{student.bookedUntil}</div>
           </div>
           <img src={defaultAvatar} alt="Zdjęcie kursanta" />
           <div className="single-student-interview__name">
-            {props.firstName} , {props.lastName}
+            {student.firstName} {student.lastName}
           </div>
         </div>
         <div className="single-student-interview__small-wrapper">
-          <button className="single-student-interview__btni">Pokaż CV</button>
-          <button className="single-student-interview__btni">
+          <button
+            className="single-student-interview__btni"
+            onClick={handleShowCv}
+          >
+            Pokaż CV
+          </button>
+          <button
+            className="single-student-interview__btni"
+            onClick={() => void handleRemoveFromBooked()}
+          >
             Brak zainteresowania
           </button>
-          <button className="single-student-interview__btni">
+          <button
+            className="single-student-interview__btni"
+            onClick={() => void handleHireStudent()}
+          >
             Zatrudniony
           </button>
           <img
@@ -60,7 +96,7 @@ export const SingleStudentForInterview = (
               : 'single-student__details'
           }
         >
-          <SingleStudentDetails {...props} isActive={isActive} />
+          <SingleStudentDetails {...student} isActive={isActive} />
         </div>
       </li>
     </>

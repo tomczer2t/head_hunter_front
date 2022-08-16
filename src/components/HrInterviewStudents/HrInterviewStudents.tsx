@@ -7,9 +7,8 @@ import { ListStudentsForInterview } from '../ListStudentsForInterview/ListStuden
 import {
   defaultRequestForStudents,
   HrAllStudentsRequest,
-  StudentDetailsAndReservationDate,
 } from '../../types/hr/hr';
-import { dummyHrAllStudentsResponse } from '../../FakeResponses/FakeResponses';
+import { StudentOnInterviewList } from 'types';
 import { PaginationBar } from '../PaginationBar/PaginationBar';
 import { useFetchInterview } from '../../hooks/useFetchAllStudentsToHrInterview';
 
@@ -19,22 +18,19 @@ export const HrInterviewStudents = () => {
     useState<HrAllStudentsRequest>(defaultRequestForStudents);
   const fetchDataStudentsInterview = useFetchInterview();
   const [allStudentsResDataIn, setAllStudentsResDataIn] = useState<
-    StudentDetailsAndReservationDate[]
+    StudentOnInterviewList[]
   >([]);
 
+  const fetchStudents = async () => {
+    await fetchDataStudentsInterview(
+      setAllStudentsResDataIn,
+      dataToAxiosForListOfStudentsIn,
+    );
+  };
+
   useEffect(() => {
-    void (async (): Promise<void> => {
-      await fetchDataStudentsInterview(
-        setAllStudentsResDataIn,
-        dataToAxiosForListOfStudentsIn,
-      );
-    })();
-  }, [dataToAxiosForListOfStudentsIn, fetchDataStudentsInterview]);
-  // //@Todo podpiąć odpowiedź z BE do FE oraz pozmieniać typy podmienić (poniżej odkomentować i zakomentować)
-  // const studentDetailsAndReservationDateListForBooking: StudentDetailsAndReservationDate[] =
-  //   allStudentsResDataIn;
-  const studentDetailsAndReservationDateListForBooking: StudentDetailsAndReservationDate[] =
-    dummyHrAllStudentsResponse;
+    void fetchStudents();
+  }, []);
 
   return (
     <>
@@ -42,11 +38,13 @@ export const HrInterviewStudents = () => {
         <TopBar />
         <MenuAvailableTalk />
         <SearchFilterBar
+          fetchStudents={() => fetchStudents()}
           dataToAxiosForListOfStudents={dataToAxiosForListOfStudentsIn}
           setDataToAxiosForListOfStudents={setDataToAxiosForListOfStudentsIn}
         />
         <ListStudentsForInterview
-          {...studentDetailsAndReservationDateListForBooking}
+          students={allStudentsResDataIn}
+          fetchStudents={fetchStudents}
         />
         <PaginationBar
           dataToAxiosForListOfStudents={dataToAxiosForListOfStudentsIn}
