@@ -19,7 +19,7 @@ export const CountrySelect = (props: Props) => {
 
   const options = [];
 
-  for (let i = 0; i < countries.length; i++) {
+  for (let i = 0; i < countries.length - 2; i++) {
     options.push(
       <option key={i} value={countries[i][1].code}>
         {countries[i][1].name}

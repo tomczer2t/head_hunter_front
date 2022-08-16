@@ -72,6 +72,8 @@ export const StudentProfile = () => {
     countryCode: 'PL',
   });
 
+  console.log(dataStudent.countryCode);
+
   const changeData = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -133,7 +135,7 @@ export const StudentProfile = () => {
     }
   };
 
-  const downloadFormData = async () => {
+  const downloadFormData = () => {
     try {
       //@TODO axios downlad form student data
     } catch (err) {
@@ -245,6 +247,7 @@ export const StudentProfile = () => {
               <label htmlFor="bio">Bio:</label>
               <textarea
                 id="bio"
+                rows={4}
                 name="bio"
                 value={dataStudent.bio}
                 onChange={(event) => changeData(event)}
@@ -280,6 +283,9 @@ export const StudentProfile = () => {
                 value={dataStudent.expectedTypeWork}
                 onChange={(event) => changeData(event)}
               >
+                <option value={ExpectedWorkType.NO_PREFERENCES}>
+                  {ExpectedWorkType.NO_PREFERENCES}
+                </option>
                 <option value={ExpectedWorkType.ON_SITE}>
                   {ExpectedWorkType.ON_SITE}
                 </option>
@@ -288,9 +294,6 @@ export const StudentProfile = () => {
                 </option>
                 <option value={ExpectedWorkType.ONLY_REMOTE}>
                   {ExpectedWorkType.ONLY_REMOTE}
-                </option>
-                <option value={ExpectedWorkType.NO_PREFERENCES}>
-                  {ExpectedWorkType.NO_PREFERENCES}
                 </option>
                 <option value={ExpectedWorkType.HYBRID}>
                   {ExpectedWorkType.HYBRID}
@@ -306,6 +309,9 @@ export const StudentProfile = () => {
                 value={dataStudent.expectedContractType}
                 onChange={(event) => changeData(event)}
               >
+                <option value={ExpectedContractType.NO_PREFERENCES}>
+                  {ExpectedContractType.NO_PREFERENCES}
+                </option>
                 <option value={ExpectedContractType.EMPLOYMENT}>
                   {ExpectedContractType.EMPLOYMENT}
                 </option>
@@ -314,9 +320,6 @@ export const StudentProfile = () => {
                 </option>
                 <option value={ExpectedContractType.MANDATE_OR_WORK}>
                   {ExpectedContractType.MANDATE_OR_WORK}
-                </option>
-                <option value={ExpectedContractType.NO_PREFERENCES}>
-                  {ExpectedContractType.NO_PREFERENCES}
                 </option>
               </select>
 
@@ -389,6 +392,7 @@ export const StudentProfile = () => {
               </label>
               <textarea
                 id="workExperience"
+                rows={3}
                 name="workExperience"
                 value={dataStudent.workExperience}
                 onChange={(event) => changeData(event)}
@@ -397,6 +401,7 @@ export const StudentProfile = () => {
               <label htmlFor="education">Przebieg edukacji:</label>
               <textarea
                 id="education"
+                rows={3}
                 name="education"
                 value={dataStudent.education}
                 onChange={(event) => changeData(event)}
