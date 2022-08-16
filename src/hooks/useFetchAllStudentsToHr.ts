@@ -141,7 +141,7 @@ export const useFetchAllStudentsToHr = () => {
     }
     try {
       const result = await axiosPrivate.get<StudentDetailsAndReservationDate[]>(
-        '/hr/students',
+        '/hr/students/available',
         {
           params: axiosRequestData,
           timeout: 2000,
