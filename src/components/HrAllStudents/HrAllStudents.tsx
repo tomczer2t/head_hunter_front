@@ -26,12 +26,6 @@ export const HrAllStudents = () => {
     })();
   }, [dataToAxiosForListOfStudents, fetchDataStudents]);
 
-  // @Todo podpiąć odpowiedź z BE do FE oraz pozmieniać typy podmienić (poniżej odkomentować i zakomentować)
-  // const studentDetailsListOfStudentsForBooking: StudentDetails[] =
-  //   allStudentsData;
-  const studentDetailsListOfStudentsForBooking: StudentDetails[] =
-    dummyHrAllStudentsResponse;
-
   return (
     <>
       <div className="hr-all-students">
@@ -42,9 +36,7 @@ export const HrAllStudents = () => {
           setDataToAxiosForListOfStudents={setDataToAxiosForListOfStudents}
         />
         <ListStudentsForBooking
-          studentDetailsListOfStudentsForBooking={
-            studentDetailsListOfStudentsForBooking
-          }
+          studentDetailsListOfStudentsForBooking={allStudentsData}
         />
         <PaginationBar
           dataToAxiosForListOfStudents={dataToAxiosForListOfStudents}
