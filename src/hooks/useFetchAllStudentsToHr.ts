@@ -9,12 +9,20 @@ import {
   StudentDetails,
   StudentDetailsAndReservationDate,
 } from '../types/hr/hr';
-import { ExpectedContractType, ExpectedWorkType, SortBy } from 'types';
+import {
+  ExpectedContractType,
+  ExpectedWorkType,
+  SortBy,
+  FilteredAvailableStudent,
+  StudentOnInterviewList,
+} from 'types';
 
 export const useFetchAllStudentsToHr = () => {
   const axiosPrivate = useAxiosPrivate();
   return async (
-    setAllStudentsData: React.Dispatch<React.SetStateAction<StudentDetails[]>>,
+    setAllStudentsData: React.Dispatch<
+      React.SetStateAction<StudentOnInterviewList[]>
+    >,
     dataInterviewToAxios: HrAllStudentsRequest,
   ) => {
     const axiosRequestData: AxiosRequest = {
@@ -140,13 +148,14 @@ export const useFetchAllStudentsToHr = () => {
         dataInterviewToAxios.filterMonthsOfCommercialExp;
     }
     try {
-      const result = await axiosPrivate.get<StudentDetailsAndReservationDate[]>(
+      const result = await axiosPrivate.get<StudentOnInterviewList[]>(
         '/hr/students/available',
         {
           params: axiosRequestData,
           timeout: 2000,
         },
       );
+      console.log(result.data);
       setAllStudentsData(result.data);
     } catch (e) {
       console.log('axios error');

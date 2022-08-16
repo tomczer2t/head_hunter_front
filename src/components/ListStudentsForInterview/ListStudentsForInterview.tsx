@@ -1,22 +1,24 @@
 import React from 'react';
 import './ListStudentsForInterview.css';
 import { SingleStudentForInterview } from './SingleStudentForInterview/SingleStudentForInterview';
-import { StudentDetailsAndReservationDate } from '../../types/hr/hr';
+import { StudentOnInterviewList } from 'types';
 
-export const ListStudentsForInterview = (
-  props: StudentDetailsAndReservationDate[],
-) => {
-  const studentsList = [];
+interface Props {
+  students: StudentOnInterviewList[];
+  fetchStudents: () => Promise<void>;
+}
 
-  for (let i = 0; i < Object.keys(props).length; i++) {
-    studentsList.push(props[i]);
-  }
+export const ListStudentsForInterview = (props: Props) => {
   return (
     <>
       <div className="hr-all-students-interview__wrapper">
         <ul className="hr-all-students-interview">
-          {studentsList.map((student, index) => (
-            <SingleStudentForInterview {...student} key={index} />
+          {props.students.map((student, index) => (
+            <SingleStudentForInterview
+              student={student}
+              key={index}
+              fetchStudents={props.fetchStudents}
+            />
           ))}
         </ul>
       </div>

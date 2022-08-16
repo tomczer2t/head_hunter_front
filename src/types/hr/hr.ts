@@ -35,7 +35,6 @@ export interface StudentDetails {
   expectedSalary: number;
   canTakeApprenticeship: boolean;
   monthsOfCommercialExp: number;
-  reservationDate: string;
   studentInfoId: string;
 }
 

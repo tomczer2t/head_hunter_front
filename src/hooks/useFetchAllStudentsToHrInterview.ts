@@ -1,5 +1,4 @@
 import React from 'react';
-// import { axiosPrivate } from './axios';
 import {
   AxiosRequest,
   CanTakeApprenticeship,
@@ -8,14 +7,19 @@ import {
   Sorted,
   StudentDetailsAndReservationDate,
 } from '../types/hr/hr';
-import { ExpectedContractType, ExpectedWorkType, SortBy } from 'types';
+import {
+  ExpectedContractType,
+  ExpectedWorkType,
+  SortBy,
+  StudentOnInterviewList,
+} from 'types';
 import { useAxiosPrivate } from './useAxiosPrivate';
 
 export const useFetchInterview = () => {
   const axiosPrivate = useAxiosPrivate();
   return async (
     setAllStudentsData: React.Dispatch<
-      React.SetStateAction<StudentDetailsAndReservationDate[]>
+      React.SetStateAction<StudentOnInterviewList[]>
     >,
     dataInterviewToAxios: HrAllStudentsRequest,
   ) => {
@@ -142,8 +146,8 @@ export const useFetchInterview = () => {
         dataInterviewToAxios.filterMonthsOfCommercialExp;
     }
     try {
-      const result = await axiosPrivate.get<StudentDetailsAndReservationDate[]>(
-        '/hr/students',
+      const result = await axiosPrivate.get<StudentOnInterviewList[]>(
+        '/hr/students/interview',
         {
           params: axiosRequestData,
           timeout: 2000,
