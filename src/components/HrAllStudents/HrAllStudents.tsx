@@ -9,22 +9,24 @@ import {
   HrAllStudentsRequest,
   StudentDetails,
 } from '../../types/hr/hr';
-import { dummyHrAllStudentsResponse } from '../../FakeResponses/FakeResponses';
 import { PaginationBar } from '../PaginationBar/PaginationBar';
 import { useFetchAllStudentsToHr } from '../../hooks/useFetchAllStudentsToHr';
+import { StudentOnInterviewList } from 'types';
 
 export const HrAllStudents = () => {
   // const [isError, setIsError] = useState(false); // @Todo co ma się stać jak jest błąd
   const [dataToAxiosForListOfStudents, setDataToAxiosForListOfStudents] =
     useState<HrAllStudentsRequest>(defaultRequestForStudents);
   const fetchDataStudents = useFetchAllStudentsToHr();
-  const [allStudentsData, setAllStudentsData] = useState<StudentDetails[]>([]);
+  const [allStudentsData, setAllStudentsData] = useState<
+    StudentOnInterviewList[]
+  >([]);
 
   useEffect(() => {
     void (async (): Promise<void> => {
       await fetchDataStudents(setAllStudentsData, dataToAxiosForListOfStudents);
     })();
-  }, [dataToAxiosForListOfStudents, fetchDataStudents]);
+  }, []);
 
   return (
     <>
@@ -35,9 +37,7 @@ export const HrAllStudents = () => {
           dataToAxiosForListOfStudents={dataToAxiosForListOfStudents}
           setDataToAxiosForListOfStudents={setDataToAxiosForListOfStudents}
         />
-        <ListStudentsForBooking
-          studentDetailsListOfStudentsForBooking={allStudentsData}
-        />
+        <ListStudentsForBooking students={allStudentsData} />
         <PaginationBar
           dataToAxiosForListOfStudents={dataToAxiosForListOfStudents}
           setDataToAxiosForListOfStudents={setDataToAxiosForListOfStudents}

@@ -2,22 +2,45 @@ import React, { useState } from 'react';
 import './SingleStudent.css';
 import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from './SingleStudentDetails/SingleStudentDetails';
-import { StudentDetails } from '../../../types/hr/hr';
+import { FilteredAvailableStudent } from 'types';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
 
-export const SingleStudent = (props: StudentDetails) => {
+interface StudentDetails extends FilteredAvailableStudent {
+  reservationDate?: string;
+}
+
+interface Props {
+  student: StudentDetails;
+}
+
+export const SingleStudent = ({ student }: Props) => {
   const [isActive, setActive] = useState(false);
   function hadleClickMoreInfo() {
     setActive(!isActive);
   }
 
+  const axiosPrivate = useAxiosPrivate();
+
+  const handleBookStudent = async () => {
+    const res = await axiosPrivate.post('/hr/student', {
+      userId: student.userId,
+    });
+    console.log({ res });
+  };
+
   return (
     <>
       <li className="single-student">
         <div className="single-student__name">
-          {props.firstName} {props.lastName}
+          {student.firstName} {student.lastName}.
         </div>
         <div className="single-student__small-wrapper">
-          <button className="single-student__btn">Zarezerwuj rozmowę</button>
+          <button
+            className="single-student__btn"
+            onClick={() => void handleBookStudent()}
+          >
+            Zarezerwuj rozmowę
+          </button>
           <img
             onClick={hadleClickMoreInfo}
             src={upArrow}
@@ -44,7 +67,7 @@ export const SingleStudent = (props: StudentDetails) => {
               : 'single-student__details'
           }
         >
-          <SingleStudentDetails {...props} isActive={isActive} />
+          <SingleStudentDetails {...student} isActive={isActive} />
         </div>
       </li>
     </>
