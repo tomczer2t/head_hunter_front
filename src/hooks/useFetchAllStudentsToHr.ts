@@ -155,7 +155,6 @@ export const useFetchAllStudentsToHr = () => {
           timeout: 2000,
         },
       );
-      console.log(result.data);
       setAllStudentsData(result.data);
     } catch (e) {
       console.log('axios error');
