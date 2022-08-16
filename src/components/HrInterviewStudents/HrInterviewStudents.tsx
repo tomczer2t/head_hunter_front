@@ -7,7 +7,6 @@ import { ListStudentsForInterview } from '../ListStudentsForInterview/ListStuden
 import {
   defaultRequestForStudents,
   HrAllStudentsRequest,
-  StudentDetailsAndReservationDate,
 } from '../../types/hr/hr';
 import { StudentOnInterviewList } from 'types';
 import { PaginationBar } from '../PaginationBar/PaginationBar';
@@ -39,6 +38,7 @@ export const HrInterviewStudents = () => {
         <TopBar />
         <MenuAvailableTalk />
         <SearchFilterBar
+          fetchStudents={() => fetchStudents()}
           dataToAxiosForListOfStudents={dataToAxiosForListOfStudentsIn}
           setDataToAxiosForListOfStudents={setDataToAxiosForListOfStudentsIn}
         />
