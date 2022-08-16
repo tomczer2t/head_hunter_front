@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Filter.css';
 import { BtnStar } from './BtnStar/BtnStar';
 import {
@@ -7,17 +7,21 @@ import {
   StarNames,
 } from '../../../types/hr/hr';
 
-export const Filter = ({
-  setActiveFilter,
-  dataToAxiosForListOfStudents,
-  setDataToAxiosForListOfStudents,
-}: {
+interface Props {
   setActiveFilter: React.Dispatch<React.SetStateAction<boolean>>;
   dataToAxiosForListOfStudents: HrAllStudentsRequest;
   setDataToAxiosForListOfStudents: React.Dispatch<
     React.SetStateAction<HrAllStudentsRequest>
   >;
-}) => {
+  fetchStudents: () => Promise<void>;
+}
+
+export const Filter = ({
+  setActiveFilter,
+  dataToAxiosForListOfStudents,
+  setDataToAxiosForListOfStudents,
+  fetchStudents,
+}: Props) => {
   const cancelStatus = {
     filterCourseCompletion:
       dataToAxiosForListOfStudents.filterCourseCompletion === null
@@ -83,7 +87,7 @@ export const Filter = ({
     setFilterState(s);
   };
 
-  function handleSubmit() {
+  async function handleSubmit() {
     const newData = JSON.parse(
       JSON.stringify(dataToAxiosForListOfStudents),
     ) as HrAllStudentsRequest;
@@ -126,6 +130,7 @@ export const Filter = ({
       filterState.filterMonthsOfCommercialExp; //:
     setDataToAxiosForListOfStudents(newData);
     setActiveFilter(false);
+    await fetchStudents();
   }
 
   function clearAllFilters() {
@@ -464,7 +469,10 @@ export const Filter = ({
           <button className="filter-popup--cancel-btn" onClick={cancelAll}>
             Anuluj
           </button>
-          <button className="filter-popup--submit-btn" onClick={handleSubmit}>
+          <button
+            className="filter-popup--submit-btn"
+            onClick={() => void handleSubmit()}
+          >
             Pokaż wyniki
           </button>
         </section>

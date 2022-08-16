@@ -22,11 +22,15 @@ export const HrAllStudents = () => {
     StudentOnInterviewList[]
   >([]);
 
+  const fetchStudents = async () => {
+    await fetchDataStudents(setAllStudentsData, dataToAxiosForListOfStudents);
+  };
+
   useEffect(() => {
     void (async (): Promise<void> => {
-      await fetchDataStudents(setAllStudentsData, dataToAxiosForListOfStudents);
+      await fetchStudents();
     })();
-  }, []);
+  }, [dataToAxiosForListOfStudents]);
 
   return (
     <>
@@ -34,6 +38,7 @@ export const HrAllStudents = () => {
         <TopBar />
         <MenuAvailableTalk />
         <SearchFilterBar
+          fetchStudents={fetchStudents}
           dataToAxiosForListOfStudents={dataToAxiosForListOfStudents}
           setDataToAxiosForListOfStudents={setDataToAxiosForListOfStudents}
         />
