@@ -29,7 +29,7 @@
     padding-left: 17px;
     width:80%;
     height: 40px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .container form p {
@@ -143,4 +143,7 @@
     height: 100px;
     align-items: center;
     justify-content: space-evenly;
+}
+.form-col:nth-child(2) > label {
+    margin-bottom: 10px;
 }

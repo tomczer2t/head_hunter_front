@@ -1,26 +1,13 @@
-import React, { FormEvent, useEffect, useState } from 'react';
-import { StudentStatus } from 'types';
+import React, { useEffect, useState } from 'react';
+import { StudentStatus, ExpectedWorkType, ExpectedContractType } from 'types';
 import { useAvatar } from '../../hooks/useAvatar';
 import './StudentProfile.css';
 import { Link } from 'react-router-dom';
-
-enum EnumExpectedTypeWork {
-  naMiejscu = 'Na miejscu',
-  gotowoscDoPrzeprowadzki = 'Gotowość do przeprowadzki',
-  wylacznieZdalnie = 'Wyłącznie zdalnie',
-  bezZnaczenia = 'Bez znaczenia',
-}
-
-enum EnumExpectedContractType {
-  tylkoUoP = 'Tylko UoP',
-  mozliwoscB2B = 'Możliwość B2B',
-  mozliwoscUZUoP = 'Możliwość UZ/UoP',
-  brakPreferencji = 'Brak preferencji',
-}
+import { CountrySelect } from './CountrySelect/CountrySelect';
 
 enum EnumCanTakeApprenticeship {
-  tak = 'Tak',
-  nie = 'Nie',
+  yes = 'Tak',
+  no = 'Nie',
 }
 
 interface ErrorMessage {
@@ -30,6 +17,7 @@ interface ErrorMessage {
   tel?: number;
   githubUsername?: string;
   bio?: string;
+  validateCorrect: boolean;
 }
 
 interface DataStudent {
@@ -39,9 +27,9 @@ interface DataStudent {
   githubUsername: string;
   portfolioUrls: string[];
   bio: string;
-  expectedTypeWork: string;
+  expectedTypeWork: ExpectedWorkType;
   expectedSalary: number | '';
-  expectedContractType: string;
+  expectedContractType: ExpectedContractType;
   canTakeApprenticeship: string;
   monthsOfCommercialExp: number | '';
   education: string;
@@ -49,19 +37,18 @@ interface DataStudent {
   courses: string;
   targetWorkCity: string;
   projectUrls: string[];
-  teamProjectUrls: string[];
-  country: string;
+  countryCode: string;
 }
 
 export const StudentProfile = () => {
   const [isSubmit, setIsSubmit] = useState(false);
-  const [employed, setEmployed] = useState(false);
   const [addPortfolioUrls, setAddPortfolioUrls] = useState<string>('');
   const [addProjectUrls, setAddProjectUrls] = useState<string>('');
-  const [addTeamProjectUrls, setAddTeamProjectUrls] = useState<string>('');
   const studentAvatar = useAvatar();
 
-  const [errorMessage, setErrorMessage] = useState<ErrorMessage>({});
+  const [errorMessage, setErrorMessage] = useState<ErrorMessage>({
+    validateCorrect: false,
+  });
   const [studentStatus, setStudentStatus] = useState<StudentStatus>(
     StudentStatus.AVAILABLE,
   );
@@ -72,21 +59,18 @@ export const StudentProfile = () => {
     githubUsername: '',
     portfolioUrls: [],
     bio: '',
-    expectedTypeWork: EnumExpectedTypeWork.bezZnaczenia,
+    expectedTypeWork: ExpectedWorkType.NO_PREFERENCES,
     expectedSalary: '',
-    expectedContractType: EnumExpectedContractType.brakPreferencji,
-    canTakeApprenticeship: EnumCanTakeApprenticeship.nie,
+    expectedContractType: ExpectedContractType.NO_PREFERENCES,
+    canTakeApprenticeship: EnumCanTakeApprenticeship.no,
     monthsOfCommercialExp: '',
     education: '',
     workExperience: '',
     courses: '',
     targetWorkCity: '',
     projectUrls: [],
-    teamProjectUrls: [],
-    country: '',
+    countryCode: 'PL',
   });
-
-  // studentStatus: StudentStatus.HIRED;
 
   const changeData = (
     e: React.ChangeEvent<
@@ -94,34 +78,41 @@ export const StudentProfile = () => {
     >,
   ) => {
     if (e.target.type === 'number') {
-      setDataStudent(() => ({
-        ...dataStudent,
+      setDataStudent((prevState) => ({
+        ...prevState,
         [e.target.name]: Number(e.target.value),
       }));
     } else {
-      setDataStudent(() => ({
-        ...dataStudent,
+      setDataStudent((prevState) => ({
+        ...prevState,
         [e.target.name]: e.target.value,
       }));
     }
   };
 
   const validate = (values: DataStudent): ErrorMessage => {
-    const errors: ErrorMessage = {};
+    const errors: ErrorMessage = {
+      validateCorrect: true,
+    };
+
     if (!values.firstName) {
       errors.firstName = 'To pole jest wymagane';
+      errors.validateCorrect = false;
     }
 
     if (!values.lastName) {
       errors.lastName = 'To pole jest wymagane';
+      errors.validateCorrect = false;
     }
 
     if (values.githubUsername) {
       if (studentAvatar(values.githubUsername) === '') {
         errors.githubUsername = 'Konto jest niepoprawde';
+        errors.validateCorrect = false;
       }
     } else if (!values.githubUsername) {
       errors.githubUsername = 'To pole jest wymagane';
+      errors.validateCorrect = false;
     }
     return errors;
   };
@@ -130,17 +121,33 @@ export const StudentProfile = () => {
     e: React.FormEvent<HTMLFormElement | HTMLSelectElement>,
   ) => {
     e.preventDefault();
-    setErrorMessage(validate(dataStudent));
-    setIsSubmit(true);
+    const validObj = validate(dataStudent);
+    setErrorMessage(validObj);
+    if (validObj.validateCorrect) {
+      try {
+        //@TODO axios send form data
+        setIsSubmit(true);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const downloadFormData = async () => {
+    try {
+      //@TODO axios downlad form student data
+    } catch (err) {
+      console.log(err);
+    }
   };
   useEffect(() => {
-    if (Object.keys(errorMessage).length === 0 && isSubmit) {
-      console.log(dataStudent);
-    }
-  }, [errorMessage]);
+    // if (Object.keys(errorMessage).length === 0 && isSubmit) {
+    //   console.log(dataStudent);
+    // }
+    void downloadFormData();
+  }, []);
 
-  const handleAddPortfolioUrls = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // setDataStudent([...url2, url]);
+  const handleAddPortfolioUrls = () => {
     setDataStudent(() => ({
       ...dataStudent,
       portfolioUrls: [...dataStudent.portfolioUrls, addPortfolioUrls],
@@ -153,27 +160,11 @@ export const StudentProfile = () => {
       portfolioUrls: dataStudent.portfolioUrls.filter((item) => item !== link),
     }));
   };
-  const handleRemoveTeamProjectUrls = (link: string) => {
-    setDataStudent(() => ({
-      ...dataStudent,
-      teamProjectUrls: dataStudent.teamProjectUrls.filter(
-        (item) => item !== link,
-      ),
-    }));
-  };
 
-  const handleAddProjectUrls = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // setDataStudent([...url2, url]);
+  const handleAddProjectUrls = () => {
     setDataStudent(() => ({
       ...dataStudent,
       projectUrls: [...dataStudent.projectUrls, addProjectUrls],
-    }));
-  };
-  const handleAddTeamProjectUrls = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // setDataStudent([...url2, url]);
-    setDataStudent(() => ({
-      ...dataStudent,
-      teamProjectUrls: [...dataStudent.teamProjectUrls, addTeamProjectUrls],
     }));
   };
 
@@ -184,11 +175,14 @@ export const StudentProfile = () => {
     }));
   };
   const handleEmployed = () => {
-    setEmployed(
+    if (
       confirm(
         'Jeśli potwierdzisz zatrudnienie nie będziesz miał/miała już dostępu do konta na tej platformie . Czy chcesz potwierdzić zatrudnienie ?',
-      ),
-    );
+      )
+    ) {
+      setStudentStatus(() => StudentStatus.HIRED);
+      // @TODO axios change status
+    }
   };
 
   return (
@@ -255,41 +249,6 @@ export const StudentProfile = () => {
                 value={dataStudent.bio}
                 onChange={(event) => changeData(event)}
               ></textarea>
-
-              <div className="form-url">
-                <label htmlFor="teamProjectUrls">Team Project URL</label>
-                <input
-                  type="text"
-                  id="teamProjectUrls"
-                  value={addTeamProjectUrls}
-                  onChange={(e) => setAddTeamProjectUrls(e.target.value)}
-                />
-                <button
-                  type="button"
-                  className="url-bnt"
-                  onClick={(event) => handleAddTeamProjectUrls(event)}
-                >
-                  Dodaj
-                </button>
-                <div className="url-list">
-                  {dataStudent.teamProjectUrls.length === 0
-                    ? ''
-                    : dataStudent.teamProjectUrls.map((link, index) => (
-                        <p key={index} style={{ padding: '6px' }}>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              handleRemoveTeamProjectUrls(link);
-                            }}
-                            className="button_x"
-                          >
-                            X
-                          </button>
-                          {link}
-                        </p>
-                      ))}
-                </div>
-              </div>
             </div>
             <div className="form-col">
               <label htmlFor="targetWorkCity">Miasto pracy</label>
@@ -321,17 +280,20 @@ export const StudentProfile = () => {
                 value={dataStudent.expectedTypeWork}
                 onChange={(event) => changeData(event)}
               >
-                <option value={EnumExpectedTypeWork.naMiejscu}>
-                  {EnumExpectedTypeWork.naMiejscu}
+                <option value={ExpectedWorkType.ON_SITE}>
+                  {ExpectedWorkType.ON_SITE}
                 </option>
-                <option value={EnumExpectedTypeWork.gotowoscDoPrzeprowadzki}>
-                  {EnumExpectedTypeWork.gotowoscDoPrzeprowadzki}
+                <option value={ExpectedWorkType.READY_TO_MOVE}>
+                  {ExpectedWorkType.READY_TO_MOVE}
                 </option>
-                <option value={EnumExpectedTypeWork.wylacznieZdalnie}>
-                  {EnumExpectedTypeWork.wylacznieZdalnie}
+                <option value={ExpectedWorkType.ONLY_REMOTE}>
+                  {ExpectedWorkType.ONLY_REMOTE}
                 </option>
-                <option value={EnumExpectedTypeWork.bezZnaczenia}>
-                  {EnumExpectedTypeWork.bezZnaczenia}
+                <option value={ExpectedWorkType.NO_PREFERENCES}>
+                  {ExpectedWorkType.NO_PREFERENCES}
+                </option>
+                <option value={ExpectedWorkType.HYBRID}>
+                  {ExpectedWorkType.HYBRID}
                 </option>
               </select>
 
@@ -344,17 +306,17 @@ export const StudentProfile = () => {
                 value={dataStudent.expectedContractType}
                 onChange={(event) => changeData(event)}
               >
-                <option value={EnumExpectedContractType.tylkoUoP}>
-                  {EnumExpectedContractType.tylkoUoP}
+                <option value={ExpectedContractType.EMPLOYMENT}>
+                  {ExpectedContractType.EMPLOYMENT}
                 </option>
-                <option value={EnumExpectedContractType.mozliwoscB2B}>
-                  {EnumExpectedContractType.mozliwoscB2B}
+                <option value={ExpectedContractType.B2B}>
+                  {ExpectedContractType.B2B}
                 </option>
-                <option value={EnumExpectedContractType.mozliwoscUZUoP}>
-                  {EnumExpectedContractType.mozliwoscUZUoP}
+                <option value={ExpectedContractType.MANDATE_OR_WORK}>
+                  {ExpectedContractType.MANDATE_OR_WORK}
                 </option>
-                <option value={EnumExpectedContractType.brakPreferencji}>
-                  {EnumExpectedContractType.brakPreferencji}
+                <option value={ExpectedContractType.NO_PREFERENCES}>
+                  {ExpectedContractType.NO_PREFERENCES}
                 </option>
               </select>
 
@@ -380,7 +342,7 @@ export const StudentProfile = () => {
                 <button
                   type="button"
                   className="url-bnt"
-                  onClick={(event) => handleAddPortfolioUrls(event)}
+                  onClick={() => handleAddPortfolioUrls()}
                 >
                   Dodaj
                 </button>
@@ -414,11 +376,11 @@ export const StudentProfile = () => {
                 value={dataStudent.canTakeApprenticeship}
                 onChange={(event) => changeData(event)}
               >
-                <option value={EnumCanTakeApprenticeship.tak}>
-                  {EnumCanTakeApprenticeship.tak}
+                <option value={EnumCanTakeApprenticeship.yes}>
+                  {EnumCanTakeApprenticeship.yes}
                 </option>
-                <option value={EnumCanTakeApprenticeship.nie}>
-                  {EnumCanTakeApprenticeship.nie}
+                <option value={EnumCanTakeApprenticeship.no}>
+                  {EnumCanTakeApprenticeship.no}
                 </option>
               </select>
 
@@ -440,26 +402,14 @@ export const StudentProfile = () => {
                 onChange={(event) => changeData(event)}
               ></textarea>
 
-              <label htmlFor="expectedContractType">
-                Kraj w któreym meiszkasz:
-              </label>
-              <select
-                id="expectedContractType"
-                name="expectedContractType"
-                value={dataStudent.expectedContractType}
-                onChange={(event) => changeData(event)}
-              >
-                <option value={'PL'}>{'Polsa'}</option>
-                <option value={EnumExpectedContractType.mozliwoscB2B}>
-                  {EnumExpectedContractType.mozliwoscB2B}
-                </option>
-                <option value={EnumExpectedContractType.mozliwoscUZUoP}>
-                  {EnumExpectedContractType.mozliwoscUZUoP}
-                </option>
-                <option value={EnumExpectedContractType.brakPreferencji}>
-                  {EnumExpectedContractType.brakPreferencji}
-                </option>
-              </select>
+              <label htmlFor="countryCode">Kraj w któreym meiszkasz:</label>
+
+              <CountrySelect
+                id="countryCode"
+                name="countryCode"
+                value={dataStudent.countryCode}
+                changeHandler={changeData}
+              />
 
               <div className="form-url">
                 <label htmlFor="projectUrls">
@@ -474,7 +424,7 @@ export const StudentProfile = () => {
                 <button
                   type="button"
                   className="url-bnt"
-                  onClick={(event) => handleAddProjectUrls(event)}
+                  onClick={() => handleAddProjectUrls()}
                 >
                   Dodaj
                 </button>
@@ -507,7 +457,7 @@ export const StudentProfile = () => {
               type="button"
               onClick={handleEmployed}
               className={
-                employed
+                studentStatus
                   ? 'submitBnt yesEmployedBnt'
                   : 'submitBnt noEmployedBnt'
               }
