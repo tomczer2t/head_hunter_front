@@ -6,9 +6,10 @@ interface Props {
   title: string;
   value: string;
   isMonthsExp?: boolean;
+  isSalary?: boolean;
 }
 
-export const Expectation = ({ title, value, isMonthsExp }: Props) => {
+export const Expectation = ({ title, value, isMonthsExp, isSalary }: Props) => {
   let val: string | number = value;
   if (isMonthsExp && isFinite(Number(val))) {
     val = Number(val);
@@ -21,6 +22,8 @@ export const Expectation = ({ title, value, isMonthsExp }: Props) => {
     if (val < 4) {
       val = `${val} miesięcy`;
     }
+  } else if (isSalary && value === 'null zł') {
+    val = 'brak';
   }
 
   return (
