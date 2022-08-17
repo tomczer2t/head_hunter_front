@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { StudentStatus, ExpectedWorkType, ExpectedContractType } from 'types';
+import {
+  StudentStatus,
+  ExpectedWorkType,
+  ExpectedContractType,
+  SingleStudentProfile,
+} from 'types';
 import { useAvatar } from '../../hooks/useAvatar';
 import './StudentProfile.css';
 import { Link } from 'react-router-dom';
 import { CountrySelect } from './CountrySelect/CountrySelect';
+import { axiosPrivate } from '../../api/axiosPlain';
+import { AxiosResponse } from 'axios';
 
 enum EnumCanTakeApprenticeship {
   yes = 'Tak',
@@ -135,9 +142,13 @@ export const StudentProfile = () => {
     }
   };
 
-  const downloadFormData = () => {
+  const downloadFormData = async () => {
     try {
       //@TODO axios downlad form student data
+      const res: AxiosResponse<SingleStudentProfile> = await axiosPrivate.get(
+        '/cv',
+      );
+      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
