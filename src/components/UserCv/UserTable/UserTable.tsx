@@ -52,6 +52,7 @@ export const UserTable = ({ student }: Props) => {
         <Expectation
           title="Oczekiwane wynagrodzenie miesięczne netto"
           value={`${student.expectedSalary} zł`}
+          isSalary={true}
         />
         <Expectation
           title="Zgoda na odbycie bezpłatnych praktyk/stażu na początek"
@@ -96,19 +97,26 @@ export const UserTable = ({ student }: Props) => {
         </>
       )}
 
-      <UserTableHeader title="Projekt w zespole Scrumowym" />
-      <div className="UserTable__links-container">
-        <ProjectLink
-          link={`https://github.com/tomczer2t/head_hunter_back/commits/develop?author=tomczer2t`}
-        />
-        <ProjectLink link="https://github.com/Ami777/MegaKursTest/pulls?q=is%3Apr+reviewed-by%3AAmi777" />
-      </div>
+      {student.scrumOwnCodeReviews && student.scrumOwnCommits && (
+        <>
+          <UserTableHeader title="Projekt w zespole Scrumowym" />
+          <div className="UserTable__links-container">
+            <ProjectLink link={student.scrumOwnCommits} />
+            <ProjectLink link={student.scrumOwnCodeReviews} />
+          </div>
+        </>
+      )}
 
-      <UserTableHeader title="Projekt na zaliczenie" />
-      <div className="UserTable__links-container">
-        <ProjectLink link="https://Loremipsum/dolor/sit/amet" />
-        <ProjectLink link="https://Loremipsum/dolor/sit/amet" />
-      </div>
+      {student.projectUrls && (
+        <>
+          <UserTableHeader title="Projekt na zaliczenie" />
+          <div className="UserTable__links-container">
+            {student.projectUrls.map((url) => (
+              <ProjectLink link={url} />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
