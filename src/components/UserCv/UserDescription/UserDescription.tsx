@@ -20,9 +20,8 @@ export const UserDescription = ({ student }: Props) => {
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
 
-  const handleNotInterested = () => {
-    // @todo dodać na be zwracanie id
-    // await axiosPrivate.delete(`/hr/student/${student.userId}`);
+  const handleNotInterested = async () => {
+    await axiosPrivate.delete(`/hr/student/${student.userId}`);
     navigate('/hr');
   };
 
