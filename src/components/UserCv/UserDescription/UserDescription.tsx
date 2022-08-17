@@ -20,9 +20,8 @@ export const UserDescription = ({ student }: Props) => {
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
 
-  const handleNotInterested = () => {
-    // @todo dodać na be zwracanie id
-    // await axiosPrivate.delete(`/hr/student/${student.userId}`);
+  const handleNotInterested = async () => {
+    await axiosPrivate.delete(`/hr/student/${student.userId}`);
     navigate('/hr');
   };
 
@@ -52,7 +51,7 @@ export const UserDescription = ({ student }: Props) => {
         />
         <a
           className="UserDescription__github-name"
-          href="https://github.com/kp1976"
+          href={`https://github.com/${student.githubUsername}`}
           target="_blank"
           rel="noopener noreferrer"
         >
