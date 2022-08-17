@@ -48,7 +48,6 @@ interface DataStudent {
 }
 
 export const StudentProfile = () => {
-  const [isSubmit, setIsSubmit] = useState(false);
   const [addPortfolioUrls, setAddPortfolioUrls] = useState<string>('');
   const [addProjectUrls, setAddProjectUrls] = useState<string>('');
   const studentAvatar = useAvatar();
@@ -78,8 +77,6 @@ export const StudentProfile = () => {
     projectUrls: [],
     countryCode: 'PL',
   });
-
-  console.log(dataStudent.countryCode);
 
   const changeData = (
     e: React.ChangeEvent<
@@ -126,7 +123,7 @@ export const StudentProfile = () => {
     return errors;
   };
 
-  const handleSubmit = (
+  const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement | HTMLSelectElement>,
   ) => {
     e.preventDefault();
@@ -135,7 +132,12 @@ export const StudentProfile = () => {
     if (validObj.validateCorrect) {
       try {
         //@TODO axios send form data
-        setIsSubmit(true);
+        console.log(dataStudent);
+        const res: AxiosResponse<DataStudent> = await axiosPrivate.patch(
+          'student',
+          dataStudent,
+        );
+        console.log(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -144,27 +146,35 @@ export const StudentProfile = () => {
 
   const downloadFormData = async () => {
     try {
-      //@TODO axios downlad form student data
-      const res: AxiosResponse<SingleStudentProfile> = await axiosPrivate.get(
-        '/cv',
+      const res: AxiosResponse<DataStudent> = await axiosPrivate.get(
+        'student/cv',
       );
-      console.log(res.data);
+      setDataStudent((prevState) => ({
+        ...prevState,
+        ...res.data,
+      }));
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    // if (Object.keys(errorMessage).length === 0 && isSubmit) {
-    //   console.log(dataStudent);
-    // }
     void downloadFormData();
   }, []);
 
   const handleAddPortfolioUrls = () => {
-    setDataStudent(() => ({
-      ...dataStudent,
-      portfolioUrls: [...dataStudent.portfolioUrls, addPortfolioUrls],
-    }));
+    setDataStudent((prevState) => {
+      if (prevState.portfolioUrls === null) {
+        return {
+          ...prevState,
+          portfolioUrls: [addPortfolioUrls],
+        };
+      } else {
+        return {
+          ...prevState,
+          portfolioUrls: [...dataStudent.portfolioUrls, addPortfolioUrls],
+        };
+      }
+    });
   };
 
   const handleRemovePortfolioUrls = (link: string) => {
@@ -175,10 +185,19 @@ export const StudentProfile = () => {
   };
 
   const handleAddProjectUrls = () => {
-    setDataStudent(() => ({
-      ...dataStudent,
-      projectUrls: [...dataStudent.projectUrls, addProjectUrls],
-    }));
+    setDataStudent((prevState) => {
+      if (prevState.projectUrls == null) {
+        return {
+          ...prevState,
+          projectUrls: [addProjectUrls],
+        };
+      } else {
+        return {
+          ...prevState,
+          projectUrls: [...dataStudent.projectUrls, addProjectUrls],
+        };
+      }
+    });
   };
 
   const handleRemoveProjectUrls = (link: string) => {
@@ -361,7 +380,8 @@ export const StudentProfile = () => {
                   Dodaj
                 </button>
                 <div className="url-list">
-                  {dataStudent.portfolioUrls.length === 0
+                  {dataStudent.portfolioUrls === null ||
+                  dataStudent?.portfolioUrls?.length === 0
                     ? ''
                     : dataStudent.portfolioUrls.map((link, index) => (
                         <p key={index} style={{ padding: '6px' }}>
@@ -445,7 +465,8 @@ export const StudentProfile = () => {
                   Dodaj
                 </button>
                 <div className="url-list">
-                  {dataStudent.projectUrls.length === 0
+                  {dataStudent.projectUrls === null ||
+                  dataStudent?.projectUrls?.length === 0
                     ? ''
                     : dataStudent.projectUrls.map((link, index) => (
                         <p key={index} style={{ padding: '6px' }}>
