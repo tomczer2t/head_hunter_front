@@ -227,7 +227,7 @@ export const StudentProfile = () => {
                 type="text"
                 id="firstName"
                 name="firstName"
-                value={dataStudent.firstName}
+                value={dataStudent.firstName ?? ''}
                 onChange={(event) => changeData(event)}
               />
 
@@ -238,7 +238,7 @@ export const StudentProfile = () => {
                 type="text"
                 id="lastName"
                 name="lastName"
-                value={dataStudent.lastName}
+                value={dataStudent.lastName ?? ''}
                 onChange={(event) => changeData(event)}
               />
 
@@ -260,7 +260,7 @@ export const StudentProfile = () => {
                 type="text"
                 id="GitHub"
                 name="githubUsername"
-                value={dataStudent.githubUsername}
+                value={dataStudent.githubUsername ?? ''}
                 onChange={(event) => changeData(event)}
               />
 
@@ -290,7 +290,7 @@ export const StudentProfile = () => {
                 type="number"
                 id="expectedSalary"
                 name="expectedSalary"
-                value={dataStudent.expectedSalary}
+                value={dataStudent.expectedSalary ?? ''}
                 onChange={(event) => changeData(event)}
               />
 
@@ -350,7 +350,7 @@ export const StudentProfile = () => {
                 type="number"
                 id="monthsOfCommercialExp"
                 name="monthsOfCommercialExp"
-                value={dataStudent.monthsOfCommercialExp}
+                value={dataStudent.monthsOfCommercialExp ?? ''}
                 onChange={(event) => changeData(event)}
               />
 
@@ -359,7 +359,7 @@ export const StudentProfile = () => {
                 <input
                   type="text"
                   id="portfolioUrls"
-                  value={addPortfolioUrls}
+                  value={addPortfolioUrls ?? ''}
                   onChange={(e) => setAddPortfolioUrls(e.target.value)}
                 />
                 <button

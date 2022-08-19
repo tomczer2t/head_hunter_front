@@ -50,7 +50,6 @@ export const RegisterPanel = () => {
     try {
       if (validForm()) {
         const res = await axiosPlain.post('/user', registerFormData);
-        console.log(res);
         navigate('/login');
       } else {
         setMessageResponse(() => 'Hasła nie spełniają warunków ');
