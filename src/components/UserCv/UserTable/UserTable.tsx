@@ -90,8 +90,8 @@ export const UserTable = ({ student }: Props) => {
         <>
           <UserTableHeader title="Portfolio" />
           <div className="UserTable__links-container">
-            {student.portfolioUrls.map((url) => (
-              <ProjectLink link={url} />
+            {student.portfolioUrls.map((url, index) => (
+              <ProjectLink key={index} link={url} />
             ))}
           </div>
         </>
@@ -111,8 +111,8 @@ export const UserTable = ({ student }: Props) => {
         <>
           <UserTableHeader title="Projekt na zaliczenie" />
           <div className="UserTable__links-container">
-            {student.projectUrls.map((url) => (
-              <ProjectLink link={url} />
+            {student.projectUrls.map((url, index) => (
+              <ProjectLink key={index} link={url} />
             ))}
           </div>
         </>

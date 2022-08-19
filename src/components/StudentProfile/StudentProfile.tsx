@@ -34,9 +34,34 @@ export const StudentProfile = () => {
   const [studentStatus, setStudentStatus] = useState<StudentStatus>(
     StudentStatus.AVAILABLE,
   );
-  const [dataStudent, setDataStudent] = useState<SingleStudentProfile>(
-    {} as SingleStudentProfile,
-  );
+  const [dataStudent, setDataStudent] = useState<SingleStudentProfile>({
+    tel: '',
+    firstName: '',
+    lastName: '',
+    githubUsername: '',
+    portfolioUrls: [],
+    bio: '',
+    expectedTypeWork: ExpectedWorkType.NO_PREFERENCES,
+    expectedSalary: 0,
+    expectedContractType: ExpectedContractType.NO_PREFERENCES,
+    canTakeApprenticeship: false,
+    monthsOfCommercialExp: 0,
+    education: '',
+    workExperience: '',
+    courses: '',
+    targetWorkCity: '',
+    projectUrls: [],
+    teamProjectDegree: 0,
+    userId: '',
+    scrumOwnCommits: '',
+    scrumOwnCodeReviews: '',
+    projectDegree: 0,
+    email: '',
+    courseEngagment: 0,
+    courseCompletion: 0,
+    bonusProjectUrls: [],
+    countryCode: '',
+  } as SingleStudentProfile);
 
   const changeData = (
     e: React.ChangeEvent<
@@ -56,7 +81,9 @@ export const StudentProfile = () => {
     }
   };
 
-  const validate = (values: SingleStudentProfile): ErrorMessage => {
+  const validate = async (
+    values: SingleStudentProfile,
+  ): Promise<ErrorMessage> => {
     const errors: ErrorMessage = {
       validateCorrect: true,
     };
@@ -71,15 +98,15 @@ export const StudentProfile = () => {
       errors.validateCorrect = false;
     }
 
-    // if (values.githubUsername) {
-    //   if (studentAvatar(values.githubUsername) === '') {
-    //     errors.githubUsername = 'Konto jest niepoprawde';
-    //     errors.validateCorrect = false;
-    //   }
-    // } else if (!values.githubUsername) {
-    //   errors.githubUsername = 'To pole jest wymagane';
-    //   errors.validateCorrect = false;
-    // }
+    if (values.githubUsername) {
+      if ((await studentAvatar(values.githubUsername)) === '') {
+        errors.githubUsername = 'Konto jest niepoprawde';
+        errors.validateCorrect = false;
+      }
+    } else if (!values.githubUsername) {
+      errors.githubUsername = 'To pole jest wymagane';
+      errors.validateCorrect = false;
+    }
     return errors;
   };
 
@@ -87,7 +114,7 @@ export const StudentProfile = () => {
     e: React.FormEvent<HTMLFormElement | HTMLSelectElement>,
   ) => {
     e.preventDefault();
-    const validObj = validate(dataStudent);
+    const validObj = await validate(dataStudent);
     setErrorMessage(validObj);
     if (validObj.validateCorrect) {
       try {
@@ -110,7 +137,6 @@ export const StudentProfile = () => {
       setDataStudent(() => ({
         ...res.data,
       }));
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -133,6 +159,7 @@ export const StudentProfile = () => {
         };
       }
     });
+    setAddPortfolioUrls(() => '');
   };
 
   const handleRemovePortfolioUrls = (link: string) => {
@@ -156,6 +183,7 @@ export const StudentProfile = () => {
         };
       }
     });
+    setAddProjectUrls(() => '');
   };
 
   const handleRemoveProjectUrls = (link: string) => {
@@ -217,7 +245,7 @@ export const StudentProfile = () => {
                 type="tel"
                 id="tel"
                 name="tel"
-                value={dataStudent.tel}
+                value={dataStudent.tel ?? ''}
                 onChange={(event) => changeData(event)}
               />
 
@@ -237,7 +265,7 @@ export const StudentProfile = () => {
                 id="bio"
                 rows={4}
                 name="bio"
-                value={dataStudent.bio}
+                value={dataStudent.bio ?? ''}
                 onChange={(event) => changeData(event)}
               ></textarea>
             </div>
@@ -247,7 +275,7 @@ export const StudentProfile = () => {
                 type="text"
                 id="targetWorkCity"
                 name="targetWorkCity"
-                value={dataStudent.targetWorkCity}
+                value={dataStudent.targetWorkCity ?? ''}
                 onChange={(event) => changeData(event)}
               />
 
@@ -380,7 +408,7 @@ export const StudentProfile = () => {
                 id="workExperience"
                 rows={3}
                 name="workExperience"
-                value={dataStudent.workExperience}
+                value={dataStudent.workExperience ?? ''}
                 onChange={(event) => changeData(event)}
               ></textarea>
 
@@ -389,7 +417,7 @@ export const StudentProfile = () => {
                 id="education"
                 rows={3}
                 name="education"
-                value={dataStudent.education}
+                value={dataStudent.education ?? ''}
                 onChange={(event) => changeData(event)}
               ></textarea>
 

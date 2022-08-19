@@ -28,7 +28,7 @@ export const TopBar = () => {
           className="top-bar__hr-avatar"
           src={
             typeof auth?.githubUsername === 'string'
-              ? avatar(auth?.githubUsername)
+              ? void avatar(auth?.githubUsername)
               : defaultAvatar
           }
           alt="hr avatar"
