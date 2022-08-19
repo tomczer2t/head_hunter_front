@@ -4,6 +4,7 @@ import {
   ExpectedWorkType,
   ExpectedContractType,
   SingleStudentProfile,
+  CanTakeApprenticeship,
 } from 'types';
 import { useAvatar } from '../../hooks/useAvatar';
 import './StudentProfile.css';
@@ -11,11 +12,6 @@ import { Link } from 'react-router-dom';
 import { CountrySelect } from './CountrySelect/CountrySelect';
 import { axiosPrivate } from '../../api/axiosPlain';
 import { AxiosResponse } from 'axios';
-
-enum EnumCanTakeApprenticeship {
-  yes = 'Tak',
-  no = 'Nie',
-}
 
 interface ErrorMessage {
   firstName?: string;
@@ -25,26 +21,6 @@ interface ErrorMessage {
   githubUsername?: string;
   bio?: string;
   validateCorrect: boolean;
-}
-
-interface DataStudent {
-  tel: number | '';
-  firstName: string;
-  lastName: string;
-  githubUsername: string;
-  portfolioUrls: string[];
-  bio: string;
-  expectedTypeWork: ExpectedWorkType;
-  expectedSalary: number | '';
-  expectedContractType: ExpectedContractType;
-  canTakeApprenticeship: string;
-  monthsOfCommercialExp: number | '';
-  education: string;
-  workExperience: string;
-  courses: string;
-  targetWorkCity: string;
-  projectUrls: string[];
-  countryCode: string;
 }
 
 export const StudentProfile = () => {
@@ -58,25 +34,9 @@ export const StudentProfile = () => {
   const [studentStatus, setStudentStatus] = useState<StudentStatus>(
     StudentStatus.AVAILABLE,
   );
-  const [dataStudent, setDataStudent] = useState<DataStudent>({
-    tel: '',
-    firstName: '',
-    lastName: '',
-    githubUsername: '',
-    portfolioUrls: [],
-    bio: '',
-    expectedTypeWork: ExpectedWorkType.NO_PREFERENCES,
-    expectedSalary: '',
-    expectedContractType: ExpectedContractType.NO_PREFERENCES,
-    canTakeApprenticeship: EnumCanTakeApprenticeship.no,
-    monthsOfCommercialExp: '',
-    education: '',
-    workExperience: '',
-    courses: '',
-    targetWorkCity: '',
-    projectUrls: [],
-    countryCode: 'PL',
-  });
+  const [dataStudent, setDataStudent] = useState<SingleStudentProfile>(
+    {} as SingleStudentProfile,
+  );
 
   const changeData = (
     e: React.ChangeEvent<
@@ -96,7 +56,7 @@ export const StudentProfile = () => {
     }
   };
 
-  const validate = (values: DataStudent): ErrorMessage => {
+  const validate = (values: SingleStudentProfile): ErrorMessage => {
     const errors: ErrorMessage = {
       validateCorrect: true,
     };
@@ -111,15 +71,15 @@ export const StudentProfile = () => {
       errors.validateCorrect = false;
     }
 
-    if (values.githubUsername) {
-      if (studentAvatar(values.githubUsername) === '') {
-        errors.githubUsername = 'Konto jest niepoprawde';
-        errors.validateCorrect = false;
-      }
-    } else if (!values.githubUsername) {
-      errors.githubUsername = 'To pole jest wymagane';
-      errors.validateCorrect = false;
-    }
+    // if (values.githubUsername) {
+    //   if (studentAvatar(values.githubUsername) === '') {
+    //     errors.githubUsername = 'Konto jest niepoprawde';
+    //     errors.validateCorrect = false;
+    //   }
+    // } else if (!values.githubUsername) {
+    //   errors.githubUsername = 'To pole jest wymagane';
+    //   errors.validateCorrect = false;
+    // }
     return errors;
   };
 
@@ -133,10 +93,8 @@ export const StudentProfile = () => {
       try {
         //@TODO axios send form data
         console.log(dataStudent);
-        const res: AxiosResponse<DataStudent> = await axiosPrivate.patch(
-          'student',
-          dataStudent,
-        );
+        const res: AxiosResponse<SingleStudentProfile> =
+          await axiosPrivate.patch('student', dataStudent);
         console.log(res.data);
       } catch (err) {
         console.log(err);
@@ -146,13 +104,13 @@ export const StudentProfile = () => {
 
   const downloadFormData = async () => {
     try {
-      const res: AxiosResponse<DataStudent> = await axiosPrivate.get(
+      const res: AxiosResponse<SingleStudentProfile> = await axiosPrivate.get(
         'student/cv',
       );
-      setDataStudent((prevState) => ({
-        ...prevState,
+      setDataStudent(() => ({
         ...res.data,
       }));
+      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -256,7 +214,7 @@ export const StudentProfile = () => {
                 Tel: <p>{errorMessage.tel}</p>
               </label>
               <input
-                type="number"
+                type="tel"
                 id="tel"
                 name="tel"
                 value={dataStudent.tel}
@@ -381,6 +339,7 @@ export const StudentProfile = () => {
                 </button>
                 <div className="url-list">
                   {dataStudent.portfolioUrls === null ||
+                  dataStudent.portfolioUrls === undefined ||
                   dataStudent?.portfolioUrls?.length === 0
                     ? ''
                     : dataStudent.portfolioUrls.map((link, index) => (
@@ -407,15 +366,11 @@ export const StudentProfile = () => {
               <select
                 id="canTakeApprenticeship"
                 name="canTakeApprenticeship"
-                value={dataStudent.canTakeApprenticeship}
+                value={String(dataStudent.canTakeApprenticeship)}
                 onChange={(event) => changeData(event)}
               >
-                <option value={EnumCanTakeApprenticeship.yes}>
-                  {EnumCanTakeApprenticeship.yes}
-                </option>
-                <option value={EnumCanTakeApprenticeship.no}>
-                  {EnumCanTakeApprenticeship.no}
-                </option>
+                <option value={CanTakeApprenticeship.YES}>TAK</option>
+                <option value={CanTakeApprenticeship.NO}>NIE</option>
               </select>
 
               <label htmlFor="workExperience">
@@ -466,6 +421,7 @@ export const StudentProfile = () => {
                 </button>
                 <div className="url-list">
                   {dataStudent.projectUrls === null ||
+                  dataStudent.projectUrls === undefined ||
                   dataStudent?.projectUrls?.length === 0
                     ? ''
                     : dataStudent.projectUrls.map((link, index) => (
