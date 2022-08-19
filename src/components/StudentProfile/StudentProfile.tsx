@@ -26,6 +26,7 @@ interface ErrorMessage {
 export const StudentProfile = () => {
   const [addPortfolioUrls, setAddPortfolioUrls] = useState<string>('');
   const [addProjectUrls, setAddProjectUrls] = useState<string>('');
+  const [gitHubUsername, setGitHubUsername] = useState('');
   const studentAvatar = useAvatar();
 
   const [errorMessage, setErrorMessage] = useState<ErrorMessage>({
@@ -99,9 +100,11 @@ export const StudentProfile = () => {
     }
 
     if (values.githubUsername) {
-      if ((await studentAvatar(values.githubUsername)) === '') {
-        errors.githubUsername = 'Konto jest niepoprawde';
-        errors.validateCorrect = false;
+      if (values.githubUsername !== gitHubUsername) {
+        if ((await studentAvatar(values.githubUsername)) === '') {
+          errors.githubUsername = 'Konto jest niepoprawde';
+          errors.validateCorrect = false;
+        }
       }
     } else if (!values.githubUsername) {
       errors.githubUsername = 'To pole jest wymagane';
@@ -137,6 +140,7 @@ export const StudentProfile = () => {
       setDataStudent(() => ({
         ...res.data,
       }));
+      setGitHubUsername(() => res.data.githubUsername);
     } catch (err) {
       console.log(err);
     }
