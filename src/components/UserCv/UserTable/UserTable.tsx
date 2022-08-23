@@ -43,7 +43,7 @@ export const UserTable = ({ student }: Props) => {
         />
         <Expectation
           title="Docelowe miasto, gdzie chce pracować kandydat"
-          value="Warszawa"
+          value={student.targetWorkCity}
         />
         <Expectation
           title="Oczekiwany typ kontraktu"
