@@ -4,6 +4,7 @@ import upArrow from '../../../assets/images/upArrow.svg';
 import { SingleStudentDetails } from './SingleStudentDetails/SingleStudentDetails';
 import { FilteredAvailableStudent } from 'types';
 import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
+import { AxiosError } from 'axios';
 
 interface StudentDetails extends FilteredAvailableStudent {
   reservationDate?: string;
@@ -11,9 +12,10 @@ interface StudentDetails extends FilteredAvailableStudent {
 
 interface Props {
   student: StudentDetails;
+  setError: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const SingleStudent = ({ student }: Props) => {
+export const SingleStudent = ({ student, setError }: Props) => {
   const [isActive, setActive] = useState(false);
   function hadleClickMoreInfo() {
     setActive(!isActive);
@@ -22,10 +24,24 @@ export const SingleStudent = ({ student }: Props) => {
   const axiosPrivate = useAxiosPrivate();
 
   const handleBookStudent = async () => {
-    const res = await axiosPrivate.post('/hr/student', {
-      userId: student.userId,
-    });
-    console.log({ res });
+    try {
+      const res = await axiosPrivate.post('/hr/student', {
+        userId: student.userId,
+      });
+      console.log({ res });
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err?.response?.status === 417) {
+          setError('Limit zarezerowanych rozmów został osiągnięty.');
+        } else if (err?.response?.status === 409) {
+          setError('Rozmowa z tym studentem jest już zarezerwowana.');
+        } else {
+          setError(
+            'Przepreaszamy, coś poszło nie tak. Spróbuj ponownie później.',
+          );
+        }
+      }
+    }
   };
 
   return (
