@@ -208,7 +208,8 @@ export const StudentProfile = () => {
       )
     ) {
       try {
-        await axiosPrivate.patch('student/hire');
+        const res = await axiosPrivate.patch('student/hire');
+        console.log(res.data);
         setStudentStatus(() => StudentStatus.HIRED);
       } catch (err) {
         console.log(err);
@@ -496,7 +497,7 @@ export const StudentProfile = () => {
             </button>
             <button
               type="button"
-              onClick={void handleEmployed}
+              onClick={() => void handleEmployed()}
               className={
                 studentStatus
                   ? 'submitBnt yesEmployedBnt'
