@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo-megak.webp';
-import defaultAvatar from '../../assets/images/default_avatar.jpg';
 
 import './TopBar.css';
 import { useAuth } from '../../hooks/useAuth';
 import { useLogoutHandler } from '../../hooks/useLogout';
-import { useAvatar } from '../../hooks/useAvatar';
+import default_avatar from '../../assets/images/default_avatar.jpg';
 
 export const TopBar = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const { auth } = useAuth();
   const logoutHandler = useLogoutHandler();
-  const avatar = useAvatar();
 
   const openMenu = () => {
     setMenuIsOpen((prevState) => !prevState);
@@ -28,8 +26,8 @@ export const TopBar = () => {
           className="top-bar__hr-avatar"
           src={
             typeof auth?.githubUsername === 'string'
-              ? void avatar(auth?.githubUsername)
-              : defaultAvatar
+              ? `https://github.com/${auth?.githubUsername}.png`
+              : default_avatar
           }
           alt="hr avatar"
         />

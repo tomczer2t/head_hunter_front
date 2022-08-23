@@ -6,12 +6,12 @@ import {
   SingleStudentProfile,
   CanTakeApprenticeship,
 } from 'types';
-import { useAvatar } from '../../hooks/useAvatar';
 import './StudentProfile.css';
 import { Link } from 'react-router-dom';
 import { CountrySelect } from './CountrySelect/CountrySelect';
 import { axiosPrivate } from '../../api/axiosPlain';
 import { AxiosResponse } from 'axios';
+import { MessageResponse } from '../common/MessageResponse/MessageResponse';
 
 interface ErrorMessage {
   firstName?: string;
@@ -20,14 +20,16 @@ interface ErrorMessage {
   tel?: number;
   githubUsername?: string;
   bio?: string;
+  projectUrl?: string;
+  monthsOfCommercialExp?: string;
   validateCorrect: boolean;
 }
 
 export const StudentProfile = () => {
   const [addPortfolioUrls, setAddPortfolioUrls] = useState<string>('');
   const [addProjectUrls, setAddProjectUrls] = useState<string>('');
-  const [gitHubUsername, setGitHubUsername] = useState('');
-  const studentAvatar = useAvatar();
+  const [showMessageResponse, setShowMessageResponse] = useState(false);
+  const [message, setMessage] = useState('');
 
   const [errorMessage, setErrorMessage] = useState<ErrorMessage>({
     validateCorrect: false,
@@ -82,12 +84,20 @@ export const StudentProfile = () => {
     }
   };
 
-  const validate = async (
-    values: SingleStudentProfile,
-  ): Promise<ErrorMessage> => {
+  const validate = (values: SingleStudentProfile): ErrorMessage => {
     const errors: ErrorMessage = {
       validateCorrect: true,
     };
+
+    if (!values.projectUrls?.length) {
+      errors.projectUrl = 'To pole jest wymagane';
+      errors.validateCorrect = false;
+    }
+
+    if (values.monthsOfCommercialExp === null) {
+      errors.monthsOfCommercialExp = 'To pole jest wymagane';
+      errors.validateCorrect = false;
+    }
 
     if (!values.firstName) {
       errors.firstName = 'To pole jest wymagane';
@@ -99,14 +109,7 @@ export const StudentProfile = () => {
       errors.validateCorrect = false;
     }
 
-    if (values.githubUsername) {
-      if (values.githubUsername !== gitHubUsername) {
-        if ((await studentAvatar(values.githubUsername)) === '') {
-          errors.githubUsername = 'Konto jest niepoprawde';
-          errors.validateCorrect = false;
-        }
-      }
-    } else if (!values.githubUsername) {
+    if (!values.githubUsername) {
       errors.githubUsername = 'To pole jest wymagane';
       errors.validateCorrect = false;
     }
@@ -117,7 +120,7 @@ export const StudentProfile = () => {
     e: React.FormEvent<HTMLFormElement | HTMLSelectElement>,
   ) => {
     e.preventDefault();
-    const validObj = await validate(dataStudent);
+    const validObj = validate(dataStudent);
     setErrorMessage(validObj);
     if (validObj.validateCorrect) {
       try {
@@ -125,8 +128,11 @@ export const StudentProfile = () => {
         console.log(dataStudent);
         const res: AxiosResponse<SingleStudentProfile> =
           await axiosPrivate.patch('student', dataStudent);
-        console.log(res.data);
+        setMessage(() => 'Wormularz zostawł zaktualizowany');
+        setShowMessageResponse(() => true);
       } catch (err) {
+        setMessage(() => 'Coś poszlo nie tak proszę spróbować później');
+        setShowMessageResponse(() => true);
         console.log(err);
       }
     }
@@ -140,7 +146,6 @@ export const StudentProfile = () => {
       setDataStudent(() => ({
         ...res.data,
       }));
-      setGitHubUsername(() => res.data.githubUsername);
     } catch (err) {
       console.log(err);
     }
@@ -196,20 +201,29 @@ export const StudentProfile = () => {
       projectUrls: dataStudent.projectUrls.filter((item) => item !== link),
     }));
   };
-  const handleEmployed = () => {
+  const handleEmployed = async () => {
     if (
       confirm(
         'Jeśli potwierdzisz zatrudnienie nie będziesz miał/miała już dostępu do konta na tej platformie . Czy chcesz potwierdzić zatrudnienie ?',
       )
     ) {
-      setStudentStatus(() => StudentStatus.HIRED);
-      // @TODO axios change status
+      try {
+        await axiosPrivate.patch('student/hire');
+        setStudentStatus(() => StudentStatus.HIRED);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
   return (
     <>
       <div className="container">
+        <MessageResponse
+          message={message}
+          showMessageResponse={showMessageResponse}
+          closeMessage={setShowMessageResponse}
+        />
         <h2>Profil Kursanta</h2>
         <Link className="UserCv__interview-student-link" to="/student">
           widok CV
@@ -345,6 +359,7 @@ export const StudentProfile = () => {
 
               <label htmlFor="monthsOfCommercialExp">
                 Ilość miesięcy doświadczenia komercyjnego
+                <p>{errorMessage.monthsOfCommercialExp}</p>
               </label>
               <input
                 type="number"
@@ -437,6 +452,7 @@ export const StudentProfile = () => {
               <div className="form-url">
                 <label htmlFor="projectUrls">
                   URL do porojektu zaliczeniowego na GitHub
+                  <p>{errorMessage.projectUrl}</p>
                 </label>
                 <input
                   type="text"
@@ -480,7 +496,7 @@ export const StudentProfile = () => {
             </button>
             <button
               type="button"
-              onClick={handleEmployed}
+              onClick={void handleEmployed}
               className={
                 studentStatus
                   ? 'submitBnt yesEmployedBnt'
