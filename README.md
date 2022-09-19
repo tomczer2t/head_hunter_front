@@ -8,7 +8,8 @@
 * [Benefits](#benefits)
 
 ## Introduction
-MegaK Head Hunter is an web application made to easily finding best sotfwere developer students by recruiters. Found students could be invited to interview. Project is made during bonus stage of 1 year fullstack JavaScript bootcamp. Students worked 1 month in groups with SCRUM framework with documentation and model given by course intrustors. Project is unfinished. 
+MegaK Head Hunter is an web application made to easily finding best sotfwere developer students by recruiters. Found students could be invited to interview. Project is made during bonus stage of 1 year fullstack JavaScript bootcamp. Students worked 1 month in groups with SCRUM framework with documentation and model given by course intrustors. Project is unfinished.</br>
+Backend repository: https://github.com/tomczer2t/head_hunter_back
 
 ## Technologies
 Client side application is created with i.a.:
